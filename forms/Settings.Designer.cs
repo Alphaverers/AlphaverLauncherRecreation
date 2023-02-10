@@ -1,6 +1,6 @@
 ﻿namespace AlphaverLauncherRecreation
 {
-    partial class Settings
+    partial class SettingsForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,14 +28,20 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Settings));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SettingsForm));
             this.usernameText = new System.Windows.Forms.Label();
             this.usernameBox = new System.Windows.Forms.TextBox();
             this.versionText = new System.Windows.Forms.Label();
             this.versionBox = new System.Windows.Forms.ComboBox();
-            this.minecraftLocationText = new System.Windows.Forms.Label();
-            this.minecraftLocationBox = new System.Windows.Forms.TextBox();
+            this.minecraftPathText = new System.Windows.Forms.Label();
+            this.minecraftPathBox = new System.Windows.Forms.TextBox();
             this.saveButton = new System.Windows.Forms.Button();
+            this.argumentsText = new System.Windows.Forms.Label();
+            this.argumentsBox = new System.Windows.Forms.TextBox();
+            this.modsBox = new System.Windows.Forms.ComboBox();
+            this.modLabel = new System.Windows.Forms.Label();
+            this.javaPathBox = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // usernameText
@@ -81,27 +87,28 @@
             this.versionBox.Name = "versionBox";
             this.versionBox.Size = new System.Drawing.Size(121, 21);
             this.versionBox.TabIndex = 3;
+            this.versionBox.TextChanged += new System.EventHandler(this.versionBox_TextChanged);
             // 
-            // minecraftLocationText
+            // minecraftPathText
             // 
-            this.minecraftLocationText.AutoSize = true;
-            this.minecraftLocationText.Location = new System.Drawing.Point(285, 19);
-            this.minecraftLocationText.Name = "minecraftLocationText";
-            this.minecraftLocationText.Size = new System.Drawing.Size(97, 13);
-            this.minecraftLocationText.TabIndex = 4;
-            this.minecraftLocationText.Text = ".minecraft Location";
+            this.minecraftPathText.AutoSize = true;
+            this.minecraftPathText.Location = new System.Drawing.Point(285, 19);
+            this.minecraftPathText.Name = "minecraftPathText";
+            this.minecraftPathText.Size = new System.Drawing.Size(78, 13);
+            this.minecraftPathText.TabIndex = 4;
+            this.minecraftPathText.Text = ".minecraft Path";
             // 
-            // minecraftLocationBox
+            // minecraftPathBox
             // 
-            this.minecraftLocationBox.Location = new System.Drawing.Point(288, 45);
-            this.minecraftLocationBox.Name = "minecraftLocationBox";
-            this.minecraftLocationBox.Size = new System.Drawing.Size(100, 20);
-            this.minecraftLocationBox.TabIndex = 5;
-            this.minecraftLocationBox.Text = "./.minecraft";
+            this.minecraftPathBox.Location = new System.Drawing.Point(288, 45);
+            this.minecraftPathBox.Name = "minecraftPathBox";
+            this.minecraftPathBox.Size = new System.Drawing.Size(100, 20);
+            this.minecraftPathBox.TabIndex = 5;
+            this.minecraftPathBox.Text = "./.minecraft";
             // 
             // saveButton
             // 
-            this.saveButton.Location = new System.Drawing.Point(197, 208);
+            this.saveButton.Location = new System.Drawing.Point(197, 289);
             this.saveButton.Name = "saveButton";
             this.saveButton.Size = new System.Drawing.Size(191, 42);
             this.saveButton.TabIndex = 6;
@@ -109,16 +116,76 @@
             this.saveButton.UseVisualStyleBackColor = true;
             this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
             // 
-            // Settings
+            // argumentsText
+            // 
+            this.argumentsText.Location = new System.Drawing.Point(12, 223);
+            this.argumentsText.Name = "argumentsText";
+            this.argumentsText.Size = new System.Drawing.Size(100, 13);
+            this.argumentsText.TabIndex = 0;
+            this.argumentsText.Text = "JVM Arguments ";
+            // 
+            // argumentsBox
+            // 
+            this.argumentsBox.Location = new System.Drawing.Point(12, 251);
+            this.argumentsBox.Name = "argumentsBox";
+            this.argumentsBox.Size = new System.Drawing.Size(376, 20);
+            this.argumentsBox.TabIndex = 7;
+            this.argumentsBox.Text = "-Xmx2G";
+            // 
+            // modsBox
+            // 
+            this.modsBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.modsBox.FormattingEnabled = true;
+            this.modsBox.ImeMode = System.Windows.Forms.ImeMode.On;
+            this.modsBox.Items.AddRange(new object[] {
+            "lilypad_qa",
+            "v1605_preview",
+            "v1605_unrpreview2"});
+            this.modsBox.Location = new System.Drawing.Point(144, 112);
+            this.modsBox.Name = "modsBox";
+            this.modsBox.Size = new System.Drawing.Size(121, 21);
+            this.modsBox.TabIndex = 9;
+            // 
+            // modLabel
+            // 
+            this.modLabel.AutoSize = true;
+            this.modLabel.Location = new System.Drawing.Point(141, 86);
+            this.modLabel.Name = "modLabel";
+            this.modLabel.Size = new System.Drawing.Size(33, 13);
+            this.modLabel.TabIndex = 8;
+            this.modLabel.Text = "Mods";
+            // 
+            // javaPathBox
+            // 
+            this.javaPathBox.Location = new System.Drawing.Point(12, 179);
+            this.javaPathBox.Name = "javaPathBox";
+            this.javaPathBox.Size = new System.Drawing.Size(376, 20);
+            this.javaPathBox.TabIndex = 11;
+            // 
+            // label1
+            // 
+            this.label1.Location = new System.Drawing.Point(12, 151);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(181, 13);
+            this.label1.TabIndex = 10;
+            this.label1.Text = "Java Path (Leave empty for default)";
+            // 
+            // SettingsForm
             // 
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::AlphaverLauncherRecreation.Properties.Resources.dirt;
-            this.ClientSize = new System.Drawing.Size(457, 262);
+            this.ClientSize = new System.Drawing.Size(457, 343);
+            this.Controls.Add(this.javaPathBox);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.modsBox);
+            this.Controls.Add(this.modLabel);
+            this.Controls.Add(this.argumentsBox);
+            this.Controls.Add(this.argumentsText);
             this.Controls.Add(this.saveButton);
-            this.Controls.Add(this.minecraftLocationBox);
-            this.Controls.Add(this.minecraftLocationText);
+            this.Controls.Add(this.minecraftPathBox);
+            this.Controls.Add(this.minecraftPathText);
             this.Controls.Add(this.versionBox);
             this.Controls.Add(this.versionText);
             this.Controls.Add(this.usernameBox);
@@ -126,7 +193,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
-            this.Name = "Settings";
+            this.Name = "SettingsForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Settings";
             this.ResumeLayout(false);
@@ -140,8 +207,14 @@
         private System.Windows.Forms.TextBox usernameBox;
         private System.Windows.Forms.Label versionText;
         private System.Windows.Forms.ComboBox versionBox;
-        private System.Windows.Forms.Label minecraftLocationText;
-        private System.Windows.Forms.TextBox minecraftLocationBox;
+        private System.Windows.Forms.Label minecraftPathText;
+        private System.Windows.Forms.TextBox minecraftPathBox;
         private System.Windows.Forms.Button saveButton;
+        private System.Windows.Forms.Label argumentsText;
+        private System.Windows.Forms.TextBox argumentsBox;
+        private System.Windows.Forms.ComboBox modsBox;
+        private System.Windows.Forms.Label modLabel;
+        private System.Windows.Forms.TextBox javaPathBox;
+        private System.Windows.Forms.Label label1;
     }
 }

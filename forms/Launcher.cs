@@ -1,104 +1,168 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Diagnostics;
-using System.Drawing;
+
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 using System.Windows.Forms;
 using CmlLib.Core;
 using CmlLib.Core.Auth;
 using System.Net;
+using CmlLib.Core.Version;
+using System.Threading;
+using System.ComponentModel;
+using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace AlphaverLauncherRecreation
 {
     public partial class Launcher : Form
     {
 
-        List<string> settings;
+        Settings settings = new Settings();
         string defaultUsername = "Player";
-
+        Popup downloadPopup = new Popup("Downloading..", "", true, false);
         public Launcher()
         {
             InitializeComponent();
+           
             //check if settings file exists if not create a settings.txt
-            if (File.Exists("settings.txt"))
+            if (File.Exists("settings.json"))
             {
-                settings = File.ReadLines("settings.txt").ToList();
-                UpdateUsername(settings[0]);
+                settings = JsonConvert.DeserializeObject<Settings>(System.IO.File.ReadAllText("settings.json"));
+                UpdateUsername(settings.username);
             }
             else
             {
-                StreamWriter writer = new StreamWriter(File.Open("settings.txt", FileMode.Create));
+                Settings defaultSettings = new Settings();
 
-                writer.Write($"{defaultUsername}\n\n./.minecraft");
-                UpdateUsername(defaultUsername);
+               
+                defaultSettings.username = defaultUsername;
+                defaultSettings.minecraftPath = "./.minecraft";
+                defaultSettings.arguments = "-Xmx2G";
+
+                StreamWriter writer = new StreamWriter(File.Open("settings.json", FileMode.Create));
+                writer.Write(JsonConvert.SerializeObject(defaultSettings));
                 writer.Close();
+                UpdateUsername(defaultUsername);
+                
             }
 
            
         }
 
 
-        //i have no idea how this library is used
         private async void playButton_ClickAsync(object sender, EventArgs e)
         {
-            settings = File.ReadLines("settings.txt").ToList();
-            if (settings[1] == "")
+            settings = JsonConvert.DeserializeObject<Settings>(System.IO.File.ReadAllText("settings.json"));
+      
+            if (settings.version == null)
             {
                 MessageBox.Show("Please set version.", "");
                 return;
             }
-
-            //download the version if it doesnt exist
-            if (!Directory.Exists($"{settings[2]}/versions"))
+            string version = settings.version;
+            if (settings.mods != "vanilla")
             {
-                MessageBox.Show("Downloading files...", "");
-                using (var client = new WebClient())
-                {
-                    client.DownloadFile("https://dl.dropbox.com/s/tat1zaxzvej4gu0/versions.zip", "versions.zip");     
-                }
-                System.IO.Compression.ZipFile.ExtractToDirectory("versions.zip", $"{settings[2]}/versions");
-                File.Delete("versions.zip");
-                MessageBox.Show("Launcher will now restart.", "");
-              
-                Application.Exit();
+                version = settings.mods;
+            }
+      
+            if (Directory.Exists($"{settings.minecraftPath}/versions"))
+            {
+                await LaunchGame(settings.username, version, settings.minecraftPath, settings.arguments, settings.javaPath);
+            }
+            else
+            {
+
+                DownloadVersions();
             }
 
+          
+
+        }
+
+        private async Task LaunchGame(string username, string version, string gamePath, string javaArguments, string javaPath)
+        {
             //open loader  so it looks cool
             var loader = new Loader();
             loader.Show();
-
-
-
-
+            Console.WriteLine($"Launching {version}.");
 
             //set minecraft path to location in settings file
-            var launcher = new CMLauncher(settings[2]);
+            var launcher = new CMLauncher(gamePath);
 
+
+            string[] arguments = { javaArguments };
 
 
 
             var launchOptions = new MLaunchOption
             {
-                //gonna add this to settings
-                MaximumRamMb = 1024,
-                //set username
-                Session = MSession.GetOfflineSession(settings[0])
+                Session = MSession.GetOfflineSession(username),
+                JavaPath = javaPath,
+                JVMArguments = arguments
 
             };
 
-            var process = await launcher.CreateProcessAsync(settings[1], launchOptions);
+            var process = await launcher.CreateProcessAsync(version, launchOptions);                             
+
+
+           
 
             process.Start();
+
+
+
+            process.WaitForExit();
         }
+
+        private void DownloadVersions()
+        {
+        
+            downloadPopup.Show();
+
+            Thread thread = new Thread(() => {
+                WebClient client = new WebClient();
+                client.DownloadProgressChanged += new DownloadProgressChangedEventHandler(DownloadProgressChanged);
+                client.DownloadFileCompleted += new AsyncCompletedEventHandler(DownloadComplete);
+                client.DownloadFileAsync(new Uri("https://dl.dropbox.com/s/tat1zaxzvej4gu0/versions.zip"), "versions.zip");
+            });
+            thread.Start();
+
+       
+            
+        }
+
+        //i stole these from stackoverflow lol
+        void DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
+        {
+                                                                 
+            this.BeginInvoke((MethodInvoker)delegate {
+                double bytesIn = double.Parse(e.BytesReceived.ToString());
+                double totalBytes = double.Parse(e.TotalBytesToReceive.ToString());
+                double percentage = bytesIn / totalBytes * 100;
+                Console.WriteLine( "Downloaded " + e.BytesReceived + " of " + e.TotalBytesToReceive);
+            downloadPopup.progressBar1.Value = int.Parse(Math.Truncate(percentage).ToString());
+      
+            });
+        }
+        void DownloadComplete(object sender, AsyncCompletedEventArgs e)
+        {
+            this.BeginInvoke((MethodInvoker)delegate {
+               Console.WriteLine("Completed");
+
+                System.IO.Compression.ZipFile.ExtractToDirectory("versions.zip", $"{settings.minecraftPath}/versions");
+                File.Delete("versions.zip");
+                downloadPopup.Close();
+            });
+
+
+        }
+
 
         private void settingsButton_Click(object sender, EventArgs e)
         {
-            var settings = new Settings();
+            var settings = new SettingsForm();
             settings.Show();
         }
 
@@ -109,7 +173,14 @@ namespace AlphaverLauncherRecreation
         public void UpdateUsername(string username)
         {
             logintext.Text = "Logged in as " + username;
+        }                                                                             
+
+        private void logintext_Click(object sender, EventArgs e)
+        {
+            var popUp = new Popup("hello there","", true,false );
+            popUp.Show();
         }
+
 
     }
 }
