@@ -80,7 +80,6 @@ namespace AlphaverLauncherRecreation
             this.logintext.Size = new System.Drawing.Size(93, 13);
             this.logintext.TabIndex = 3;
             this.logintext.Text = "Logged in as User";
-            this.logintext.Click += new System.EventHandler(this.logintext_Click);
             // 
             // backgroundthing
             // 

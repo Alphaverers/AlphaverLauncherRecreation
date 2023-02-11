@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-
-using System.IO;
-using System.Linq;
-
-using System.Windows.Forms;
-using CmlLib.Core;
+﻿using CmlLib.Core;
 using CmlLib.Core.Auth;
-using System.Net;
-using CmlLib.Core.Version;
-using System.Threading;
-using System.ComponentModel;
-using System.Threading.Tasks;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
+using System.ComponentModel;
+using System.IO;
+using System.Net;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace AlphaverLauncherRecreation
 {
@@ -22,10 +18,12 @@ namespace AlphaverLauncherRecreation
         Settings settings = new Settings();
         string defaultUsername = "Player";
         Popup downloadPopup = new Popup("Downloading..", "", true, false);
+
+
         public Launcher()
         {
             InitializeComponent();
-           
+
             //check if settings file exists if not create a settings.txt
             if (File.Exists("settings.json"))
             {
@@ -36,49 +34,97 @@ namespace AlphaverLauncherRecreation
             {
                 Settings defaultSettings = new Settings();
 
-               
+
                 defaultSettings.username = defaultUsername;
                 defaultSettings.minecraftPath = "./.minecraft";
                 defaultSettings.arguments = "-Xmx2G";
-
                 StreamWriter writer = new StreamWriter(File.Open("settings.json", FileMode.Create));
                 writer.Write(JsonConvert.SerializeObject(defaultSettings));
                 writer.Close();
                 UpdateUsername(defaultUsername);
-                
+
             }
 
-           
+
         }
 
 
         private async void playButton_ClickAsync(object sender, EventArgs e)
         {
             settings = JsonConvert.DeserializeObject<Settings>(System.IO.File.ReadAllText("settings.json"));
-      
-            if (settings.version == null)
+
+            if (settings.version == "" || settings.version == null)
             {
                 MessageBox.Show("Please set version.", "");
                 return;
             }
             string version = settings.version;
-            if (settings.mods != "vanilla")
+            bool isItVanilla = settings.mod != "vanilla";
+            if (isItVanilla)
             {
-                version = settings.mods;
+                version = settings.mod;
+
             }
-      
-            if (Directory.Exists($"{settings.minecraftPath}/versions"))
+
+            if (File.Exists($"{settings.minecraftPath}/versions/{version}/{version}.jar") && File.Exists($"{settings.minecraftPath}/versions/{version}/{version}.json"))
             {
                 await LaunchGame(settings.username, version, settings.minecraftPath, settings.arguments, settings.javaPath);
             }
             else
             {
+                if (isItVanilla)
+                {
+                    Directory.CreateDirectory($"{settings.minecraftPath}/versions/{version}");
+                    string jsonFile = $"{settings.minecraftPath}/versions/{version}/{version}.json";
 
-                DownloadVersions();
+                    if (!File.Exists(jsonFile))
+                    {
+                        File.Copy("default.json", jsonFile);
+                        File.WriteAllText(jsonFile, File.ReadAllText(jsonFile).Replace("versionname", version));
+                        Console.WriteLine("Created json file.");                    
+                    }
+
+
+
+                }
+                string latestBuildLink;
+                switch (version)
+                {
+
+                    case "lilypad_qa":
+                    case "v1605_preview":
+                    case "v1605_unrpreview2":
+                        Downloader("versions.zip", new Uri("https://dl.dropbox.com/s/tat1zaxzvej4gu0/versions.zip"));
+                        break;
+
+
+                    case "rosepad":
+                        latestBuildLink = GetLatestGithubBuild("https://api.github.com/repos/rosepadmc/rosepad/releases");
+                        Downloader($"{settings.minecraftPath}/versions/rosepad/rosepad.jar", new Uri(latestBuildLink));
+                        break;
+                    case "afterglow":
+                        latestBuildLink = GetLatestGithubBuild("https://api.github.com/repos/AfterglowMC/AfterglowMC/releases");
+                        Downloader($"{settings.minecraftPath}/versions/rosepad/rosepad.jar", new Uri(latestBuildLink));
+                        break;
+
+                }
+
             }
 
-          
 
+
+        }
+
+        private static string GetLatestGithubBuild(string apiReleasesLink)
+        {
+            WebClient client = new WebClient();
+            //set the user agent so github doesnt return 403
+            client.Headers.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; WOW64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.5393.187 Safari/537.36");
+            Stream stream = client.OpenRead(apiReleasesLink);
+            StreamReader reader = new StreamReader(stream);
+            JArray o = JArray.Parse(reader.ReadToEnd());
+            string link = (string)o.SelectToken("[0].assets[0].browser_download_url").ToString();
+            return link;
         }
 
         private async Task LaunchGame(string username, string version, string gamePath, string javaArguments, string javaPath)
@@ -104,10 +150,10 @@ namespace AlphaverLauncherRecreation
 
             };
 
-            var process = await launcher.CreateProcessAsync(version, launchOptions);                             
+            var process = await launcher.CreateProcessAsync(version, launchOptions);
 
 
-           
+
 
             process.Start();
 
@@ -116,44 +162,51 @@ namespace AlphaverLauncherRecreation
             process.WaitForExit();
         }
 
-        private void DownloadVersions()
+        private void Downloader(string filename, Uri link)
         {
-        
+
             downloadPopup.Show();
 
-            Thread thread = new Thread(() => {
+            Thread thread = new Thread(() =>
+            {
                 WebClient client = new WebClient();
                 client.DownloadProgressChanged += new DownloadProgressChangedEventHandler(DownloadProgressChanged);
                 client.DownloadFileCompleted += new AsyncCompletedEventHandler(DownloadComplete);
-                client.DownloadFileAsync(new Uri("https://dl.dropbox.com/s/tat1zaxzvej4gu0/versions.zip"), "versions.zip");
+                client.DownloadFileAsync(link, filename);
             });
             thread.Start();
 
-       
-            
+
+
         }
 
         //i stole these from stackoverflow lol
         void DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
         {
-                                                                 
-            this.BeginInvoke((MethodInvoker)delegate {
+
+            this.BeginInvoke((MethodInvoker)delegate
+            {
                 double bytesIn = double.Parse(e.BytesReceived.ToString());
                 double totalBytes = double.Parse(e.TotalBytesToReceive.ToString());
                 double percentage = bytesIn / totalBytes * 100;
-                Console.WriteLine( "Downloaded " + e.BytesReceived + " of " + e.TotalBytesToReceive);
-            downloadPopup.progressBar1.Value = int.Parse(Math.Truncate(percentage).ToString());
-      
+                Console.WriteLine("Downloaded " + e.BytesReceived + " of " + e.TotalBytesToReceive);
+                downloadPopup.progressBar1.Value = int.Parse(Math.Truncate(percentage).ToString());
+
             });
         }
         void DownloadComplete(object sender, AsyncCompletedEventArgs e)
         {
-            this.BeginInvoke((MethodInvoker)delegate {
-               Console.WriteLine("Completed");
+            this.BeginInvoke((MethodInvoker)delegate
+            {
+                Console.WriteLine("Completed");
+                if (File.Exists("versions.zip"))
+                {
+                    System.IO.Compression.ZipFile.ExtractToDirectory("versions.zip", $"{settings.minecraftPath}/versions");
+                    File.Delete("versions.zip");
+                }
 
-                System.IO.Compression.ZipFile.ExtractToDirectory("versions.zip", $"{settings.minecraftPath}/versions");
-                File.Delete("versions.zip");
-                downloadPopup.Close();
+                downloadPopup.Hide();
+
             });
 
 
@@ -162,6 +215,7 @@ namespace AlphaverLauncherRecreation
 
         private void settingsButton_Click(object sender, EventArgs e)
         {
+
             var settings = new SettingsForm();
             settings.Show();
         }
@@ -173,13 +227,10 @@ namespace AlphaverLauncherRecreation
         public void UpdateUsername(string username)
         {
             logintext.Text = "Logged in as " + username;
-        }                                                                             
-
-        private void logintext_Click(object sender, EventArgs e)
-        {
-            var popUp = new Popup("hello there","", true,false );
-            popUp.Show();
         }
+
+
+
 
 
     }

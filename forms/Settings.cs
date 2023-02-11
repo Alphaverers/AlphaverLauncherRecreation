@@ -1,18 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
+﻿using Newtonsoft.Json;
+using System;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using Newtonsoft.Json;
 namespace AlphaverLauncherRecreation
 {
 
-     partial class SettingsForm : Form
+    partial class SettingsForm : Form
     {
 
         Settings settings = new Settings();
@@ -23,12 +17,12 @@ namespace AlphaverLauncherRecreation
         public SettingsForm()
         {
             InitializeComponent();
-            
-            updateModsBox(versionBox.Text);
-            
+
+
             settings = JsonConvert.DeserializeObject<Settings>(System.IO.File.ReadAllText("settings.json"));
 
-            
+            updateModsBox(versionBox.Text);
+
 
 
             //update boxes to reflect whats in settings.txt
@@ -36,9 +30,8 @@ namespace AlphaverLauncherRecreation
             versionBox.Text = settings.version;
             minecraftPathBox.Text = settings.minecraftPath;
             argumentsBox.Text = settings.arguments;
-            modsBox.Text = settings.mods;
+            modBox.Text = settings.mod;
             javaPathBox.Text = settings.javaPath;
-
 
 
 
@@ -58,39 +51,58 @@ namespace AlphaverLauncherRecreation
             settings.version = versionBox.Text;
             settings.minecraftPath = minecraftPathBox.Text;
             settings.arguments = argumentsBox.Text;
-            settings.mods = modsBox.Text;
+            settings.mod = modBox.Text;
             settings.javaPath = javaPathBox.Text;
 
             writer.Write(JsonConvert.SerializeObject(settings));
-       
+
             writer.Close();
 
-            
+
             launcher.UpdateUsername(usernameBox.Text);
             this.Close();
         }
 
         private void versionBox_TextChanged(object sender, EventArgs e)
         {
-           
-              updateModsBox(versionBox.Text);
-           
+
+            updateModsBox(versionBox.Text);
+
         }
 
         void updateModsBox(string version)
         {
-            modsBox.Items.Clear();
-            modsBox.Items.Add("vanilla");
-            if (version == "lilypad_qa")
+            modBox.Items.Clear();
+            modBox.Items.Add("vanilla");
+
+            switch (version)
             {
-               
-                modsBox.Items.Add("afterglow");
-               
+                case "lilypad_qa":
+                    //   modBox.Items.Add("afterglow");
+                    modBox.Items.Add("rosepad");
+                    break;
+                case "":
+                    break;
+
             }
-            modsBox.Text = "vanilla";
+            if (settings.mods != null)
+            {
+                foreach (Mod mod in settings.mods)
+                {
+                    if (mod.version == version) modBox.Items.Add(mod.name);
+
+                }
+            }
+
+
+            modBox.Text = "vanilla";
         }
 
     }
+
+
+
+
 
     public class Settings
     {
@@ -99,6 +111,14 @@ namespace AlphaverLauncherRecreation
         public string minecraftPath;
         public string javaPath;
         public string arguments;
-        public string mods;
+        public string mod;
+        public Mod[] mods;
+
+    }
+
+    public class Mod
+    {
+        public string version;
+        public string name;
     }
 }

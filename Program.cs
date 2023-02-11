@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using CmlLib.Core.VersionLoader;
-using CmlLib.Core;
-using CmlLib.Core.Downloader;
 
 namespace AlphaverLauncherRecreation
 {

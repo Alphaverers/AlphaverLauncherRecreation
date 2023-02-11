@@ -38,7 +38,7 @@
             this.saveButton = new System.Windows.Forms.Button();
             this.argumentsText = new System.Windows.Forms.Label();
             this.argumentsBox = new System.Windows.Forms.TextBox();
-            this.modsBox = new System.Windows.Forms.ComboBox();
+            this.modBox = new System.Windows.Forms.ComboBox();
             this.modLabel = new System.Windows.Forms.Label();
             this.javaPathBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -132,28 +132,28 @@
             this.argumentsBox.TabIndex = 7;
             this.argumentsBox.Text = "-Xmx2G";
             // 
-            // modsBox
+            // modBox
             // 
-            this.modsBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.modsBox.FormattingEnabled = true;
-            this.modsBox.ImeMode = System.Windows.Forms.ImeMode.On;
-            this.modsBox.Items.AddRange(new object[] {
+            this.modBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.modBox.FormattingEnabled = true;
+            this.modBox.ImeMode = System.Windows.Forms.ImeMode.On;
+            this.modBox.Items.AddRange(new object[] {
             "lilypad_qa",
             "v1605_preview",
             "v1605_unrpreview2"});
-            this.modsBox.Location = new System.Drawing.Point(144, 112);
-            this.modsBox.Name = "modsBox";
-            this.modsBox.Size = new System.Drawing.Size(121, 21);
-            this.modsBox.TabIndex = 9;
+            this.modBox.Location = new System.Drawing.Point(144, 112);
+            this.modBox.Name = "modBox";
+            this.modBox.Size = new System.Drawing.Size(121, 21);
+            this.modBox.TabIndex = 9;
             // 
             // modLabel
             // 
             this.modLabel.AutoSize = true;
             this.modLabel.Location = new System.Drawing.Point(141, 86);
             this.modLabel.Name = "modLabel";
-            this.modLabel.Size = new System.Drawing.Size(33, 13);
+            this.modLabel.Size = new System.Drawing.Size(28, 13);
             this.modLabel.TabIndex = 8;
-            this.modLabel.Text = "Mods";
+            this.modLabel.Text = "Mod";
             // 
             // javaPathBox
             // 
@@ -179,7 +179,7 @@
             this.ClientSize = new System.Drawing.Size(457, 343);
             this.Controls.Add(this.javaPathBox);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.modsBox);
+            this.Controls.Add(this.modBox);
             this.Controls.Add(this.modLabel);
             this.Controls.Add(this.argumentsBox);
             this.Controls.Add(this.argumentsText);
@@ -212,7 +212,7 @@
         private System.Windows.Forms.Button saveButton;
         private System.Windows.Forms.Label argumentsText;
         private System.Windows.Forms.TextBox argumentsBox;
-        private System.Windows.Forms.ComboBox modsBox;
+        private System.Windows.Forms.ComboBox modBox;
         private System.Windows.Forms.Label modLabel;
         private System.Windows.Forms.TextBox javaPathBox;
         private System.Windows.Forms.Label label1;
