@@ -120,9 +120,8 @@ namespace AlphaverLauncherRecreation
             WebClient client = new WebClient();
             //set the user agent so github doesnt return 403
             client.Headers.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; WOW64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.5393.187 Safari/537.36");
-            Stream stream = client.OpenRead(apiReleasesLink);
-            StreamReader reader = new StreamReader(stream);
-            JArray o = JArray.Parse(reader.ReadToEnd());
+            var json = client.DownloadString(apiReleasesLink);
+            JArray o = JArray.Parse(json);
             string link = (string)o.SelectToken("[0].assets[0].browser_download_url").ToString();
             return link;
         }
