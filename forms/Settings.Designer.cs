@@ -42,6 +42,7 @@
             this.modLabel = new System.Windows.Forms.Label();
             this.javaPathBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.creditText = new System.Windows.Forms.LinkLabel();
             this.SuspendLayout();
             // 
             // usernameText
@@ -145,6 +146,7 @@
             this.modBox.Name = "modBox";
             this.modBox.Size = new System.Drawing.Size(121, 21);
             this.modBox.TabIndex = 9;
+            this.modBox.TextChanged += new System.EventHandler(this.modBox_TextChanged);
             // 
             // modLabel
             // 
@@ -170,6 +172,17 @@
             this.label1.TabIndex = 10;
             this.label1.Text = "Java Path (Leave empty for default)";
             // 
+            // creditText
+            // 
+            this.creditText.AutoSize = true;
+            this.creditText.Location = new System.Drawing.Point(285, 112);
+            this.creditText.Name = "creditText";
+            this.creditText.Size = new System.Drawing.Size(74, 13);
+            this.creditText.TabIndex = 14;
+            this.creditText.TabStop = true;
+            this.creditText.Text = "text goes here";
+            this.creditText.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.creditText_LinkClicked);
+            // 
             // SettingsForm
             // 
             this.AllowDrop = true;
@@ -177,6 +190,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::AlphaverLauncherRecreation.Properties.Resources.dirt;
             this.ClientSize = new System.Drawing.Size(457, 343);
+            this.Controls.Add(this.creditText);
             this.Controls.Add(this.javaPathBox);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.modBox);
@@ -216,5 +230,6 @@
         private System.Windows.Forms.Label modLabel;
         private System.Windows.Forms.TextBox javaPathBox;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.LinkLabel creditText;
     }
 }

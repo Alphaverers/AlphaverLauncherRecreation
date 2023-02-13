@@ -10,6 +10,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
 namespace AlphaverLauncherRecreation
 {
     public partial class Launcher : Form
@@ -25,25 +26,24 @@ namespace AlphaverLauncherRecreation
             InitializeComponent();
 
             //check if settings file exists if not create a settings.txt
-            if (File.Exists("settings.json"))
+            if (!File.Exists("settings.json"))
             {
-                settings = JsonConvert.DeserializeObject<Settings>(System.IO.File.ReadAllText("settings.json"));
-                UpdateUsername(settings.username);
-            }
-            else
-            {
-                Settings defaultSettings = new Settings();
 
-
-                defaultSettings.username = defaultUsername;
-                defaultSettings.minecraftPath = "./.minecraft";
-                defaultSettings.arguments = "-Xmx2G";
+                settings.username = defaultUsername;
+                settings.minecraftPath = "./.minecraft";
+                settings.arguments = "-Xmx2G";
                 StreamWriter writer = new StreamWriter(File.Open("settings.json", FileMode.Create));
-                writer.Write(JsonConvert.SerializeObject(defaultSettings));
+                writer.Write(JsonConvert.SerializeObject(settings));
                 writer.Close();
-                UpdateUsername(defaultUsername);
+
 
             }
+
+            settings = JsonConvert.DeserializeObject<Settings>(System.IO.File.ReadAllText("settings.json"));
+            UpdateUsername(settings.username);
+
+
+
 
 
         }
@@ -51,29 +51,40 @@ namespace AlphaverLauncherRecreation
 
         private async void playButton_ClickAsync(object sender, EventArgs e)
         {
+
+            string version = settings.version;
+
+            bool isItVanilla = settings.mod == "vanilla";
+
             settings = JsonConvert.DeserializeObject<Settings>(System.IO.File.ReadAllText("settings.json"));
 
             if (settings.version == "" || settings.version == null)
             {
-                MessageBox.Show("Please set version.", "");
+                Popup popup = new Popup("", "Please set version", false, true);
+                popup.Show();
                 return;
             }
-            string version = settings.version;
-            bool isItVanilla = settings.mod != "vanilla";
-            if (isItVanilla)
+
+
+
+            if (!isItVanilla)
             {
                 version = settings.mod;
-
             }
 
             if (File.Exists($"{settings.minecraftPath}/versions/{version}/{version}.jar") && File.Exists($"{settings.minecraftPath}/versions/{version}/{version}.json"))
             {
+
                 await LaunchGame(settings.username, version, settings.minecraftPath, settings.arguments, settings.javaPath);
             }
             else
             {
-                if (isItVanilla)
+
+
+
+                if (!isItVanilla)
                 {
+
                     Directory.CreateDirectory($"{settings.minecraftPath}/versions/{version}");
                     string jsonFile = $"{settings.minecraftPath}/versions/{version}/{version}.json";
 
@@ -81,9 +92,8 @@ namespace AlphaverLauncherRecreation
                     {
                         File.Copy("default.json", jsonFile);
                         File.WriteAllText(jsonFile, File.ReadAllText(jsonFile).Replace("versionname", version));
-                        Console.WriteLine("Created json file.");                    
+                        Console.WriteLine("Created json file.");
                     }
-
 
 
                 }
@@ -94,22 +104,34 @@ namespace AlphaverLauncherRecreation
                     case "lilypad_qa":
                     case "v1605_preview":
                     case "v1605_unrpreview2":
-                        Downloader("versions.zip", new Uri("https://dl.dropbox.com/s/tat1zaxzvej4gu0/versions.zip"));
+                        Downloader("versions.zip", new Uri("https://dl.dropbox.com/s/tat1zaxzvej4gu0/versions.zip")).Start();
                         break;
 
 
                     case "rosepad":
                         latestBuildLink = GetLatestGithubBuild("https://api.github.com/repos/rosepadmc/rosepad/releases");
-                        Downloader($"{settings.minecraftPath}/versions/rosepad/rosepad.jar", new Uri(latestBuildLink));
+                        Downloader($"{settings.minecraftPath}/versions/rosepad/rosepad.jar", new Uri(latestBuildLink)).Start();
                         break;
                     case "afterglow":
                         latestBuildLink = GetLatestGithubBuild("https://api.github.com/repos/AfterglowMC/AfterglowMC/releases");
-                        Downloader($"{settings.minecraftPath}/versions/rosepad/rosepad.jar", new Uri(latestBuildLink));
+
+
+                        Downloader($"{settings.minecraftPath}/versions/afterglow/afterglow.jar", new Uri(latestBuildLink)).Start();
+
                         break;
 
                 }
 
             }
+
+
+
+        }
+
+
+        private void CopyJsonFile(string jsonFile, string version)
+        {
+
 
 
 
@@ -161,7 +183,7 @@ namespace AlphaverLauncherRecreation
             process.WaitForExit();
         }
 
-        private void Downloader(string filename, Uri link)
+        private Thread Downloader(string filename, Uri link)
         {
 
             downloadPopup.Show();
@@ -173,7 +195,7 @@ namespace AlphaverLauncherRecreation
                 client.DownloadFileCompleted += new AsyncCompletedEventHandler(DownloadComplete);
                 client.DownloadFileAsync(link, filename);
             });
-            thread.Start();
+            return thread;
 
 
 
@@ -227,7 +249,6 @@ namespace AlphaverLauncherRecreation
         {
             logintext.Text = "Logged in as " + username;
         }
-
 
 
 

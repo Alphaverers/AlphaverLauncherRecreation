@@ -54,12 +54,19 @@ namespace AlphaverLauncherRecreation
             settings.mod = modBox.Text;
             settings.javaPath = javaPathBox.Text;
 
+
+
+
+
             writer.Write(JsonConvert.SerializeObject(settings));
 
             writer.Close();
 
-
+            UpdateCreditText();
             launcher.UpdateUsername(usernameBox.Text);
+
+
+
             this.Close();
         }
 
@@ -78,7 +85,7 @@ namespace AlphaverLauncherRecreation
             switch (version)
             {
                 case "lilypad_qa":
-                    //   modBox.Items.Add("afterglow");
+                    modBox.Items.Add("afterglow");
                     modBox.Items.Add("rosepad");
                     break;
                 case "":
@@ -98,6 +105,50 @@ namespace AlphaverLauncherRecreation
             modBox.Text = "vanilla";
         }
 
+        private void loginTypeBox_TextChanged(object sender, EventArgs e)
+        {
+            usernameBox.Enabled = true;
+
+        }
+
+        private void modBox_TextChanged(object sender, EventArgs e)
+        {
+            UpdateCreditText();
+        }
+
+        private void creditText_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            switch (modBox.Text)
+            {
+                case "rosepad":
+
+                    System.Diagnostics.Process.Start("https://github.com/RosepadMC/Rosepad");
+                    break;
+                case "afterglow":
+                    System.Diagnostics.Process.Start("https://github.com/AfterglowMC/AfterglowMC");
+                    break;
+
+            }
+        }
+
+        private void UpdateCreditText()
+        {
+            creditText.Show();
+            switch (modBox.Text)
+            {
+
+                case "rosepad":
+                    creditText.Text = "Rosepad github repository";
+                    break;
+                case "afterglow":
+                    creditText.Text = "Afterglow github repository";
+                    break;
+                case "vanilla":
+                    creditText.Hide();
+                    break;
+
+            }
+        }
     }
 
 
@@ -106,6 +157,7 @@ namespace AlphaverLauncherRecreation
 
     public class Settings
     {
+
         public string username;
         public string version;
         public string minecraftPath;
