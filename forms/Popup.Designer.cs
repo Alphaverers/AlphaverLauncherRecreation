@@ -33,7 +33,7 @@
             this.icon = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.timer = new System.Windows.Forms.Timer(this.components);
-            this.button1 = new System.Windows.Forms.Button();
+            this.closeButton = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             ((System.ComponentModel.ISupportInitialize)(this.icon)).BeginInit();
@@ -59,15 +59,15 @@
             this.label1.TabIndex = 3;
             this.label1.Text = "text";
             // 
-            // button1
+            // closeButton
             // 
-            this.button1.Location = new System.Drawing.Point(137, 81);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 4;
-            this.button1.Text = "Ok";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.closeButton.Location = new System.Drawing.Point(137, 81);
+            this.closeButton.Name = "closeButton";
+            this.closeButton.Size = new System.Drawing.Size(75, 23);
+            this.closeButton.TabIndex = 4;
+            this.closeButton.Text = "Ok";
+            this.closeButton.UseVisualStyleBackColor = true;
+            this.closeButton.Click += new System.EventHandler(this.button1_Click);
             // 
             // label2
             // 
@@ -94,7 +94,7 @@
             this.ClientSize = new System.Drawing.Size(404, 109);
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.closeButton);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.icon);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -113,7 +113,7 @@
         private System.Windows.Forms.PictureBox icon;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Timer timer;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button closeButton;
         private System.Windows.Forms.Label label2;
         public System.Windows.Forms.ProgressBar progressBar1;
     }

@@ -25,7 +25,7 @@ namespace AlphaverLauncherRecreation
         {
             InitializeComponent();
 
-            //check if settings file exists if not create a settings.txt
+            //check if settings file exists if not create a settings.json
             if (!File.Exists("settings.json"))
             {
 
@@ -51,7 +51,7 @@ namespace AlphaverLauncherRecreation
 
         private async void playButton_ClickAsync(object sender, EventArgs e)
         {
-
+            //first get the version and check if its vanilla
             string version = settings.version;
 
             bool isItVanilla = settings.mod == "vanilla";
@@ -66,7 +66,7 @@ namespace AlphaverLauncherRecreation
             }
 
 
-
+            //if its not vanilla change which jar to launch
             if (!isItVanilla)
             {
                 version = settings.mod;
@@ -74,22 +74,21 @@ namespace AlphaverLauncherRecreation
 
             if (File.Exists($"{settings.minecraftPath}/versions/{version}/{version}.jar") && File.Exists($"{settings.minecraftPath}/versions/{version}/{version}.json"))
             {
-
                 await LaunchGame(settings.username, version, settings.minecraftPath, settings.arguments, settings.javaPath);
             }
             else
             {
-
-
-
+                
                 if (!isItVanilla)
                 {
-
+                   
                     Directory.CreateDirectory($"{settings.minecraftPath}/versions/{version}");
                     string jsonFile = $"{settings.minecraftPath}/versions/{version}/{version}.json";
 
+                    //it copies default version json file to jars directory 
                     if (!File.Exists(jsonFile))
                     {
+
                         File.Copy("default.json", jsonFile);
                         File.WriteAllText(jsonFile, File.ReadAllText(jsonFile).Replace("versionname", version));
                         Console.WriteLine("Created json file.");
@@ -104,7 +103,7 @@ namespace AlphaverLauncherRecreation
                     case "lilypad_qa":
                     case "v1605_preview":
                     case "v1605_unrpreview2":
-                        Downloader("versions.zip", new Uri("https://dl.dropbox.com/s/tat1zaxzvej4gu0/versions.zip")).Start();
+                        Downloader("versions.zip", new Uri("https://github.com/Gnawmon/AlphaverLauncherRecreation/blob/main/files/versions.zip")).Start();
                         break;
 
 
@@ -128,15 +127,6 @@ namespace AlphaverLauncherRecreation
 
         }
 
-
-        private void CopyJsonFile(string jsonFile, string version)
-        {
-
-
-
-
-        }
-
         private static string GetLatestGithubBuild(string apiReleasesLink)
         {
             WebClient client = new WebClient();
@@ -144,6 +134,7 @@ namespace AlphaverLauncherRecreation
             client.Headers.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; WOW64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.5393.187 Safari/537.36");
             var json = client.DownloadString(apiReleasesLink);
             JArray o = JArray.Parse(json);
+            //get latest build
             string link = (string)o.SelectToken("[0].assets[0].browser_download_url").ToString();
             return link;
         }
