@@ -103,7 +103,7 @@ namespace AlphaverLauncherRecreation
                     case "lilypad_qa":
                     case "v1605_preview":
                     case "v1605_unrpreview2":
-                        Downloader("versions.zip", new Uri("https://github.com/Gnawmon/AlphaverLauncherRecreation/blob/main/files/versions.zip")).Start();
+                        Downloader("versions.zip", new Uri("https://github.com/Gnawmon/AlphaverLauncherRecreation/raw/main/files/versions.zip")).Start();
                         break;
 
 
