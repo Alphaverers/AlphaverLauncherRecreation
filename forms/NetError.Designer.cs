@@ -1,6 +1,6 @@
 ﻿namespace AlphaverLauncherRecreation
 {
-    partial class Popup
+    partial class NetError
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Popup));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(NetError));
             this.icon = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.timer = new System.Windows.Forms.Timer(this.components);
@@ -55,9 +55,9 @@
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.label1.Location = new System.Drawing.Point(65, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(24, 13);
+            this.label1.Size = new System.Drawing.Size(122, 13);
             this.label1.TabIndex = 3;
-            this.label1.Text = "text";
+            this.label1.Text = "Server connection failed";
             // 
             // button1
             // 
@@ -75,9 +75,10 @@
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.label2.Location = new System.Drawing.Point(65, 30);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(24, 13);
+            this.label2.Size = new System.Drawing.Size(290, 13);
             this.label2.TabIndex = 5;
-            this.label2.Text = "text";
+            this.label2.Text = "Make sure you are connected to the internet, then try again.";
+            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // progressBar1
             // 
@@ -88,7 +89,7 @@
             this.progressBar1.TabIndex = 6;
             this.progressBar1.Value = 1;
             // 
-            // Popup
+            // NetError
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -102,8 +103,9 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimizeBox = false;
-            this.Name = "Popup";
+            this.Name = "NetError";
             this.Text = "16.05 Launcher";
+            this.Load += new System.EventHandler(this.NetError_Load);
             ((System.ComponentModel.ISupportInitialize)(this.icon)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

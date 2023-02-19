@@ -144,6 +144,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="forms\NetError.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="forms\NetError.Designer.cs">
+      <DependentUpon>NetError.cs</DependentUpon>
+    </Compile>
     <Compile Include="forms\Popup.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -170,6 +176,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="forms\NetError.resx">
+      <DependentUpon>NetError.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="forms\Popup.resx">
       <DependentUpon>Popup.cs</DependentUpon>
     </EmbeddedResource>
@@ -213,6 +222,7 @@
     <None Include="resources\icon.png" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="forms\%24this.Icon.ico" />
     <Content Include="resources\icon.ico" />
     <None Include="resources\stone.png" />
   </ItemGroup>

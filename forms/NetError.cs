@@ -1,19 +1,20 @@
 ﻿using System;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace AlphaverLauncherRecreation
 {
-    public partial class Popup : Form
+    public partial class NetError : Form
     {
-        public Popup(string text1, string text2, bool progressBar, bool button)
+        public NetError()
         {
             InitializeComponent();
             InitializeComponent();
             this.timer.Start();
-            label1.Text = text1;
-            label2.Text = text2;
-            progressBar1.Visible = progressBar;
-            button1.Visible = button;
+            this.label1.Text = "test";
+            this.label2.Text = "test";
+            this.button1.Visible = true;
+            this.progressBar1.Visible = false;
 
         }
         private void timer1_Tick(object sender, EventArgs e)
@@ -29,6 +30,16 @@ namespace AlphaverLauncherRecreation
         private void button1_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void NetError_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
