@@ -63,7 +63,6 @@ namespace AlphaverLauncherRecreation
         }
         private async void playButton_ClickAsync(object sender, EventArgs e)
         {
-
             string version = settings.version;
 
             bool isItVanilla = settings.mod == "vanilla";
@@ -90,10 +89,10 @@ namespace AlphaverLauncherRecreation
             }
             else
             {
-
+                
                 if (!isItVanilla)
                 {
-
+                   
                     Directory.CreateDirectory($"{settings.minecraftPath}/versions/{version}");
                     string jsonFile = $"{settings.minecraftPath}/versions/{version}/{version}.json";
 
