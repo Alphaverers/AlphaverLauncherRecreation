@@ -95,6 +95,11 @@ namespace AlphaverLauncherRecreation
             this.PerformLayout();
         }
 
+        private void loadingText_Click(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
         #endregion
 
         private System.Windows.Forms.PictureBox icon;

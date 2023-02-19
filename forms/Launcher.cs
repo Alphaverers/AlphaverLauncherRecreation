@@ -48,8 +48,22 @@ namespace AlphaverLauncherRecreation
 
         public static bool CheckInternetConnection()
         {
-        //soon :)
+            try
+            {
+                using (var client = new WebClient())
+                using (var stream = client.OpenRead("http://www.google.com"))
+                {
+                    return true;
+                }
+            }
+            catch
+            {
+                return false;
+            }
         }
+            private async void playButton_ClickAsync(object sender, EventArgs e)
+            {
+            
             string version = settings.version;
 
             bool isItVanilla = settings.mod == "vanilla";
