@@ -103,6 +103,12 @@ namespace AlphaverLauncherRecreation
                         File.Copy("default.json", jsonFile);
                         File.WriteAllText(jsonFile, File.ReadAllText(jsonFile).Replace("versionname", version));
                         Console.WriteLine("Created json file.");
+                    } else
+                    {
+                        using (FileStream fs = File.Create("defualt.json"));
+                        File.Copy("default.json", jsonFile);
+                        File.WriteAllText(jsonFile, File.ReadAllText(jsonFile).Replace("versionname", version));
+                        Console.WriteLine("updated default.json");
                     }
 
 
