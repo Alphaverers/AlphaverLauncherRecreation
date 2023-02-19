@@ -44,9 +44,5 @@ namespace AlphaverLauncherRecreation
             }
 
         }
-
-        private void loadingText_Click(object sender, EventArgs e)
-        {
-        }
     }
 }
