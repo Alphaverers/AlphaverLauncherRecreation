@@ -15,7 +15,6 @@ namespace AlphaverLauncherRecreation
         public Popup(string text1, string text2, bool progressBar, bool button)
         {
             InitializeComponent();
-            InitializeComponent();
             this.timer.Start();
             label1.Text = text1;
             label2.Text = text2;

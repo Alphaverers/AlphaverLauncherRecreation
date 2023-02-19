@@ -63,11 +63,13 @@ namespace AlphaverLauncherRecreation
         }
         private async void playButton_ClickAsync(object sender, EventArgs e)
         {
+            settings = JsonConvert.DeserializeObject<Settings>(System.IO.File.ReadAllText("settings.json"));
+
             string version = settings.version;
 
             bool isItVanilla = settings.mod == "vanilla";
 
-            settings = JsonConvert.DeserializeObject<Settings>(System.IO.File.ReadAllText("settings.json"));
+           
 
             if (settings.version == "" || settings.version == null)
             {
@@ -89,59 +91,55 @@ namespace AlphaverLauncherRecreation
             }
             else
             {
-                
-                if (!isItVanilla)
+
+
+
+                Directory.CreateDirectory($"{settings.minecraftPath}/versions/{version}");
+                string jsonFile = $"{settings.minecraftPath}/versions/{version}/{version}.json";
+
+                //it copies default version json file to jars directory 
+                if (!File.Exists(jsonFile))
                 {
-                   
-                    Directory.CreateDirectory($"{settings.minecraftPath}/versions/{version}");
-                    string jsonFile = $"{settings.minecraftPath}/versions/{version}/{version}.json";
+                    CreateJsonFile(version, jsonFile);
+                }
 
-                    //it copies default version json file to jars directory 
-                    if (!File.Exists(jsonFile))
-                    {
 
-                        File.Copy("default.json", jsonFile);
-                        File.WriteAllText(jsonFile, File.ReadAllText(jsonFile).Replace("versionname", version));
-                        Console.WriteLine("Created json file.");
-                    } else
+                if (isItVanilla)
+                {
+                    Downloader($"{settings.minecraftPath}/versions/{version}/{version}.jar", new Uri($"https://github.com/Gnawmon/AlphaverLauncherRecreation/raw/main/files/jars/{version}.jar")).Start();
+
+                }
+                else
+                {
+                    string latestBuildLink;
+                    switch (version)
                     {
-                        using (FileStream fs = File.Create("defualt.json"));
-                        File.Copy("default.json", jsonFile);
-                        File.WriteAllText(jsonFile, File.ReadAllText(jsonFile).Replace("versionname", version));
-                        Console.WriteLine("updated default.json");
+                        case "rosepad":
+                            latestBuildLink = GetLatestGithubBuild("https://api.github.com/repos/rosepadmc/rosepad/releases");
+                            Downloader($"{settings.minecraftPath}/versions/rosepad/rosepad.jar", new Uri(latestBuildLink)).Start();
+                            break;
+                        case "afterglow":
+                            latestBuildLink = GetLatestGithubBuild("https://api.github.com/repos/AfterglowMC/AfterglowMC/releases");
+                            Downloader($"{settings.minecraftPath}/versions/afterglow/afterglow.jar", new Uri(latestBuildLink)).Start();
+                            break;
+
                     }
 
 
-                }
-                string latestBuildLink;
-                switch (version)
-                {
 
-                    case "lilypad_qa":
-                    case "v1605_preview":
-                    case "v1605_unrpreview2":
-                        Downloader("versions.zip", new Uri("https://github.com/Gnawmon/AlphaverLauncherRecreation/raw/main/files/versions.zip")).Start();
-                        break;
-
-
-                    case "rosepad":
-                        latestBuildLink = GetLatestGithubBuild("https://api.github.com/repos/rosepadmc/rosepad/releases");
-                        Downloader($"{settings.minecraftPath}/versions/rosepad/rosepad.jar", new Uri(latestBuildLink)).Start();
-                        break;
-                    case "afterglow":
-                        latestBuildLink = GetLatestGithubBuild("https://api.github.com/repos/AfterglowMC/AfterglowMC/releases");
-
-
-                        Downloader($"{settings.minecraftPath}/versions/afterglow/afterglow.jar", new Uri(latestBuildLink)).Start();
-
-                        break;
 
                 }
-
             }
 
 
 
+        }
+
+        private static void CreateJsonFile(string version, string jsonFile)
+        {
+            File.Copy("default.json", jsonFile);
+            File.WriteAllText(jsonFile, File.ReadAllText(jsonFile).Replace("versionname", version));
+            Console.WriteLine("Created json file.");
         }
 
         private static string GetLatestGithubBuild(string apiReleasesLink)
