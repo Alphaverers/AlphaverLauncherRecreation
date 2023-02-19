@@ -61,9 +61,15 @@ namespace AlphaverLauncherRecreation
                 return false;
             }
         }
+<<<<<<< HEAD
         private async void playButton_ClickAsync(object sender, EventArgs e)
         {
 
+=======
+            private async void playButton_ClickAsync(object sender, EventArgs e)
+            {
+            
+>>>>>>> effe288ee095235891ed3401136aad20e98837d0
             string version = settings.version;
 
             bool isItVanilla = settings.mod == "vanilla";
