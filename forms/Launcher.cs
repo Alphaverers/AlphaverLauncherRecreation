@@ -28,14 +28,12 @@ namespace AlphaverLauncherRecreation
             //check if settings file exists if not create a settings.json
             if (!File.Exists("settings.json"))
             {
-
                 settings.username = defaultUsername;
                 settings.minecraftPath = "./.minecraft";
                 settings.arguments = "-Xmx2G";
                 StreamWriter writer = new StreamWriter(File.Open("settings.json", FileMode.Create));
                 writer.Write(JsonConvert.SerializeObject(settings));
                 writer.Close();
-
 
             }
 
@@ -48,10 +46,10 @@ namespace AlphaverLauncherRecreation
 
         }
 
-
-        private async void playButton_ClickAsync(object sender, EventArgs e)
+        public static bool CheckInternetConnection()
         {
-            //first get the version and check if its vanilla
+        //soon :)
+        }
             string version = settings.version;
 
             bool isItVanilla = settings.mod == "vanilla";
