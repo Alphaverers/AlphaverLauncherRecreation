@@ -1,4 +1,10 @@
-﻿namespace AlphaverLauncherRecreation
+﻿using System;
+using System.CodeDom;
+using System.Drawing.Text;
+using System.Runtime.CompilerServices;
+using System.Threading;
+
+namespace AlphaverLauncherRecreation
 {
     partial class Loader
     {
@@ -57,12 +63,14 @@
             // loadingText
             // 
             this.loadingText.AutoSize = true;
+            this.loadingText.BackColor = System.Drawing.SystemColors.Window;
             this.loadingText.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.loadingText.Location = new System.Drawing.Point(62, 14);
             this.loadingText.Name = "loadingText";
             this.loadingText.Size = new System.Drawing.Size(295, 13);
             this.loadingText.TabIndex = 3;
-            this.loadingText.Text = "Launching game, please wait...  (Also this bar means nothing)";
+            this.loadingText.Text = "Launching game, please wait...";
+            this.loadingText.Click += new System.EventHandler(this.loadingText_Click);
             // 
             // timer
             // 
@@ -85,7 +93,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.icon)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
-
         }
 
         #endregion
