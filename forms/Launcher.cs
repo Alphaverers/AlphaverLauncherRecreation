@@ -18,13 +18,12 @@ namespace AlphaverLauncherRecreation
 
         Settings settings = new Settings();
         string defaultUsername = "Player";
-        Popup downloadPopup = new Popup("Downloading..", "", true, false);
+        Popup downloadPopup = new Popup("Downloading..", "", true, false, false);
 
 
         public Launcher()
         {
             InitializeComponent();
-
             //check if settings file exists if not create a settings.json
             if (!File.Exists("settings.json"))
             {
@@ -73,7 +72,7 @@ namespace AlphaverLauncherRecreation
 
             if (settings.version == "" || settings.version == null)
             {
-                Popup popup = new Popup("", "Please set version", false, true);
+                Popup popup = new Popup("", "Please set version", false, true, false);
                 popup.Show();
                 return;
             }
@@ -97,7 +96,7 @@ namespace AlphaverLauncherRecreation
                 Directory.CreateDirectory($"{settings.minecraftPath}/versions/{version}");
                 string jsonFile = $"{settings.minecraftPath}/versions/{version}/{version}.json";
 
-                //it copies default version json file to jars directory 
+                //it copies default version json file to jars directory
                 if (!File.Exists(jsonFile))
                 {
                     CreateJsonFile(version, jsonFile);
@@ -156,6 +155,16 @@ namespace AlphaverLauncherRecreation
 
         private async Task LaunchGame(string username, string version, string gamePath, string javaArguments, string javaPath)
         {
+            //checks internet. copied from here lol https://gist.github.com/yemrekeskin/df052c9a464cb0c9a4e2
+            if (CheckInternetConnection())
+                Console.WriteLine("Internet ok");
+            else
+            {
+                Console.WriteLine("Opening internet error dialog");
+                Popup popup = new Popup("Server connection failed", "Make sure you are connected to the internet, then try again.", false, true, true);
+                popup.Show();
+                return;
+            }
             //open loader  so it looks cool
             var loader = new Loader();
             loader.Show();

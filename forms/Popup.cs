@@ -12,7 +12,7 @@ namespace AlphaverLauncherRecreation
         /// <param name="text2"></param>
         /// <param name="progressBar"></param>
         /// <param name="button"></param>
-        public Popup(string text1, string text2, bool progressBar, bool button)
+        public Popup(string text1, string text2, bool progressBar, bool button, bool quit)
         {
             InitializeComponent();
             this.timer.Start();
@@ -20,6 +20,9 @@ namespace AlphaverLauncherRecreation
             label2.Text = text2;
             progressBar1.Visible = progressBar;
             closeButton.Visible = button;
+            if (quit == true) {
+                closeButton.Text = "Quit";
+            } 
 
         }
         private void timer1_Tick(object sender, EventArgs e)
