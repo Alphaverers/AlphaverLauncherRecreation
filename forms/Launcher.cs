@@ -255,11 +255,6 @@ namespace AlphaverLauncherRecreation
             this.BeginInvoke((MethodInvoker)delegate
             {
                 Console.WriteLine("Completed");
-                if (File.Exists("versions.zip"))
-                {
-                    System.IO.Compression.ZipFile.ExtractToDirectory("versions.zip", $"{settings.minecraftPath}/versions");
-                    File.Delete("versions.zip");
-                }
 
                 downloadPopup.Hide();
 
