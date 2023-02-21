@@ -198,7 +198,8 @@ namespace AlphaverLauncherRecreation
             process.StartInfo.RedirectStandardOutput = true;
             process.StartInfo.RedirectStandardError = true;
             process.StartInfo.UseShellExecute = false;
-            process.OutputDataReceived += Minecraft_OutputDataReceived;
+            process.OutputDataReceived += WriteOutputToConsole;
+            process.ErrorDataReceived += WriteOutputToConsole;
 
             process.Start();
             process.BeginOutputReadLine();
@@ -212,7 +213,7 @@ namespace AlphaverLauncherRecreation
             process.WaitForExit();
         }
 
-        void Minecraft_OutputDataReceived(object sender, DataReceivedEventArgs e)
+        void WriteOutputToConsole(object sender, DataReceivedEventArgs e)
         {
             Console.WriteLine(e.Data);
         }

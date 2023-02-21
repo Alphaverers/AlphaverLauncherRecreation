@@ -181,6 +181,7 @@
             this.creditText.TabIndex = 14;
             this.creditText.TabStop = true;
             this.creditText.Text = "text goes here";
+            this.creditText.Visible = false;
             this.creditText.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.creditText_LinkClicked);
             // 
             // SettingsForm

@@ -144,6 +144,8 @@ namespace AlphaverLauncherRecreation
                     creditText.Text = "Afterglow github repository";
                     break;
                 case "vanilla":
+                case null:
+                case "":
                     creditText.Hide();
                     break;
 
