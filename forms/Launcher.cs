@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Threading;
@@ -193,14 +194,27 @@ namespace AlphaverLauncherRecreation
 
             var process = await launcher.CreateProcessAsync(version, launchOptions);
 
-
-
+            process.StartInfo.RedirectStandardInput = true;
+            process.StartInfo.RedirectStandardOutput = true;
+            process.StartInfo.RedirectStandardError = true;
+            process.StartInfo.UseShellExecute = false;
+            process.OutputDataReceived += Minecraft_OutputDataReceived;
 
             process.Start();
+            process.BeginOutputReadLine();
+            process.BeginErrorReadLine();
+
+
+
 
 
 
             process.WaitForExit();
+        }
+
+        void Minecraft_OutputDataReceived(object sender, DataReceivedEventArgs e)
+        {
+            Console.WriteLine(e.Data);
         }
 
         private Thread Downloader(string filename, Uri link)
