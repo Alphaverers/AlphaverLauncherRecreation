@@ -43,6 +43,7 @@
             this.javaPathBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.creditText = new System.Windows.Forms.LinkLabel();
+            this.javaFileSelectButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // usernameText
@@ -161,7 +162,7 @@
             // 
             this.javaPathBox.Location = new System.Drawing.Point(12, 179);
             this.javaPathBox.Name = "javaPathBox";
-            this.javaPathBox.Size = new System.Drawing.Size(376, 20);
+            this.javaPathBox.Size = new System.Drawing.Size(351, 20);
             this.javaPathBox.TabIndex = 11;
             // 
             // label1
@@ -184,6 +185,16 @@
             this.creditText.Visible = false;
             this.creditText.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.creditText_LinkClicked);
             // 
+            // javaFileSelectButton
+            // 
+            this.javaFileSelectButton.Location = new System.Drawing.Point(365, 179);
+            this.javaFileSelectButton.Name = "javaFileSelectButton";
+            this.javaFileSelectButton.Size = new System.Drawing.Size(23, 20);
+            this.javaFileSelectButton.TabIndex = 15;
+            this.javaFileSelectButton.Text = "...";
+            this.javaFileSelectButton.UseVisualStyleBackColor = true;
+            this.javaFileSelectButton.Click += new System.EventHandler(this.javaFileSelectButton_Click);
+            // 
             // SettingsForm
             // 
             this.AllowDrop = true;
@@ -191,6 +202,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::AlphaverLauncherRecreation.Properties.Resources.dirt;
             this.ClientSize = new System.Drawing.Size(457, 343);
+            this.Controls.Add(this.javaFileSelectButton);
             this.Controls.Add(this.creditText);
             this.Controls.Add(this.javaPathBox);
             this.Controls.Add(this.label1);
@@ -232,5 +244,6 @@
         private System.Windows.Forms.TextBox javaPathBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.LinkLabel creditText;
+        private System.Windows.Forms.Button javaFileSelectButton;
     }
 }

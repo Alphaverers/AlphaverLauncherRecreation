@@ -151,6 +151,32 @@ namespace AlphaverLauncherRecreation
 
             }
         }
+        /// <summary>
+        /// Opens a windows file dialog.
+        /// </summary>
+        /// <returns>File path</returns>
+        string OpenFileDialog(string filter)
+        {
+            var filePath = string.Empty;
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.Filter = filter;
+
+                openFileDialog.RestoreDirectory = true;
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    filePath = openFileDialog.FileName;
+                }
+            }
+
+            return filePath;
+        }
+
+        private void javaFileSelectButton_Click(object sender, EventArgs e)
+        {
+            javaPathBox.Text = OpenFileDialog("Java Binaries (*.exe)|");
+        }
     }
 
 
