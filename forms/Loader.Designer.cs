@@ -67,7 +67,7 @@ namespace AlphaverLauncherRecreation
             this.loadingText.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.loadingText.Location = new System.Drawing.Point(62, 14);
             this.loadingText.Name = "loadingText";
-            this.loadingText.Size = new System.Drawing.Size(295, 13);
+            this.loadingText.Size = new System.Drawing.Size(154, 13);
             this.loadingText.TabIndex = 3;
             this.loadingText.Text = "Launching game, please wait...";
             this.loadingText.Click += new System.EventHandler(this.loadingText_Click);
@@ -93,6 +93,7 @@ namespace AlphaverLauncherRecreation
             ((System.ComponentModel.ISupportInitialize)(this.icon)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
+
         }
 
         private void loadingText_Click(object sender, EventArgs e)

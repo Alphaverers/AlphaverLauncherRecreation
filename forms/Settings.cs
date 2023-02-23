@@ -3,6 +3,8 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+
+
 namespace AlphaverLauncherRecreation
 {
 
@@ -158,24 +160,44 @@ namespace AlphaverLauncherRecreation
         string OpenFileDialog(string filter)
         {
             var filePath = string.Empty;
-            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            using (OpenFileDialog dialog = new OpenFileDialog())
             {
-                openFileDialog.Filter = filter;
+                dialog.Filter = filter;
+                dialog.RestoreDirectory = true;
 
-                openFileDialog.RestoreDirectory = true;
-
-                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                if (dialog.ShowDialog() == DialogResult.OK)
                 {
-                    filePath = openFileDialog.FileName;
+                    filePath = dialog.FileName;
                 }
             }
-
             return filePath;
+        }
+
+        /// <summary>
+        /// Opens a windows file dialog.
+        /// </summary>
+        /// <returns>Path</returns>
+        string OpenBrowseFolderDialog()
+        {
+            var path = string.Empty;
+            using (FolderBrowserDialog dialog = new FolderBrowserDialog())
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    path = dialog.SelectedPath;
+                }
+            }
+            return path;
         }
 
         private void javaFileSelectButton_Click(object sender, EventArgs e)
         {
             javaPathBox.Text = OpenFileDialog("Java Binaries (*.exe)|");
+        }
+
+        private void minecraftPathSelectButton_Click(object sender, EventArgs e)
+        {
+            minecraftPathBox.Text = OpenBrowseFolderDialog();
         }
     }
 
