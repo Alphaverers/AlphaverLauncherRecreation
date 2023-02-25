@@ -17,10 +17,11 @@ namespace AlphaverLauncherRecreation
     public partial class Launcher : Form
     {
 
-        Settings settings = new Settings();
+        public Settings settings = new Settings();
+        public DiscordRpcClient client;
         string defaultUsername = "Player";
         Popup downloadPopup = new Popup("Downloading..", "", true, false, false);
-        public DiscordRpcClient client;
+       
 
 
         public Launcher()
@@ -34,6 +35,7 @@ namespace AlphaverLauncherRecreation
                 settings.username = defaultUsername;
                 settings.minecraftPath = "./.minecraft";
                 settings.arguments = "-Xmx2G";
+                settings.discordRPC = true;
                 StreamWriter writer = new StreamWriter(File.Open("settings.json", FileMode.Create));
                 writer.Write(JsonConvert.SerializeObject(settings));
                 writer.Close();
@@ -54,6 +56,7 @@ namespace AlphaverLauncherRecreation
                 popup.Show();
             }
 
+            client = new DiscordRpcClient("1078921998094307348");
             InitializeRPC(settings.version);
         }
 
@@ -289,49 +292,54 @@ namespace AlphaverLauncherRecreation
 
        public void InitializeRPC(string version)
         {
-            /*
-            Create a Discord client
-            NOTE:   If you are using Unity3D, you must use the full constructor and define
-                     the pipe connection.
-            */
-            client = new DiscordRpcClient("1078921998094307348");
-
-            //Set the logger
-
-
-            //Subscribe to events
-            client.OnReady += (sender, e) =>
+            if (settings.discordRPC)
             {
-                Console.WriteLine("Set presence for {0}", e.User.Username);
-            };
+                client = new DiscordRpcClient("1078921998094307348");
 
-            //Connect to the RPC
-            client.Initialize();
-
-            //Set the rich presence
-            //Call this as many times as you want and anywhere in your code.
-            client.SetPresence(new RichPresence()
-            {
-                State = "Version is set to " + version,
-                Details = "Idle",
-                Assets = new Assets()
+                //Set the logger
+                client.OnReady += (sender, e) =>
                 {
-                    LargeImageKey = "alphaver",
-                }
-            });
+                    Console.WriteLine("Set presence for {0}", e.User.Username);
+                };
+                client.Initialize();
+
+                //Set the rich presence
+                client.SetPresence(new RichPresence()
+                {
+                    State = "Version is set to " + version,
+                    Details = "Idle",
+                    Assets = new Assets()
+                    {
+                        LargeImageKey = "alphaver",
+                    }
+                });
+            }
+            else
+            {
+                client.Dispose();
+                
+            }
         }
         void UpdateRPC(string state, string details, Timestamps timeStamp)
         {
-            client.SetPresence(new RichPresence()
+            if (settings.discordRPC)
             {
-                State = state,
-                Details = details,
-                Timestamps = timeStamp,
-                Assets = new Assets()
+                client.SetPresence(new RichPresence()
                 {
-                    LargeImageKey = "alphaver",
-                }
-            });
+                    State = state,
+                    Details = details,
+                    Timestamps = timeStamp,
+                    Assets = new Assets()
+                    {
+                        LargeImageKey = "alphaver",
+                    }
+                });
+            }
+            else
+            {
+                client.Dispose();
+                
+            }
         }
 
 

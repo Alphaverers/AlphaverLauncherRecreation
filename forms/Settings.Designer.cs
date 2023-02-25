@@ -50,6 +50,7 @@
             this.javaPage = new System.Windows.Forms.TabPage();
             this.versionPage = new System.Windows.Forms.TabPage();
             this.fileSystemWatcher1 = new System.IO.FileSystemWatcher();
+            this.discordRPCCheckBox = new System.Windows.Forms.CheckBox();
             this.tabControl.SuspendLayout();
             this.generalPage.SuspendLayout();
             this.javaPage.SuspendLayout();
@@ -219,6 +220,7 @@
             // 
             // generalPage
             // 
+            this.generalPage.Controls.Add(this.discordRPCCheckBox);
             this.generalPage.Controls.Add(this.minecraftPathSelectButton);
             this.generalPage.Controls.Add(this.usernameBox);
             this.generalPage.Controls.Add(this.usernameText);
@@ -274,6 +276,16 @@
             this.fileSystemWatcher1.EnableRaisingEvents = true;
             this.fileSystemWatcher1.SynchronizingObject = this;
             // 
+            // discordRPCCheckBox
+            // 
+            this.discordRPCCheckBox.AutoSize = true;
+            this.discordRPCCheckBox.Location = new System.Drawing.Point(166, 9);
+            this.discordRPCCheckBox.Name = "discordRPCCheckBox";
+            this.discordRPCCheckBox.Size = new System.Drawing.Size(87, 17);
+            this.discordRPCCheckBox.TabIndex = 17;
+            this.discordRPCCheckBox.Text = "Discord RPC";
+            this.discordRPCCheckBox.UseVisualStyleBackColor = true;
+            // 
             // SettingsForm
             // 
             this.AllowDrop = true;
@@ -324,5 +336,6 @@
         private System.Windows.Forms.TabPage versionPage;
         private System.Windows.Forms.Button minecraftPathSelectButton;
         private System.IO.FileSystemWatcher fileSystemWatcher1;
+        private System.Windows.Forms.CheckBox discordRPCCheckBox;
     }
 }

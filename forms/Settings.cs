@@ -34,7 +34,7 @@ namespace AlphaverLauncherRecreation
             argumentsBox.Text = settings.arguments;
             modBox.Text = settings.mod;
             javaPathBox.Text = settings.javaPath;
-
+            discordRPCCheckBox.Checked = settings.discordRPC;
 
 
             string jsonString = JsonConvert.SerializeObject(settings);
@@ -55,7 +55,7 @@ namespace AlphaverLauncherRecreation
             settings.arguments = argumentsBox.Text;
             settings.mod = modBox.Text;
             settings.javaPath = javaPathBox.Text;
-
+            settings.discordRPC = discordRPCCheckBox.Checked;
 
 
 
@@ -66,6 +66,7 @@ namespace AlphaverLauncherRecreation
 
             UpdateCreditText();
             launcher.UpdateUsername(usernameBox.Text);
+            launcher.settings.discordRPC = discordRPCCheckBox.Checked;
             launcher.client.Dispose();
             launcher.InitializeRPC(settings.version);
 
@@ -215,6 +216,7 @@ namespace AlphaverLauncherRecreation
         public string arguments;
         public string mod;
         public Mod[] mods;
+        public bool discordRPC;
 
     }
 
