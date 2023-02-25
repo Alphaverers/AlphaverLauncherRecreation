@@ -66,8 +66,8 @@ namespace AlphaverLauncherRecreation
 
             UpdateCreditText();
             launcher.UpdateUsername(usernameBox.Text);
-
-
+            launcher.client.Dispose();
+            launcher.InitializeRPC(settings.version);
 
             this.Close();
         }

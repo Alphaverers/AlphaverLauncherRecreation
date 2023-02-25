@@ -10,7 +10,7 @@ using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using DiscordRPC;
 
 namespace AlphaverLauncherRecreation
 {
@@ -20,11 +20,14 @@ namespace AlphaverLauncherRecreation
         Settings settings = new Settings();
         string defaultUsername = "Player";
         Popup downloadPopup = new Popup("Downloading..", "", true, false, false);
+        public DiscordRpcClient client;
 
 
         public Launcher()
         {
+
             InitializeComponent();
+
             //check if settings file exists if not create a settings.json
             if (!File.Exists("settings.json"))
             {
@@ -51,7 +54,7 @@ namespace AlphaverLauncherRecreation
                 popup.Show();
             }
 
-
+            InitializeRPC(settings.version);
         }
 
         public static bool CheckInternetConnection()
@@ -101,6 +104,8 @@ namespace AlphaverLauncherRecreation
 
             if (File.Exists($"{settings.minecraftPath}/versions/{version}/{version}.jar") && File.Exists($"{settings.minecraftPath}/versions/{version}/{version}.json"))
             {
+
+                UpdateRPC("Ingame", $"Playing {version}", Timestamps.Now);
                 await LaunchGame(settings.username, version, settings.minecraftPath, settings.arguments, settings.javaPath);
             }
             else
@@ -211,6 +216,8 @@ namespace AlphaverLauncherRecreation
 
 
             process.WaitForExit();
+            client.Dispose();
+            InitializeRPC(version);
         }
 
         void WriteOutputToConsole(object sender, DataReceivedEventArgs e)
@@ -280,7 +287,52 @@ namespace AlphaverLauncherRecreation
             logintext.Text = "Logged in as " + username;
         }
 
+       public void InitializeRPC(string version)
+        {
+            /*
+            Create a Discord client
+            NOTE:   If you are using Unity3D, you must use the full constructor and define
+                     the pipe connection.
+            */
+            client = new DiscordRpcClient("1078921998094307348");
 
+            //Set the logger
+
+
+            //Subscribe to events
+            client.OnReady += (sender, e) =>
+            {
+                Console.WriteLine("Set presence for {0}", e.User.Username);
+            };
+
+            //Connect to the RPC
+            client.Initialize();
+
+            //Set the rich presence
+            //Call this as many times as you want and anywhere in your code.
+            client.SetPresence(new RichPresence()
+            {
+                State = "Version is set to " + version,
+                Details = "Idle",
+                Assets = new Assets()
+                {
+                    LargeImageKey = "alphaver",
+                }
+            });
+        }
+        void UpdateRPC(string state, string details, Timestamps timeStamp)
+        {
+            client.SetPresence(new RichPresence()
+            {
+                State = state,
+                Details = details,
+                Timestamps = timeStamp,
+                Assets = new Assets()
+                {
+                    LargeImageKey = "alphaver",
+                }
+            });
+        }
 
 
     }
