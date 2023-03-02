@@ -35,7 +35,7 @@ namespace AlphaverLauncherRecreation
             modBox.Text = settings.mod;
             javaPathBox.Text = settings.javaPath;
             discordRPCCheckBox.Checked = settings.discordRPC;
-
+            loadingCheckBox.Checked = settings.loadingBar;
 
             string jsonString = JsonConvert.SerializeObject(settings);
 
@@ -56,7 +56,7 @@ namespace AlphaverLauncherRecreation
             settings.mod = modBox.Text;
             settings.javaPath = javaPathBox.Text;
             settings.discordRPC = discordRPCCheckBox.Checked;
-
+            settings.loadingBar = loadingCheckBox.Checked;
 
 
 
@@ -66,9 +66,7 @@ namespace AlphaverLauncherRecreation
 
             UpdateCreditText();
             launcher.UpdateUsername(usernameBox.Text);
-            launcher.settings.discordRPC = discordRPCCheckBox.Checked;
-            launcher.client.Dispose();
-            launcher.InitializeRPC(settings.version);
+            launcher.UpdateRPC("Version is set to " + settings.version, "Idle");
 
             this.Close();
         }
@@ -90,6 +88,7 @@ namespace AlphaverLauncherRecreation
                 case "lilypad_qa":
                     modBox.Items.Add("afterglow");
                     modBox.Items.Add("rosepad");
+                    modBox.Items.Add("badblock");
                     break;
                 case "":
                     break;
@@ -130,6 +129,9 @@ namespace AlphaverLauncherRecreation
                 case "afterglow":
                     System.Diagnostics.Process.Start("https://github.com/AfterglowMC/AfterglowMC");
                     break;
+                case "badblock":
+                    System.Diagnostics.Process.Start("https://github.com/Alphaverers/BadBlock");
+                    break;
 
             }
         }
@@ -145,6 +147,9 @@ namespace AlphaverLauncherRecreation
                     break;
                 case "afterglow":
                     creditText.Text = "Afterglow github repository";
+                    break;
+                case "badblock":
+                    creditText.Text = "Badblock github repository";
                     break;
                 case "vanilla":
                 case null:
@@ -200,6 +205,16 @@ namespace AlphaverLauncherRecreation
         {
             minecraftPathBox.Text = OpenBrowseFolderDialog();
         }
+
+        private void githubRepoButton_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://github.com/Alphaverers/AlphaverLauncherRecreation");
+        }
+
+        private void alphaverChannelButton_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://www.youtube.com/@user-le2ev9cj8q");
+        }
     }
 
 
@@ -217,6 +232,7 @@ namespace AlphaverLauncherRecreation
         public string mod;
         public Mod[] mods;
         public bool discordRPC;
+        public bool loadingBar;
 
     }
 

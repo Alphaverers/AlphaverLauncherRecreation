@@ -21,7 +21,7 @@ namespace AlphaverLauncherRecreation
         public DiscordRpcClient client;
         string defaultUsername = "Player";
         Popup downloadPopup = new Popup("Downloading..", "", true, false, false);
-       
+
 
 
         public Launcher()
@@ -109,6 +109,8 @@ namespace AlphaverLauncherRecreation
             {
 
                 UpdateRPC("Ingame", $"Playing {version}", Timestamps.Now);
+                //open loader  so it looks cool
+                if (settings.loadingBar) ShowLoadingBar(version);
                 await LaunchGame(settings.username, version, settings.minecraftPath, settings.arguments, settings.javaPath);
             }
             else
@@ -144,7 +146,10 @@ namespace AlphaverLauncherRecreation
                             latestBuildLink = GetLatestGithubBuild("https://api.github.com/repos/AfterglowMC/AfterglowMC/releases");
                             Downloader($"{settings.minecraftPath}/versions/afterglow/afterglow.jar", new Uri(latestBuildLink)).Start();
                             break;
-
+                        case "badblock":
+                            latestBuildLink = GetLatestGithubBuild("https://api.github.com/repos/Alphaverers/Badblock/releases");
+                            Downloader($"{settings.minecraftPath}/versions/badblock/badblock.jar", new Uri(latestBuildLink)).Start();
+                            break;
                     }
 
 
@@ -179,11 +184,7 @@ namespace AlphaverLauncherRecreation
         private async Task LaunchGame(string username, string version, string gamePath, string javaArguments, string javaPath)
         {
 
-            //open loader  so it looks cool
-            var loader = new Loader();
-            loader.Show();
             Console.WriteLine($"Launching {version}.");
-
             //set minecraft path to location in settings file
             var launcher = new CMLauncher(gamePath);
 
@@ -219,8 +220,13 @@ namespace AlphaverLauncherRecreation
 
 
             process.WaitForExit();
-            client.Dispose();
-            InitializeRPC(version);
+            UpdateRPC("Version is set to " + version, "Idle", Timestamps.Now);
+        }
+
+        private static void ShowLoadingBar(string version)
+        {
+            var loader = new Loader();
+            loader.Show();
         }
 
         void WriteOutputToConsole(object sender, DataReceivedEventArgs e)
@@ -290,7 +296,7 @@ namespace AlphaverLauncherRecreation
             logintext.Text = "Logged in as " + username;
         }
 
-       public void InitializeRPC(string version)
+        public void InitializeRPC(string version)
         {
             if (settings.discordRPC)
             {
@@ -317,7 +323,7 @@ namespace AlphaverLauncherRecreation
             else
             {
                 client.Dispose();
-                
+
             }
         }
         void UpdateRPC(string state, string details, Timestamps timeStamp)
@@ -338,7 +344,28 @@ namespace AlphaverLauncherRecreation
             else
             {
                 client.Dispose();
-                
+
+            }
+        }
+
+        public void UpdateRPC(string state, string details)
+        {
+            if (settings.discordRPC)
+            {
+                client.SetPresence(new RichPresence()
+                {
+                    State = state,
+                    Details = details,
+                    Assets = new Assets()
+                    {
+                        LargeImageKey = "alphaver",
+                    }
+                });
+            }
+            else
+            {
+                client.Dispose();
+
             }
         }
 
