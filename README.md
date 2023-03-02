@@ -4,11 +4,11 @@ It can download all currently avaible versions, log in offline and can have a cu
 
 Feel free to create a pull request to add/fix stuff.
 
-| Alphaver mod      | Supported       | Support type |
-|-------------------|-----------------|--------------|
-| Rosepad           | yes             | Latest       |
-| Afterglow         | yes(has issues) | None         |
-| BadBlock          | soon            | None         |
+| Alphaver mod      | Supported       |
+|-------------------|-----------------|
+| Rosepad           | yes             |
+| Afterglow         | yes(has issues) |
+| BadBlock          | soon            |
 
 # Screenshots
 ![AlphaverLauncherRecreation_dH5KHpxCpX](https://user-images.githubusercontent.com/99086327/218202963-a546e791-478f-47fc-b55a-ef59aa82d417.png)
