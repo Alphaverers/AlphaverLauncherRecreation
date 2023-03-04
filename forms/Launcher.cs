@@ -111,6 +111,8 @@ namespace AlphaverLauncherRecreation
                 UpdateRPC("Ingame", $"Playing {version}", Timestamps.Now);
                 //open loader  so it looks cool
                 if (settings.loadingBar) ShowLoadingBar(version);
+                playButton.Text = "Launched";
+                playButton.Enabled = false;
                 await LaunchGame(settings.username, version, settings.minecraftPath, settings.arguments, settings.javaPath);
             }
             else
@@ -220,7 +222,9 @@ namespace AlphaverLauncherRecreation
 
 
             process.WaitForExit();
-            UpdateRPC("Version is set to " + version, "Idle", Timestamps.Now);
+            UpdateRPC("Version is set to " + version, "Idle");
+            playButton.Text = "Launch";
+            playButton.Enabled = true;
         }
 
         private static void ShowLoadingBar(string version)
