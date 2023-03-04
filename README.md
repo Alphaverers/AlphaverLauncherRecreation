@@ -13,4 +13,4 @@ Feel free to create a pull request to add/fix stuff.
 - Download all avaible versions
 - Launch rosepad, badblock, afterglow (currently broken)
 - JVM Arguments
--
+
