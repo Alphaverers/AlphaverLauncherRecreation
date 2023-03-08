@@ -30,7 +30,7 @@ namespace AlphaverLauncherRecreation
             //update boxes to reflect whats in settings.txt
             usernameBox.Text = settings.username;
             versionBox.Text = settings.version;
-            minecraftPathBox.Text = settings.minecraftPath;
+     
             argumentsBox.Text = settings.arguments;
             modBox.Text = settings.mod;
             javaPathBox.Text = settings.javaPath;
@@ -51,7 +51,7 @@ namespace AlphaverLauncherRecreation
 
             settings.username = usernameBox.Text;
             settings.version = versionBox.Text;
-            settings.minecraftPath = minecraftPathBox.Text;
+           
             settings.arguments = argumentsBox.Text;
             settings.mod = modBox.Text;
             settings.javaPath = javaPathBox.Text;
@@ -226,9 +226,9 @@ namespace AlphaverLauncherRecreation
 
         public string username;
         public string version;
-        public string minecraftPath;
         public string javaPath;
         public string arguments;
+        public FolderStructure folderStructure = new FolderStructure();
         public string mod;
         public Mod[] mods;
         public bool discordRPC;
@@ -240,5 +240,13 @@ namespace AlphaverLauncherRecreation
     {
         public string version;
         public string name;
+    }
+    public class FolderStructure
+    {
+        public string jars;
+        public string libraries;
+        public string natives;
+        public string gameDirectory;
+
     }
 }

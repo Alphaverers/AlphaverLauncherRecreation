@@ -21,7 +21,7 @@ namespace AlphaverLauncherRecreation
         public DiscordRpcClient client;
         string defaultUsername = "Player";
         Popup downloadPopup = new Popup("Downloading..", "", true, false, false);
-
+        string[] libraries = { "./bin/jinput.jar", "./bin/lwjgl.jar", "./bin/lwjgl_util.jar" };
 
 
         public Launcher()
@@ -33,9 +33,12 @@ namespace AlphaverLauncherRecreation
             if (!File.Exists("settings.json"))
             {
                 settings.username = defaultUsername;
-                settings.minecraftPath = "./.minecraft";
+                settings.folderStructure.gameDirectory = "./.minecraft";
                 settings.arguments = "-Xmx2G";
                 settings.discordRPC = true;
+                settings.loadingBar = true;
+
+                settings.folderStructure.jars = "./jars";
                 StreamWriter writer = new StreamWriter(File.Open("settings.json", FileMode.Create));
                 writer.Write(JsonConvert.SerializeObject(settings));
                 writer.Close();
@@ -58,6 +61,8 @@ namespace AlphaverLauncherRecreation
 
             client = new DiscordRpcClient("1078921998094307348");
             InitializeRPC(settings.version);
+
+           
         }
 
         public static bool CheckInternetConnection()
@@ -104,8 +109,8 @@ namespace AlphaverLauncherRecreation
             {
                 version = settings.mod;
             }
-
-            if (File.Exists($"{settings.minecraftPath}/versions/{version}/{version}.jar") && File.Exists($"{settings.minecraftPath}/versions/{version}/{version}.json"))
+           
+            if (File.Exists($"{settings.folderStructure.jars}/{version}.jar"))
             {
 
                 UpdateRPC("Ingame", $"Playing {version}", Timestamps.Now);
@@ -113,26 +118,21 @@ namespace AlphaverLauncherRecreation
                 if (settings.loadingBar) ShowLoadingBar(version);
                 playButton.Text = "Launched";
                 playButton.Enabled = false;
-                await LaunchGame(settings.username, version, settings.minecraftPath, settings.arguments, settings.javaPath);
+                //  await LaunchGame(settings.username, version, settings.minecraftPath, settings.arguments, settings.javaPath);
+                BetterLaunch($"{settings.folderStructure.jars}/{version}.jar");
             }
             else
             {
 
 
 
-                Directory.CreateDirectory($"{settings.minecraftPath}/versions/{version}");
-                string jsonFile = $"{settings.minecraftPath}/versions/{version}/{version}.json";
-
-                //it copies default version json file to jars directory
-                if (!File.Exists(jsonFile))
-                {
-                    CreateJsonFile(version, jsonFile);
-                }
+                Directory.CreateDirectory($"{settings.folderStructure.jars}");
+    
 
 
                 if (isItVanilla)
                 {
-                    Downloader($"{settings.minecraftPath}/versions/{version}/{version}.jar", new Uri($"https://github.com/Gnawmon/AlphaverLauncherRecreation/raw/main/files/jars/{version}.jar")).Start();
+                    Downloader($"{settings.folderStructure.jars}/{version}.jar", new Uri($"https://github.com/Gnawmon/AlphaverLauncherRecreation/raw/main/files/jars/{version}.jar")).Start();
 
                 }
                 else
@@ -142,15 +142,15 @@ namespace AlphaverLauncherRecreation
                     {
                         case "rosepad":
                             latestBuildLink = GetLatestGithubBuild("https://api.github.com/repos/rosepadmc/rosepad/releases");
-                            Downloader($"{settings.minecraftPath}/versions/rosepad/rosepad.jar", new Uri(latestBuildLink)).Start();
+                            Downloader($"{settings.folderStructure.jars}/rosepad.jar", new Uri(latestBuildLink)).Start();
                             break;
                         case "afterglow":
                             latestBuildLink = GetLatestGithubBuild("https://api.github.com/repos/AfterglowMC/AfterglowMC/releases");
-                            Downloader($"{settings.minecraftPath}/versions/afterglow/afterglow.jar", new Uri(latestBuildLink)).Start();
+                            Downloader($"{settings.folderStructure.jars}/afterglow.jar", new Uri(latestBuildLink)).Start();
                             break;
                         case "badblock":
                             latestBuildLink = GetLatestGithubBuild("https://api.github.com/repos/Alphaverers/Badblock/releases");
-                            Downloader($"{settings.minecraftPath}/versions/badblock/badblock.jar", new Uri(latestBuildLink)).Start();
+                            Downloader($"{settings.folderStructure.jars}/badblock.jar", new Uri(latestBuildLink)).Start();
                             break;
                     }
 
@@ -203,7 +203,10 @@ namespace AlphaverLauncherRecreation
 
             };
 
-            var process = await launcher.CreateProcessAsync(version, launchOptions);
+            System.Diagnostics.Process process = new System.Diagnostics.Process();
+            System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
+            startInfo.FileName = "java";
+            startInfo.Arguments = "-Xms512m -Xmx1024m -Djava.library.path=\"./bin/natives\"-cp \"minecraft.jar\";\"./bin/jinput.jar\";\"./bin/lwjgl.jar\";\"./bin/lwjgl_util.jar\" net.minecraft.client.Minecraft ";
 
             process.StartInfo.RedirectStandardInput = true;
             process.StartInfo.RedirectStandardOutput = true;
@@ -286,7 +289,6 @@ namespace AlphaverLauncherRecreation
 
         private void settingsButton_Click(object sender, EventArgs e)
         {
-
             var settings = new SettingsForm();
             settings.Show();
         }
@@ -372,7 +374,41 @@ namespace AlphaverLauncherRecreation
 
             }
         }
+        void BetterLaunch(string version)
+        {
+            System.Diagnostics.Process process = new System.Diagnostics.Process();
+            System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
+            process.StartInfo.FileName = "java";
 
+            process.StartInfo.Arguments = GenerateArguments("-Xms512m -Xmx1024m", "./bin/natives", version, libraries, "net.minecraft.client.Minecraft");
+
+
+            Console.WriteLine(process.StartInfo.Arguments);
+           process.StartInfo.RedirectStandardInput = true;
+            process.StartInfo.RedirectStandardOutput = true;
+            process.StartInfo.RedirectStandardError = true;
+            process.StartInfo.UseShellExecute = false;
+            process.OutputDataReceived += WriteOutputToConsole;
+            process.ErrorDataReceived += WriteOutputToConsole;
+
+            process.Start();
+            process.BeginOutputReadLine();
+            process.BeginErrorReadLine();
+
+
+        }
+        string GenerateArguments(string minecraftArguments, string natives, string jar, string[] libraries, string mainClass)
+        {
+            string libraryStrings = "";
+            foreach (string lib in libraries)
+            {
+                libraryStrings += $"\"{lib}\";";
+
+            }
+            string arguments = $"{minecraftArguments} -Djava.library.path=\"{natives}\" -cp \"{jar}\";{libraryStrings} {mainClass} ";
+           
+            return arguments;
+        }
 
     }
 }
