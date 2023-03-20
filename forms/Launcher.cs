@@ -6,6 +6,7 @@ using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
+using System.IO.Compression;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
@@ -44,7 +45,7 @@ namespace AlphaverLauncherRecreation
                 writer.Close();
 
             }
-           
+
             settings = JsonConvert.DeserializeObject<Settings>(System.IO.File.ReadAllText("settings.json"));
             UpdateUsername(settings.username);
 
@@ -119,7 +120,8 @@ namespace AlphaverLauncherRecreation
                 playButton.Text = "Launched";
                 playButton.Enabled = false;
                 //  await LaunchGame(settings.username, version, settings.minecraftPath, settings.arguments, settings.javaPath);
-                InstallLibraries();
+                //InstallLibraries();
+                  BetterLaunch($"{settings.folderStructure.jars}/{version}.jar");
             }
             else
             {
@@ -278,7 +280,14 @@ namespace AlphaverLauncherRecreation
             this.BeginInvoke((MethodInvoker)delegate
             {
                 Console.WriteLine("Completed");
-
+                if (File.Exists($"{settings.folderStructure.libraries}\\lwjgl.jar") && !File.Exists("lwjglnatives.zip")) 
+                {
+                    Downloader("lwjglnatives.zip", new Uri("https://libraries.minecraft.net/org/lwjgl/lwjgl/lwjgl-platform/2.9.0/lwjgl-platform-2.9.0-natives-windows.jar")).Start();
+                }
+                if (File.Exists("lwjglnatives.zip"))
+                {
+                    ZipFile.ExtractToDirectory("lwjglnatives.zip", $"{settings.folderStructure.libraries}\\natives");
+                }
                 downloadPopup.Hide();
 
             });
@@ -378,12 +387,12 @@ namespace AlphaverLauncherRecreation
         {
             System.Diagnostics.Process process = new System.Diagnostics.Process();
             System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
-            process.StartInfo.FileName = "java";
+            process.StartInfo.FileName = settings.javaPath;
 
             process.StartInfo.Arguments = GenerateArguments("-Xms512m -Xmx1024m", "./bin/natives", version, libraries, "net.minecraft.client.Minecraft");
 
 
-            Console.WriteLine(process.StartInfo.Arguments);
+            Console.WriteLine($"{settings.javaPath} {process.StartInfo.Arguments}");
             process.StartInfo.RedirectStandardInput = true;
             process.StartInfo.RedirectStandardOutput = true;
             process.StartInfo.RedirectStandardError = true;
@@ -402,7 +411,7 @@ namespace AlphaverLauncherRecreation
             string libraryStrings = "";
             foreach (string lib in libraries)
             {
-                settings.folderStructure.libraries = ".\\bin\\";
+
                 libraryStrings += $"{settings.folderStructure.libraries}{lib};";
 
             }
@@ -419,7 +428,10 @@ namespace AlphaverLauncherRecreation
                     switch (lib)
                     {
                         case "lwjgl.jar":
-                            Downloader($"{settings.folderStructure}{lib}",new Uri("https://libraries.minecraft.net/org/lwjgl/lwjgl/lwjgl/2.9.0/lwjgl-2.9.0.jar")).Start();
+                            Downloader($"{settings.folderStructure.libraries}{lib}", new Uri("https://libraries.minecraft.net/org/lwjgl/lwjgl/lwjgl/2.9.0/lwjgl-2.9.0.jar")).Start();
+
+
+
                             break;
                     }
                 }
