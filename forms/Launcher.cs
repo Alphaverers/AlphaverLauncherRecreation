@@ -21,7 +21,7 @@ namespace AlphaverLauncherRecreation
         public DiscordRpcClient client;
         string defaultUsername = "Player";
         Popup downloadPopup = new Popup("Downloading..", "", true, false, false);
-        string[] libraries = { "./bin/jinput.jar", "./bin/lwjgl.jar", "./bin/lwjgl_util.jar" };
+        string[] libraries = { "jinput.jar", "lwjgl.jar", "lwjgl_util.jar" };
 
 
         public Launcher()
@@ -37,14 +37,14 @@ namespace AlphaverLauncherRecreation
                 settings.arguments = "-Xmx2G";
                 settings.discordRPC = true;
                 settings.loadingBar = true;
-
+                settings.folderStructure.libraries = ".\\bin\\";
                 settings.folderStructure.jars = "./jars";
                 StreamWriter writer = new StreamWriter(File.Open("settings.json", FileMode.Create));
                 writer.Write(JsonConvert.SerializeObject(settings));
                 writer.Close();
 
             }
-
+           
             settings = JsonConvert.DeserializeObject<Settings>(System.IO.File.ReadAllText("settings.json"));
             UpdateUsername(settings.username);
 
@@ -62,7 +62,7 @@ namespace AlphaverLauncherRecreation
             client = new DiscordRpcClient("1078921998094307348");
             InitializeRPC(settings.version);
 
-           
+
         }
 
         public static bool CheckInternetConnection()
@@ -109,7 +109,7 @@ namespace AlphaverLauncherRecreation
             {
                 version = settings.mod;
             }
-           
+
             if (File.Exists($"{settings.folderStructure.jars}/{version}.jar"))
             {
 
@@ -119,7 +119,7 @@ namespace AlphaverLauncherRecreation
                 playButton.Text = "Launched";
                 playButton.Enabled = false;
                 //  await LaunchGame(settings.username, version, settings.minecraftPath, settings.arguments, settings.javaPath);
-                BetterLaunch($"{settings.folderStructure.jars}/{version}.jar");
+                InstallLibraries();
             }
             else
             {
@@ -127,7 +127,7 @@ namespace AlphaverLauncherRecreation
 
 
                 Directory.CreateDirectory($"{settings.folderStructure.jars}");
-    
+
 
 
                 if (isItVanilla)
@@ -384,7 +384,7 @@ namespace AlphaverLauncherRecreation
 
 
             Console.WriteLine(process.StartInfo.Arguments);
-           process.StartInfo.RedirectStandardInput = true;
+            process.StartInfo.RedirectStandardInput = true;
             process.StartInfo.RedirectStandardOutput = true;
             process.StartInfo.RedirectStandardError = true;
             process.StartInfo.UseShellExecute = false;
@@ -402,13 +402,28 @@ namespace AlphaverLauncherRecreation
             string libraryStrings = "";
             foreach (string lib in libraries)
             {
-                libraryStrings += $"\"{lib}\";";
+                settings.folderStructure.libraries = ".\\bin\\";
+                libraryStrings += $"{settings.folderStructure.libraries}{lib};";
 
             }
-            string arguments = $"{minecraftArguments} -Djava.library.path=\"{natives}\" -cp \"{jar}\"; -gameDir \"./.minecraft\" {libraryStrings} {mainClass}  ";
-           
+            string arguments = $"{minecraftArguments} -Djava.library.path=\"{natives}\" -cp \"{jar}\";{libraryStrings} {mainClass} ";
+
             return arguments;
         }
-
+        void InstallLibraries()
+        {
+            foreach (string lib in libraries)
+            {
+                if (!File.Exists($"{settings.folderStructure.libraries}{lib}"))
+                {
+                    switch (lib)
+                    {
+                        case "lwjgl.jar":
+                            Downloader($"{settings.folderStructure}{lib}",new Uri("https://libraries.minecraft.net/org/lwjgl/lwjgl/lwjgl/2.9.0/lwjgl-2.9.0.jar")).Start();
+                            break;
+                    }
+                }
+            }
+        }
     }
 }

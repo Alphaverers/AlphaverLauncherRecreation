@@ -245,7 +245,6 @@ namespace AlphaverLauncherRecreation
     {
         public string jars;
         public string libraries;
-        public string natives;
         public string gameDirectory;
 
     }

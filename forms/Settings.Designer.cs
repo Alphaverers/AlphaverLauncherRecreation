@@ -58,6 +58,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.tabControl = new System.Windows.Forms.TabControl();
+            this.label4 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).BeginInit();
             this.versionPage.SuspendLayout();
             this.javaPage.SuspendLayout();
@@ -217,6 +218,7 @@
             // 
             // generalPage
             // 
+            this.generalPage.Controls.Add(this.label4);
             this.generalPage.Controls.Add(this.loadingCheckBox);
             this.generalPage.Controls.Add(this.discordRPCCheckBox);
             this.generalPage.Controls.Add(this.minecraftPathSelectButton);
@@ -253,6 +255,8 @@
             // 
             // minecraftPathSelectButton
             // 
+            this.minecraftPathSelectButton.Cursor = System.Windows.Forms.Cursors.No;
+            this.minecraftPathSelectButton.Enabled = false;
             this.minecraftPathSelectButton.Location = new System.Drawing.Point(130, 104);
             this.minecraftPathSelectButton.Name = "minecraftPathSelectButton";
             this.minecraftPathSelectButton.Size = new System.Drawing.Size(23, 20);
@@ -271,11 +275,13 @@
             // 
             // minecraftPathBox
             // 
+            this.minecraftPathBox.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.minecraftPathBox.Enabled = false;
             this.minecraftPathBox.Location = new System.Drawing.Point(3, 104);
             this.minecraftPathBox.Name = "minecraftPathBox";
             this.minecraftPathBox.Size = new System.Drawing.Size(121, 20);
             this.minecraftPathBox.TabIndex = 5;
-            this.minecraftPathBox.Text = "./.minecraft";
+            this.minecraftPathBox.Text = "%appdata&/.minecraft";
             // 
             // usernameText
             // 
@@ -371,6 +377,15 @@
             this.tabControl.Size = new System.Drawing.Size(433, 244);
             this.tabControl.TabIndex = 0;
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(3, 127);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(225, 13);
+            this.label4.TabIndex = 19;
+            this.label4.Text = "It\'s currently grayed out due to some problems.";
+            // 
             // SettingsForm
             // 
             this.AllowDrop = true;
@@ -431,5 +446,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Label label4;
     }
 }
