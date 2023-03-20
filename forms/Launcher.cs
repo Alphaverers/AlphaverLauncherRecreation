@@ -206,7 +206,7 @@ namespace AlphaverLauncherRecreation
             System.Diagnostics.Process process = new System.Diagnostics.Process();
             System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
             startInfo.FileName = "java";
-            startInfo.Arguments = "-Xms512m -Xmx1024m -Djava.library.path=\"./bin/natives\"-cp \"minecraft.jar\";\"./bin/jinput.jar\";\"./bin/lwjgl.jar\";\"./bin/lwjgl_util.jar\" net.minecraft.client.Minecraft ";
+            startInfo.Arguments = "-Xms512m -Xmx1024m -Djava.library.path=\"./bin/natives\"-cp \"minecraft.jar\";\"./bin/jinput.jar\";\"./bin/lwjgl.jar\";\"./bin/lwjgl_util.jar\" net.minecraft.client.Minecraft  ";
 
             process.StartInfo.RedirectStandardInput = true;
             process.StartInfo.RedirectStandardOutput = true;
@@ -405,7 +405,7 @@ namespace AlphaverLauncherRecreation
                 libraryStrings += $"\"{lib}\";";
 
             }
-            string arguments = $"{minecraftArguments} -Djava.library.path=\"{natives}\" -cp \"{jar}\";{libraryStrings} {mainClass} ";
+            string arguments = $"{minecraftArguments} -Djava.library.path=\"{natives}\" -cp \"{jar}\"; -gameDir \"./.minecraft\" {libraryStrings} {mainClass}  ";
            
             return arguments;
         }
