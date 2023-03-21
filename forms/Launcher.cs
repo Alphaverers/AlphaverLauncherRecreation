@@ -118,10 +118,14 @@ namespace AlphaverLauncherRecreation
                 //open loader  so it looks cool
                 if (settings.loadingBar) ShowLoadingBar(version);
                 playButton.Text = "Launched";
-                playButton.Enabled = false;
+               // playButton.Enabled = false;
                 //  await LaunchGame(settings.username, version, settings.minecraftPath, settings.arguments, settings.javaPath);
-                //InstallLibraries();
-                  BetterLaunch($"{settings.folderStructure.jars}/{version}.jar");
+                if (AreLibrariesInstalled(settings.folderStructure.libraries,libraries)) { BetterLaunch($"{settings.folderStructure.jars}/{version}.jar"); }
+                else
+                {
+                    InstallLibraries();
+                }
+                  
             }
             else
             {
@@ -280,14 +284,7 @@ namespace AlphaverLauncherRecreation
             this.BeginInvoke((MethodInvoker)delegate
             {
                 Console.WriteLine("Completed");
-                if (File.Exists($"{settings.folderStructure.libraries}\\lwjgl.jar") && !File.Exists("lwjglnatives.zip")) 
-                {
-                    Downloader("lwjglnatives.zip", new Uri("https://libraries.minecraft.net/org/lwjgl/lwjgl/lwjgl-platform/2.9.0/lwjgl-platform-2.9.0-natives-windows.jar")).Start();
-                }
-                if (File.Exists("lwjglnatives.zip"))
-                {
-                    ZipFile.ExtractToDirectory("lwjglnatives.zip", $"{settings.folderStructure.libraries}\\natives");
-                }
+       
                 downloadPopup.Hide();
 
             });
@@ -425,17 +422,51 @@ namespace AlphaverLauncherRecreation
             {
                 if (!File.Exists($"{settings.folderStructure.libraries}{lib}"))
                 {
+                    Directory.CreateDirectory($"{settings.folderStructure.libraries}\\natives");
+
                     switch (lib)
                     {
                         case "lwjgl.jar":
-                            Downloader($"{settings.folderStructure.libraries}{lib}", new Uri("https://libraries.minecraft.net/org/lwjgl/lwjgl/lwjgl/2.9.0/lwjgl-2.9.0.jar")).Start();
+                         
+                            using (var client = new WebClient())
+                            {
+                        
+                                client.DownloadFile("https://libraries.minecraft.net/org/lwjgl/lwjgl/lwjgl/2.9.0/lwjgl-2.9.0.jar", $"{settings.folderStructure.libraries}{lib}");
+                                client.DownloadFile("https://libraries.minecraft.net/org/lwjgl/lwjgl/lwjgl-platform/2.9.0/lwjgl-platform-2.9.0-natives-windows.jar", "lwjglnatives.zip");
 
+                            }
+
+                            ZipFile.ExtractToDirectory("lwjglnatives.zip", $"{settings.folderStructure.libraries}\\natives");
+                            break;
+                        case "jinput.jar":
+                            using (var client = new WebClient())
+                            {
+                                client.DownloadFile("https://libraries.minecraft.net/net/java/jinput/jinput-platform/2.0.5/jinput-platform-2.0.5-natives-windows.jar", $"{settings.folderStructure.libraries}{lib}");
+                            }
+                            break;
+                        case "lwjgl_util.jar":
+                            using (var client = new WebClient())
+                            {
+                                client.DownloadFile("https://libraries.minecraft.net/org/lwjgl/lwjgl/lwjgl_util/2.9.1-nightly-20130708-debug3/lwjgl_util-2.9.1-nightly-20130708-debug3.jar", $"{settings.folderStructure.libraries}{lib}");
+                            }
 
 
                             break;
                     }
+                    Console.WriteLine($"Downloading {lib}.");
                 }
             }
+        }
+        bool AreLibrariesInstalled(string libfolder, string[] requiredLibraries)
+        {
+            foreach (string lib in requiredLibraries)
+            {
+                if (!File.Exists($"{settings.folderStructure.libraries}{lib}"))
+                {
+                return false;
+                }
+            }
+            return true;
         }
     }
 }
