@@ -27,16 +27,24 @@ namespace AlphaverLauncherRecreation
 
 
 
-            //update boxes to reflect whats in settings.txt
+            //update boxes to reflect whats in settings.json
             usernameBox.Text = settings.username;
             versionBox.Text = settings.version;
-     
+           
             argumentsBox.Text = settings.arguments;
             modBox.Text = settings.mod;
             javaPathBox.Text = settings.javaPath;
-            discordRPCCheckBox.Checked = settings.discordRPC;
-            loadingCheckBox.Checked = settings.loadingBar;
+            launchDelayBox.Text = settings.launchDelay.ToString();
 
+            librariesPathBox.Text = settings.folderStructure.libraries;
+            jarPathBox.Text = settings.folderStructure.jars;
+            minecraftPathBox.Text = settings.folderStructure.gameDirectory;
+
+            discordRPCCheckBox.Checked =  settings.discordRPC;
+            loadingCheckBox.Checked = settings.loadingBar;
+            consoleCheckBox.Checked = settings.consoleWindow;
+
+            launcherVersionText.Text = "V" + Program.version.ToString();
             string jsonString = JsonConvert.SerializeObject(settings);
 
 
@@ -48,16 +56,22 @@ namespace AlphaverLauncherRecreation
         {
             StreamWriter writer = new StreamWriter(File.Open("settings.json", FileMode.Create));
 
-
+            settings.launcherVersion = Program.version;
             settings.username = usernameBox.Text;
             settings.version = versionBox.Text;
-           
+            settings.launchDelay = Int32.Parse(launchDelayBox.Text);
+
             settings.arguments = argumentsBox.Text;
             settings.mod = modBox.Text;
             settings.javaPath = javaPathBox.Text;
+
             settings.discordRPC = discordRPCCheckBox.Checked;
             settings.loadingBar = loadingCheckBox.Checked;
+            settings.consoleWindow = consoleCheckBox.Checked;
 
+            settings.folderStructure.jars = jarPathBox.Text;
+            settings.folderStructure.libraries = librariesPathBox.Text;
+            settings.folderStructure.gameDirectory = minecraftPathBox.Text;
 
 
             writer.Write(JsonConvert.SerializeObject(settings));
@@ -215,6 +229,8 @@ namespace AlphaverLauncherRecreation
         {
             System.Diagnostics.Process.Start("https://www.youtube.com/@user-le2ev9cj8q");
         }
+
+   
     }
 
 
@@ -223,7 +239,7 @@ namespace AlphaverLauncherRecreation
 
     public class Settings
     {
-
+        public int launcherVersion;
         public string username;
         public string version;
         public string javaPath;
@@ -233,7 +249,8 @@ namespace AlphaverLauncherRecreation
         public Mod[] mods;
         public bool discordRPC;
         public bool loadingBar;
-
+        public bool consoleWindow;
+        public int launchDelay;
     }
 
     public class Mod
