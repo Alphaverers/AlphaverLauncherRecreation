@@ -120,7 +120,7 @@ namespace AlphaverLauncherRecreation
                     if (settings.javaPath == null || settings.javaPath == "")
                     {
                         Popup popup = new Popup("", "Please set java binary.", false, true, false);
-
+                        popup.Show();
                         return;
                     }
                     UpdateRPC("Ingame", $"Playing {version}", Timestamps.Now);
@@ -176,6 +176,7 @@ namespace AlphaverLauncherRecreation
 
 
                 }
+        
             }
 
 
@@ -220,8 +221,9 @@ namespace AlphaverLauncherRecreation
                 client.DownloadFileCompleted += new AsyncCompletedEventHandler(DownloadComplete);
                 client.DownloadFileAsync(link, filename);
             });
+            
             return thread;
-
+     
 
 
         }
@@ -371,7 +373,7 @@ namespace AlphaverLauncherRecreation
             foreach (string lib in libraries)
             {
 
-                libraryStrings += $"{settings.folderStructure.libraries}{lib};";
+                libraryStrings += $"{settings.folderStructure.libraries}\\{lib};";
 
             }
             string arguments = $"{minecraftArguments} -Djava.library.path=\"{natives}\" -cp \"{jar}\";{libraryStrings} {additionalArguments} {mainClass} \"{username}\" ";
@@ -399,6 +401,7 @@ namespace AlphaverLauncherRecreation
                             }
                             Directory.Delete($"{settings.folderStructure.libraries}\\natives");
                             ZipFile.ExtractToDirectory("lwjglnatives.zip", $"{settings.folderStructure.libraries}\\natives");
+                            File.Delete("lwjglnatives.zip");
                             break;
                         case "jinput.jar":
                             using (var client = new WebClient())
@@ -419,6 +422,8 @@ namespace AlphaverLauncherRecreation
                 }
             }
             Console.WriteLine("Installed all required libraries.");
+            playButton.PerformClick();
+        ;
         }
         bool AreLibrariesInstalled(string libfolder, string[] requiredLibraries)
         {

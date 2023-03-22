@@ -15,11 +15,16 @@ namespace AlphaverLauncherRecreation
 
         //gets launcher so we can update the "logged in as x" text
         Launcher launcher = Application.OpenForms.OfType<Launcher>().Single();
+        bool isDebugMode = false;
+
 
         public SettingsForm()
         {
             InitializeComponent();
 
+#if DEBUG
+            isDebugMode = true;
+#endif
 
             settings = JsonConvert.DeserializeObject<Settings>(System.IO.File.ReadAllText("settings.json"));
 
@@ -30,7 +35,7 @@ namespace AlphaverLauncherRecreation
             //update boxes to reflect whats in settings.json
             usernameBox.Text = settings.username;
             versionBox.Text = settings.version;
-           
+
             argumentsBox.Text = settings.arguments;
             modBox.Text = settings.mod;
             javaPathBox.Text = settings.javaPath;
@@ -40,11 +45,15 @@ namespace AlphaverLauncherRecreation
             jarPathBox.Text = settings.folderStructure.jars;
             minecraftPathBox.Text = settings.folderStructure.gameDirectory;
 
-            discordRPCCheckBox.Checked =  settings.discordRPC;
+            discordRPCCheckBox.Checked = settings.discordRPC;
             loadingCheckBox.Checked = settings.loadingBar;
             consoleCheckBox.Checked = settings.consoleWindow;
 
-            launcherVersionText.Text = "V" + Program.version.ToString();
+            string versionString = "V" + Program.version.ToString();
+            if (isDebugMode) versionString += " Debug Build";
+
+            launcherVersionText.Text = versionString;
+            
             string jsonString = JsonConvert.SerializeObject(settings);
 
 
@@ -227,10 +236,10 @@ namespace AlphaverLauncherRecreation
 
         private void alphaverChannelButton_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start("https://www.youtube.com/@user-le2ev9cj8q");
+            System.Diagnostics.Process.Start("https://www.youtube.com/@MinecraftAlphaVersions");
         }
 
-   
+
     }
 
 
