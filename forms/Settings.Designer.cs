@@ -44,6 +44,8 @@
             this.argumentsText = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.generalPage = new System.Windows.Forms.TabPage();
+            this.launchDelayBox = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
             this.librariesPathSelectButton = new System.Windows.Forms.Button();
             this.librariesPathBox = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
@@ -67,8 +69,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.tabControl = new System.Windows.Forms.TabControl();
-            this.launchDelayBox = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
+            this.addModButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).BeginInit();
             this.versionPage.SuspendLayout();
             this.javaPage.SuspendLayout();
@@ -95,6 +96,7 @@
             // 
             // versionPage
             // 
+            this.versionPage.Controls.Add(this.addModButton);
             this.versionPage.Controls.Add(this.creditText);
             this.versionPage.Controls.Add(this.modBox);
             this.versionPage.Controls.Add(this.versionText);
@@ -251,6 +253,23 @@
             this.generalPage.TabIndex = 0;
             this.generalPage.Text = "General";
             this.generalPage.UseVisualStyleBackColor = true;
+            // 
+            // launchDelayBox
+            // 
+            this.launchDelayBox.Location = new System.Drawing.Point(182, 36);
+            this.launchDelayBox.Name = "launchDelayBox";
+            this.launchDelayBox.Size = new System.Drawing.Size(100, 20);
+            this.launchDelayBox.TabIndex = 28;
+            this.launchDelayBox.Text = "15";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(182, 9);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(73, 13);
+            this.label7.TabIndex = 27;
+            this.label7.Text = "Launch Delay";
             // 
             // librariesPathSelectButton
             // 
@@ -481,22 +500,15 @@
             this.tabControl.Size = new System.Drawing.Size(433, 244);
             this.tabControl.TabIndex = 0;
             // 
-            // launchDelayBox
+            // addModButton
             // 
-            this.launchDelayBox.Location = new System.Drawing.Point(182, 36);
-            this.launchDelayBox.Name = "launchDelayBox";
-            this.launchDelayBox.Size = new System.Drawing.Size(100, 20);
-            this.launchDelayBox.TabIndex = 28;
-            this.launchDelayBox.Text = "15";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(182, 9);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(73, 13);
-            this.label7.TabIndex = 27;
-            this.label7.Text = "Launch Delay";
+            this.addModButton.Location = new System.Drawing.Point(16, 162);
+            this.addModButton.Name = "addModButton";
+            this.addModButton.Size = new System.Drawing.Size(121, 23);
+            this.addModButton.TabIndex = 15;
+            this.addModButton.Text = "Add Mod";
+            this.addModButton.UseVisualStyleBackColor = true;
+            this.addModButton.Click += new System.EventHandler(this.addModButton_Click);
             // 
             // SettingsForm
             // 
@@ -569,5 +581,6 @@
         private System.Windows.Forms.Label launcherVersionText;
         private System.Windows.Forms.TextBox launchDelayBox;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Button addModButton;
     }
 }

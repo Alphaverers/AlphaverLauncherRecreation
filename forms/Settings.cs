@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -11,7 +12,7 @@ namespace AlphaverLauncherRecreation
     partial class SettingsForm : Form
     {
 
-        Settings settings = new Settings();
+        public Settings settings = new Settings();
 
         //gets launcher so we can update the "logged in as x" text
         Launcher launcher = Application.OpenForms.OfType<Launcher>().Single();
@@ -53,7 +54,7 @@ namespace AlphaverLauncherRecreation
             if (isDebugMode) versionString += " Debug Build";
 
             launcherVersionText.Text = versionString;
-            
+
             string jsonString = JsonConvert.SerializeObject(settings);
 
 
@@ -101,7 +102,7 @@ namespace AlphaverLauncherRecreation
 
         }
 
-        void updateModsBox(string version)
+        public void updateModsBox(string version)
         {
             modBox.Items.Clear();
             modBox.Items.Add("vanilla");
@@ -157,6 +158,7 @@ namespace AlphaverLauncherRecreation
                     break;
 
             }
+
         }
 
         private void UpdateCreditText()
@@ -181,6 +183,7 @@ namespace AlphaverLauncherRecreation
                     break;
 
             }
+       
         }
         /// <summary>
         /// Opens a windows file dialog.
@@ -239,7 +242,12 @@ namespace AlphaverLauncherRecreation
             System.Diagnostics.Process.Start("https://www.youtube.com/@MinecraftAlphaVersions");
         }
 
+        private void addModButton_Click(object sender, EventArgs e)
+        {
+            forms.ModAdder modAdder = new forms.ModAdder();
+            modAdder.Show();
 
+        }
     }
 
 
@@ -255,7 +263,7 @@ namespace AlphaverLauncherRecreation
         public string arguments;
         public FolderStructure folderStructure = new FolderStructure();
         public string mod;
-        public Mod[] mods;
+        public List<Mod> mods;
         public bool discordRPC;
         public bool loadingBar;
         public bool consoleWindow;

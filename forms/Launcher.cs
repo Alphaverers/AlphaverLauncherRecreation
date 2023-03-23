@@ -10,6 +10,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DiscordRPC;
+using System.Collections.Generic;
 
 namespace AlphaverLauncherRecreation
 {
@@ -40,6 +41,7 @@ namespace AlphaverLauncherRecreation
                 settings.folderStructure.libraries = ".\\bin";
                 settings.folderStructure.jars = ".\\jars";
                 settings.launchDelay = 15;
+                settings.mods = new List<Mod>();
                 StreamWriter writer = new StreamWriter(File.Open("settings.json", FileMode.Create));
                 writer.Write(JsonConvert.SerializeObject(settings));
                 writer.Close();
@@ -117,12 +119,6 @@ namespace AlphaverLauncherRecreation
 
                 if (AreLibrariesInstalled(settings.folderStructure.libraries, libraries))
                 {
-                    if (settings.javaPath == null || settings.javaPath == "")
-                    {
-                        Popup popup = new Popup("", "Please set java binary.", false, true, false);
-                        popup.Show();
-                        return;
-                    }
                     UpdateRPC("Ingame", $"Playing {version}", Timestamps.Now);
                     if (settings.loadingBar)
                     {
@@ -176,7 +172,7 @@ namespace AlphaverLauncherRecreation
 
 
                 }
-        
+
             }
 
 
@@ -221,9 +217,9 @@ namespace AlphaverLauncherRecreation
                 client.DownloadFileCompleted += new AsyncCompletedEventHandler(DownloadComplete);
                 client.DownloadFileAsync(link, filename);
             });
-            
+
             return thread;
-     
+
 
 
         }
@@ -343,16 +339,18 @@ namespace AlphaverLauncherRecreation
 
             }
         }
-        void BetterLaunch(string username, string version, string arguments, string javaBinary)
+        void BetterLaunch(string username, string version, string arguments, string javaExecutable)
         {
-            System.Diagnostics.Process process = new System.Diagnostics.Process();
-            System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
-            process.StartInfo.FileName = javaBinary;
+            if (javaExecutable == "" || javaExecutable == null) javaExecutable = "javaw";
+
+            Process process = new Process();
+            ProcessStartInfo startInfo = new ProcessStartInfo();
+            process.StartInfo.FileName = javaExecutable;
 
             process.StartInfo.Arguments = GenerateArguments("-Xms512m -Xmx1024m", settings.username, "./bin/natives", version, libraries, arguments, "net.minecraft.client.Minecraft");
 
 
-            Console.WriteLine($"{settings.javaPath} {process.StartInfo.Arguments}");
+            Console.WriteLine($"{javaExecutable} {process.StartInfo.Arguments}");
             process.StartInfo.RedirectStandardInput = true;
             process.StartInfo.RedirectStandardOutput = true;
             process.StartInfo.RedirectStandardError = true;
@@ -423,7 +421,7 @@ namespace AlphaverLauncherRecreation
             }
             Console.WriteLine("Installed all required libraries.");
             playButton.PerformClick();
-        ;
+            ;
         }
         bool AreLibrariesInstalled(string libfolder, string[] requiredLibraries)
         {
