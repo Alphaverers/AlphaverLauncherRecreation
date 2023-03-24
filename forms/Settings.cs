@@ -163,7 +163,7 @@ namespace AlphaverLauncherRecreation
 
         private void UpdateCreditText()
         {
-            creditText.Show();
+            if ((new[] { "rosepad", "badblock", "afterglow" }).Contains(modBox.Text, StringComparer.OrdinalIgnoreCase)) creditText.Show();
             switch (modBox.Text)
             {
 
@@ -247,6 +247,16 @@ namespace AlphaverLauncherRecreation
             forms.ModAdder modAdder = new forms.ModAdder();
             modAdder.Show();
 
+        }
+
+        private void jarsPathSelectButton_Click(object sender, EventArgs e)
+        {
+            jarPathBox.Text = OpenBrowseFolderDialog();
+        }
+
+        private void librariesPathSelectButton_Click(object sender, EventArgs e)
+        {
+            librariesPathBox.Text = OpenBrowseFolderDialog();
         }
     }
 

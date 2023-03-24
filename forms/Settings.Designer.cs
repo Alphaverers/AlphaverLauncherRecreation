@@ -32,6 +32,7 @@
             this.saveButton = new System.Windows.Forms.Button();
             this.fileSystemWatcher1 = new System.IO.FileSystemWatcher();
             this.versionPage = new System.Windows.Forms.TabPage();
+            this.addModButton = new System.Windows.Forms.Button();
             this.creditText = new System.Windows.Forms.LinkLabel();
             this.modBox = new System.Windows.Forms.ComboBox();
             this.versionText = new System.Windows.Forms.Label();
@@ -46,11 +47,9 @@
             this.generalPage = new System.Windows.Forms.TabPage();
             this.launchDelayBox = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.librariesPathSelectButton = new System.Windows.Forms.Button();
             this.librariesPathBox = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.consoleCheckBox = new System.Windows.Forms.CheckBox();
-            this.jarPathSelectButton = new System.Windows.Forms.Button();
             this.jarPathBox = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -69,7 +68,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.tabControl = new System.Windows.Forms.TabControl();
-            this.addModButton = new System.Windows.Forms.Button();
+            this.jarsPathSelectButton = new System.Windows.Forms.Button();
+            this.librariesSelectButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).BeginInit();
             this.versionPage.SuspendLayout();
             this.javaPage.SuspendLayout();
@@ -108,6 +108,16 @@
             this.versionPage.TabIndex = 0;
             this.versionPage.Text = "Version";
             this.versionPage.UseVisualStyleBackColor = true;
+            // 
+            // addModButton
+            // 
+            this.addModButton.Location = new System.Drawing.Point(16, 162);
+            this.addModButton.Name = "addModButton";
+            this.addModButton.Size = new System.Drawing.Size(121, 23);
+            this.addModButton.TabIndex = 15;
+            this.addModButton.Text = "Add Mod";
+            this.addModButton.UseVisualStyleBackColor = true;
+            this.addModButton.Click += new System.EventHandler(this.addModButton_Click);
             // 
             // creditText
             // 
@@ -230,13 +240,13 @@
             // 
             // generalPage
             // 
+            this.generalPage.Controls.Add(this.librariesSelectButton);
+            this.generalPage.Controls.Add(this.jarsPathSelectButton);
             this.generalPage.Controls.Add(this.launchDelayBox);
             this.generalPage.Controls.Add(this.label7);
-            this.generalPage.Controls.Add(this.librariesPathSelectButton);
             this.generalPage.Controls.Add(this.librariesPathBox);
             this.generalPage.Controls.Add(this.label6);
             this.generalPage.Controls.Add(this.consoleCheckBox);
-            this.generalPage.Controls.Add(this.jarPathSelectButton);
             this.generalPage.Controls.Add(this.jarPathBox);
             this.generalPage.Controls.Add(this.label5);
             this.generalPage.Controls.Add(this.label4);
@@ -271,16 +281,6 @@
             this.label7.TabIndex = 27;
             this.label7.Text = "Launch Delay";
             // 
-            // librariesPathSelectButton
-            // 
-            this.librariesPathSelectButton.Cursor = System.Windows.Forms.Cursors.No;
-            this.librariesPathSelectButton.Location = new System.Drawing.Point(309, 98);
-            this.librariesPathSelectButton.Name = "librariesPathSelectButton";
-            this.librariesPathSelectButton.Size = new System.Drawing.Size(23, 20);
-            this.librariesPathSelectButton.TabIndex = 26;
-            this.librariesPathSelectButton.Text = "...";
-            this.librariesPathSelectButton.UseVisualStyleBackColor = true;
-            // 
             // librariesPathBox
             // 
             this.librariesPathBox.BackColor = System.Drawing.SystemColors.Menu;
@@ -308,16 +308,6 @@
             this.consoleCheckBox.TabIndex = 23;
             this.consoleCheckBox.Text = "Console Window";
             this.consoleCheckBox.UseVisualStyleBackColor = true;
-            // 
-            // jarPathSelectButton
-            // 
-            this.jarPathSelectButton.Cursor = System.Windows.Forms.Cursors.No;
-            this.jarPathSelectButton.Location = new System.Drawing.Point(130, 97);
-            this.jarPathSelectButton.Name = "jarPathSelectButton";
-            this.jarPathSelectButton.Size = new System.Drawing.Size(23, 20);
-            this.jarPathSelectButton.TabIndex = 22;
-            this.jarPathSelectButton.Text = "...";
-            this.jarPathSelectButton.UseVisualStyleBackColor = true;
             // 
             // jarPathBox
             // 
@@ -500,15 +490,25 @@
             this.tabControl.Size = new System.Drawing.Size(433, 244);
             this.tabControl.TabIndex = 0;
             // 
-            // addModButton
+            // jarsPathSelectButton
             // 
-            this.addModButton.Location = new System.Drawing.Point(16, 162);
-            this.addModButton.Name = "addModButton";
-            this.addModButton.Size = new System.Drawing.Size(121, 23);
-            this.addModButton.TabIndex = 15;
-            this.addModButton.Text = "Add Mod";
-            this.addModButton.UseVisualStyleBackColor = true;
-            this.addModButton.Click += new System.EventHandler(this.addModButton_Click);
+            this.jarsPathSelectButton.Location = new System.Drawing.Point(130, 98);
+            this.jarsPathSelectButton.Name = "jarsPathSelectButton";
+            this.jarsPathSelectButton.Size = new System.Drawing.Size(23, 20);
+            this.jarsPathSelectButton.TabIndex = 29;
+            this.jarsPathSelectButton.Text = "...";
+            this.jarsPathSelectButton.UseVisualStyleBackColor = true;
+            this.jarsPathSelectButton.Click += new System.EventHandler(this.jarsPathSelectButton_Click);
+            // 
+            // librariesSelectButton
+            // 
+            this.librariesSelectButton.Location = new System.Drawing.Point(309, 98);
+            this.librariesSelectButton.Name = "librariesSelectButton";
+            this.librariesSelectButton.Size = new System.Drawing.Size(23, 20);
+            this.librariesSelectButton.TabIndex = 30;
+            this.librariesSelectButton.Text = "...";
+            this.librariesSelectButton.UseVisualStyleBackColor = true;
+            this.librariesSelectButton.Click += new System.EventHandler(this.librariesPathSelectButton_Click);
             // 
             // SettingsForm
             // 
@@ -572,15 +572,15 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.CheckBox consoleCheckBox;
-        private System.Windows.Forms.Button jarPathSelectButton;
         private System.Windows.Forms.TextBox jarPathBox;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Button librariesPathSelectButton;
         private System.Windows.Forms.TextBox librariesPathBox;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label launcherVersionText;
         private System.Windows.Forms.TextBox launchDelayBox;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Button addModButton;
+        private System.Windows.Forms.Button librariesSelectButton;
+        private System.Windows.Forms.Button jarsPathSelectButton;
     }
 }

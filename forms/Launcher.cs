@@ -243,7 +243,7 @@ namespace AlphaverLauncherRecreation
             this.BeginInvoke((MethodInvoker)delegate
             {
                 Console.WriteLine("Completed");
-
+               playButton.PerformClick();
                 downloadPopup.Hide();
 
             });
@@ -399,7 +399,7 @@ namespace AlphaverLauncherRecreation
                             }
                             Directory.Delete($"{settings.folderStructure.libraries}\\natives");
                             ZipFile.ExtractToDirectory("lwjglnatives.zip", $"{settings.folderStructure.libraries}\\natives");
-                            File.Delete("lwjglnatives.zip");
+      
                             break;
                         case "jinput.jar":
                             using (var client = new WebClient())

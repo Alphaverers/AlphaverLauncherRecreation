@@ -39,7 +39,16 @@
             // 
             // versionBox
             // 
+            this.versionBox.AutoCompleteCustomSource.AddRange(new string[] {
+            "v1605_unrpreview2",
+            "v1605_preview",
+            "lilypad_qa"});
+            this.versionBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.versionBox.FormattingEnabled = true;
+            this.versionBox.Items.AddRange(new object[] {
+            "lilypad_qa",
+            "v1605_preview",
+            "v1605_unrpreview2"});
             this.versionBox.Location = new System.Drawing.Point(152, 46);
             this.versionBox.Name = "versionBox";
             this.versionBox.Size = new System.Drawing.Size(121, 21);
@@ -104,7 +113,8 @@
             this.Controls.Add(this.versionBox);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ModAdder";
-            this.Text = "ModAdder";
+            this.Text = "Mod Adder";
+            this.TopMost = true;
             this.ResumeLayout(false);
             this.PerformLayout();
 

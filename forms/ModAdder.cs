@@ -21,6 +21,12 @@ namespace AlphaverLauncherRecreation.forms
         {
             SettingsForm settings = Application.OpenForms.OfType<SettingsForm>().Single();
 
+            if(jarLocation == "" || versionBox.Text == "" || nameBox.Text == "")
+            {
+                new Popup("Missing input found.","",false,true,false).Show();
+                return;
+            }
+
             File.Copy(jarLocation, $"{settings.settings.folderStructure.jars}\\{nameBox.Text}.jar");
 
             Mod modToAdd = new Mod();
