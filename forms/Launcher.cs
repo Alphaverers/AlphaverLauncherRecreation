@@ -166,6 +166,10 @@ namespace AlphaverLauncherRecreation
                             latestBuildLink = GetLatestGithubBuild("https://api.github.com/repos/Alphaverers/Badblock/releases");
                             Downloader($"{settings.folderStructure.jars}/badblock.jar", new Uri(latestBuildLink)).Start();
                             break;
+                        case "lpuj":
+                            latestBuildLink = GetLatestGithubBuild("https://api.github.com/repos/AlphaVerUnofficialJars/LilypadClient/releases");
+                            Downloader($"{settings.folderStructure.jars}/lpuj.jar", new Uri(latestBuildLink)).Start();
+                            break;
                     }
 
 

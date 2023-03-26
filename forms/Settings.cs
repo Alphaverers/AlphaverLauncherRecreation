@@ -113,6 +113,7 @@ namespace AlphaverLauncherRecreation
                     modBox.Items.Add("afterglow");
                     modBox.Items.Add("rosepad");
                     modBox.Items.Add("badblock");
+                    modBox.Items.Add("lpuj");
                     break;
                 case "":
                     break;
@@ -156,6 +157,9 @@ namespace AlphaverLauncherRecreation
                 case "badblock":
                     System.Diagnostics.Process.Start("https://github.com/Alphaverers/BadBlock");
                     break;
+                case "lpuj":
+                    System.Diagnostics.Process.Start("https://github.com/AlphaVerUnofficialJars/LilypadClient");
+                    break;
 
             }
 
@@ -163,7 +167,7 @@ namespace AlphaverLauncherRecreation
 
         private void UpdateCreditText()
         {
-            if ((new[] { "rosepad", "badblock", "afterglow" }).Contains(modBox.Text, StringComparer.OrdinalIgnoreCase)) creditText.Show();
+            if ((new[] { "rosepad", "badblock", "afterglow", "lpuj" }).Contains(modBox.Text, StringComparer.OrdinalIgnoreCase)) creditText.Show();
             switch (modBox.Text)
             {
 
@@ -176,6 +180,10 @@ namespace AlphaverLauncherRecreation
                 case "badblock":
                     creditText.Text = "Badblock github repository";
                     break;
+                case "lpuj":
+                    creditText.Text = "LilypadClient github repository";
+                    break;
+
                 case "vanilla":
                 case null:
                 case "":
