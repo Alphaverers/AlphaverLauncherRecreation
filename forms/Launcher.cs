@@ -125,7 +125,7 @@ namespace AlphaverLauncherRecreation
                         ShowLoadingBar(version);
                         await Task.Delay(settings.launchDelay * 1000);
                     }
-                    BetterLaunch(settings.username, $"{settings.folderStructure.jars}/{version}.jar", settings.arguments, settings.javaPath);
+                    BetterLaunch(settings.username,settings.folderStructure.gameDirectory, $"{settings.folderStructure.jars}/{version}.jar", settings.arguments, settings.javaPath);
                 }
                 else
                 {
@@ -343,7 +343,7 @@ namespace AlphaverLauncherRecreation
 
             }
         }
-        void BetterLaunch(string username, string version, string arguments, string javaExecutable)
+        void BetterLaunch(string username, string gamePath, string version, string arguments, string javaExecutable)
         {
             if (javaExecutable == "" || javaExecutable == null) javaExecutable = "javaw";
 
@@ -351,14 +351,18 @@ namespace AlphaverLauncherRecreation
             ProcessStartInfo startInfo = new ProcessStartInfo();
             process.StartInfo.FileName = javaExecutable;
 
-            process.StartInfo.Arguments = GenerateArguments("-Xms512m -Xmx1024m", settings.username, "./bin/natives", version, libraries, arguments, "net.minecraft.client.Minecraft");
+            process.StartInfo.UseShellExecute = false;
+            process.StartInfo.EnvironmentVariables.Remove("APPDATA");
+            process.StartInfo.EnvironmentVariables.Add("APPDATA", gamePath);
+            process.StartInfo.Arguments = GenerateArguments(settings.folderStructure.libraries, settings.username, "./bin/natives", version, libraries, arguments, "net.minecraft.client.Minecraft");
+
 
 
             Console.WriteLine($"{javaExecutable} {process.StartInfo.Arguments}");
             process.StartInfo.RedirectStandardInput = true;
             process.StartInfo.RedirectStandardOutput = true;
             process.StartInfo.RedirectStandardError = true;
-            process.StartInfo.UseShellExecute = false;
+ 
             process.OutputDataReceived += WriteOutputToConsole;
             process.ErrorDataReceived += WriteOutputToConsole;
 
@@ -369,16 +373,16 @@ namespace AlphaverLauncherRecreation
 
 
         }
-        string GenerateArguments(string minecraftArguments, string username, string natives, string jar, string[] libraries, string additionalArguments, string mainClass)
+        string GenerateArguments(string libraryFolder, string username, string natives, string jar, string[] libraries, string additionalArguments, string mainClass)
         {
             string libraryStrings = "";
             foreach (string lib in libraries)
             {
 
-                libraryStrings += $"{settings.folderStructure.libraries}\\{lib};";
+                libraryStrings += $"{libraryFolder}\\{lib};";
 
             }
-            string arguments = $"{minecraftArguments} -Djava.library.path=\"{natives}\" -cp \"{jar}\";{libraryStrings} {additionalArguments} {mainClass} \"{username}\" ";
+            string arguments = $"-Djava.library.path=\"{natives}\" -cp \"{jar}\";{libraryStrings} {additionalArguments} -Dminecraft.appletarget=\"F:\\Files\\CS\\AlphaverLauncherRecreation\\bin\\Debug\\gamedir\" {mainClass} \"{username}\" ";
 
             return arguments;
         }

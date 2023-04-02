@@ -266,6 +266,8 @@ namespace AlphaverLauncherRecreation
         {
             librariesPathBox.Text = OpenBrowseFolderDialog();
         }
+
+  
     }
 
 

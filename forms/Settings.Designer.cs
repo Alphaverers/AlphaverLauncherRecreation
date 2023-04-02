@@ -45,6 +45,8 @@
             this.argumentsText = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.generalPage = new System.Windows.Forms.TabPage();
+            this.librariesSelectButton = new System.Windows.Forms.Button();
+            this.jarsPathSelectButton = new System.Windows.Forms.Button();
             this.launchDelayBox = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.librariesPathBox = new System.Windows.Forms.TextBox();
@@ -52,7 +54,6 @@
             this.consoleCheckBox = new System.Windows.Forms.CheckBox();
             this.jarPathBox = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
             this.loadingCheckBox = new System.Windows.Forms.CheckBox();
             this.discordRPCCheckBox = new System.Windows.Forms.CheckBox();
             this.minecraftPathSelectButton = new System.Windows.Forms.Button();
@@ -68,8 +69,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.tabControl = new System.Windows.Forms.TabControl();
-            this.jarsPathSelectButton = new System.Windows.Forms.Button();
-            this.librariesSelectButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).BeginInit();
             this.versionPage.SuspendLayout();
             this.javaPage.SuspendLayout();
@@ -249,7 +248,6 @@
             this.generalPage.Controls.Add(this.consoleCheckBox);
             this.generalPage.Controls.Add(this.jarPathBox);
             this.generalPage.Controls.Add(this.label5);
-            this.generalPage.Controls.Add(this.label4);
             this.generalPage.Controls.Add(this.loadingCheckBox);
             this.generalPage.Controls.Add(this.discordRPCCheckBox);
             this.generalPage.Controls.Add(this.minecraftPathSelectButton);
@@ -263,6 +261,26 @@
             this.generalPage.TabIndex = 0;
             this.generalPage.Text = "General";
             this.generalPage.UseVisualStyleBackColor = true;
+            // 
+            // librariesSelectButton
+            // 
+            this.librariesSelectButton.Location = new System.Drawing.Point(309, 98);
+            this.librariesSelectButton.Name = "librariesSelectButton";
+            this.librariesSelectButton.Size = new System.Drawing.Size(23, 20);
+            this.librariesSelectButton.TabIndex = 30;
+            this.librariesSelectButton.Text = "...";
+            this.librariesSelectButton.UseVisualStyleBackColor = true;
+            this.librariesSelectButton.Click += new System.EventHandler(this.librariesPathSelectButton_Click);
+            // 
+            // jarsPathSelectButton
+            // 
+            this.jarsPathSelectButton.Location = new System.Drawing.Point(130, 98);
+            this.jarsPathSelectButton.Name = "jarsPathSelectButton";
+            this.jarsPathSelectButton.Size = new System.Drawing.Size(23, 20);
+            this.jarsPathSelectButton.TabIndex = 29;
+            this.jarsPathSelectButton.Text = "...";
+            this.jarsPathSelectButton.UseVisualStyleBackColor = true;
+            this.jarsPathSelectButton.Click += new System.EventHandler(this.jarsPathSelectButton_Click);
             // 
             // launchDelayBox
             // 
@@ -327,15 +345,6 @@
             this.label5.TabIndex = 20;
             this.label5.Text = "Jars";
             // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(3, 184);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(225, 13);
-            this.label4.TabIndex = 19;
-            this.label4.Text = "It\'s currently grayed out due to some problems.";
-            // 
             // loadingCheckBox
             // 
             this.loadingCheckBox.AutoSize = true;
@@ -359,7 +368,6 @@
             // minecraftPathSelectButton
             // 
             this.minecraftPathSelectButton.Cursor = System.Windows.Forms.Cursors.No;
-            this.minecraftPathSelectButton.Enabled = false;
             this.minecraftPathSelectButton.Location = new System.Drawing.Point(130, 161);
             this.minecraftPathSelectButton.Name = "minecraftPathSelectButton";
             this.minecraftPathSelectButton.Size = new System.Drawing.Size(23, 20);
@@ -378,13 +386,12 @@
             // 
             // minecraftPathBox
             // 
-            this.minecraftPathBox.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.minecraftPathBox.Enabled = false;
+            this.minecraftPathBox.BackColor = System.Drawing.Color.White;
             this.minecraftPathBox.Location = new System.Drawing.Point(3, 161);
             this.minecraftPathBox.Name = "minecraftPathBox";
             this.minecraftPathBox.Size = new System.Drawing.Size(121, 20);
             this.minecraftPathBox.TabIndex = 5;
-            this.minecraftPathBox.Text = "%appdata%/.minecraft";
+            this.minecraftPathBox.Text = "./";
             // 
             // usernameText
             // 
@@ -425,9 +432,9 @@
             this.launcherVersionText.AutoSize = true;
             this.launcherVersionText.Location = new System.Drawing.Point(194, 113);
             this.launcherVersionText.Name = "launcherVersionText";
-            this.launcherVersionText.Size = new System.Drawing.Size(20, 13);
+            this.launcherVersionText.Size = new System.Drawing.Size(14, 13);
             this.launcherVersionText.TabIndex = 5;
-            this.launcherVersionText.Text = "V3";
+            this.launcherVersionText.Text = "V";
             // 
             // alphaverChannelButton
             // 
@@ -490,26 +497,6 @@
             this.tabControl.Size = new System.Drawing.Size(433, 244);
             this.tabControl.TabIndex = 0;
             // 
-            // jarsPathSelectButton
-            // 
-            this.jarsPathSelectButton.Location = new System.Drawing.Point(130, 98);
-            this.jarsPathSelectButton.Name = "jarsPathSelectButton";
-            this.jarsPathSelectButton.Size = new System.Drawing.Size(23, 20);
-            this.jarsPathSelectButton.TabIndex = 29;
-            this.jarsPathSelectButton.Text = "...";
-            this.jarsPathSelectButton.UseVisualStyleBackColor = true;
-            this.jarsPathSelectButton.Click += new System.EventHandler(this.jarsPathSelectButton_Click);
-            // 
-            // librariesSelectButton
-            // 
-            this.librariesSelectButton.Location = new System.Drawing.Point(309, 98);
-            this.librariesSelectButton.Name = "librariesSelectButton";
-            this.librariesSelectButton.Size = new System.Drawing.Size(23, 20);
-            this.librariesSelectButton.TabIndex = 30;
-            this.librariesSelectButton.Text = "...";
-            this.librariesSelectButton.UseVisualStyleBackColor = true;
-            this.librariesSelectButton.Click += new System.EventHandler(this.librariesPathSelectButton_Click);
-            // 
             // SettingsForm
             // 
             this.AllowDrop = true;
@@ -570,7 +557,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.CheckBox consoleCheckBox;
         private System.Windows.Forms.TextBox jarPathBox;
         private System.Windows.Forms.Label label5;
