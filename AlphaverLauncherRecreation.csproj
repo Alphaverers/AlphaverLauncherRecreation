@@ -84,6 +84,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConsoleExtension.cs" />
+    <Compile Include="forms\Keys.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="forms\Keys.Designer.cs">
+      <DependentUpon>Keys.cs</DependentUpon>
+    </Compile>
     <Compile Include="forms\ModAdder.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -116,6 +122,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="forms\Keys.resx">
+      <DependentUpon>Keys.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="forms\ModAdder.resx">
       <DependentUpon>ModAdder.cs</DependentUpon>
     </EmbeddedResource>

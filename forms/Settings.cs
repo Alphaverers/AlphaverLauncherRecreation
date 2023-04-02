@@ -267,7 +267,11 @@ namespace AlphaverLauncherRecreation
             librariesPathBox.Text = OpenBrowseFolderDialog();
         }
 
-  
+        private void keysButton_Click(object sender, EventArgs e)
+        {
+            forms.Keys keys = new forms.Keys();
+            keys.Show();
+        }
     }
 
 

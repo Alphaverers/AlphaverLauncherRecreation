@@ -69,6 +69,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.tabControl = new System.Windows.Forms.TabControl();
+            this.keysButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).BeginInit();
             this.versionPage.SuspendLayout();
             this.javaPage.SuspendLayout();
@@ -95,6 +96,7 @@
             // 
             // versionPage
             // 
+            this.versionPage.Controls.Add(this.keysButton);
             this.versionPage.Controls.Add(this.addModButton);
             this.versionPage.Controls.Add(this.creditText);
             this.versionPage.Controls.Add(this.modBox);
@@ -110,7 +112,7 @@
             // 
             // addModButton
             // 
-            this.addModButton.Location = new System.Drawing.Point(16, 162);
+            this.addModButton.Location = new System.Drawing.Point(16, 142);
             this.addModButton.Name = "addModButton";
             this.addModButton.Size = new System.Drawing.Size(121, 23);
             this.addModButton.TabIndex = 15;
@@ -497,6 +499,16 @@
             this.tabControl.Size = new System.Drawing.Size(433, 244);
             this.tabControl.TabIndex = 0;
             // 
+            // keysButton
+            // 
+            this.keysButton.Location = new System.Drawing.Point(16, 183);
+            this.keysButton.Name = "keysButton";
+            this.keysButton.Size = new System.Drawing.Size(121, 23);
+            this.keysButton.TabIndex = 16;
+            this.keysButton.Text = "Keys";
+            this.keysButton.UseVisualStyleBackColor = true;
+            this.keysButton.Click += new System.EventHandler(this.keysButton_Click);
+            // 
             // SettingsForm
             // 
             this.AllowDrop = true;
@@ -568,5 +580,6 @@
         private System.Windows.Forms.Button addModButton;
         private System.Windows.Forms.Button librariesSelectButton;
         private System.Windows.Forms.Button jarsPathSelectButton;
+        private System.Windows.Forms.Button keysButton;
     }
 }

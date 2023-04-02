@@ -33,7 +33,7 @@ namespace AlphaverLauncherRecreation
             if (!File.Exists("settings.json"))
             {
                 settings.username = defaultUsername;
-                settings.folderStructure.gameDirectory = "%appdata%/.minecraft";
+                settings.folderStructure.gameDirectory = ".\\";
                 settings.arguments = "-Xmx2G";
                 settings.discordRPC = true;
                 settings.loadingBar = true;
@@ -353,7 +353,8 @@ namespace AlphaverLauncherRecreation
 
             process.StartInfo.UseShellExecute = false;
             process.StartInfo.EnvironmentVariables.Remove("APPDATA");
-            process.StartInfo.EnvironmentVariables.Add("APPDATA", gamePath);
+            process.StartInfo.EnvironmentVariables.Add("APPDATA", Path.GetFullPath(gamePath));
+            process.StartInfo.WorkingDirectory = Path.GetFullPath(gamePath);
             process.StartInfo.Arguments = GenerateArguments(settings.folderStructure.libraries, settings.username, "./bin/natives", version, libraries, arguments, "net.minecraft.client.Minecraft");
 
 
