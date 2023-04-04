@@ -352,10 +352,11 @@ namespace AlphaverLauncherRecreation
             process.StartInfo.FileName = javaExecutable;
 
             process.StartInfo.UseShellExecute = false;
+            Directory.CreateDirectory(gamePath + "\\.minecraft");
             process.StartInfo.EnvironmentVariables.Remove("APPDATA");
             process.StartInfo.EnvironmentVariables.Add("APPDATA", Path.GetFullPath(gamePath));
-            process.StartInfo.WorkingDirectory = Path.GetFullPath(gamePath);
-            process.StartInfo.Arguments = GenerateArguments(settings.folderStructure.libraries, settings.username, "./bin/natives", version, libraries, arguments, "net.minecraft.client.Minecraft");
+            process.StartInfo.WorkingDirectory = Path.GetFullPath(gamePath + "\\.minecraft");
+            process.StartInfo.Arguments = GenerateArguments(Path.GetFullPath(settings.folderStructure.libraries), settings.username, Path.GetFullPath(".\\bin\\natives"), Path.GetFullPath(version), libraries, arguments, "net.minecraft.client.Minecraft");
 
 
 
@@ -383,7 +384,7 @@ namespace AlphaverLauncherRecreation
                 libraryStrings += $"{libraryFolder}\\{lib};";
 
             }
-            string arguments = $"-Djava.library.path=\"{natives}\" -cp \"{jar}\";{libraryStrings} {additionalArguments} -Dminecraft.appletarget=\"F:\\Files\\CS\\AlphaverLauncherRecreation\\bin\\Debug\\gamedir\" {mainClass} \"{username}\" ";
+            string arguments = $"-Djava.library.path=\"{natives}\" -cp \"{jar}\";{libraryStrings} {additionalArguments} {mainClass} \"{username}\" ";
 
             return arguments;
         }
