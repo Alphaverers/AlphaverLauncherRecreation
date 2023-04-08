@@ -12,6 +12,7 @@ using System.Windows.Forms;
 using DiscordRPC;
 using System.Collections.Generic;
 using Microsoft.Win32;
+using DiscordRPC.Logging;
 
 namespace AlphaverLauncherRecreation
 {
@@ -23,13 +24,13 @@ namespace AlphaverLauncherRecreation
         string defaultUsername = "Player";
         Popup downloadPopup = new Popup("Downloading..", "", true, false, false);
         string[] libraries = { "jinput.jar", "lwjgl.jar", "lwjgl_util.jar" };
-
+        Logger logger = new Logger();
 
         public Launcher()
         {
 
             InitializeComponent();
-
+            
             //check if settings file exists if not create a settings.json
             if (!File.Exists("settings.json"))
             {
@@ -41,6 +42,8 @@ namespace AlphaverLauncherRecreation
                 settings.consoleWindow = true;
                 settings.folderStructure.libraries = ".\\bin";
                 settings.folderStructure.jars = ".\\jars";
+                settings.folderStructure.logs = ".\\logs";
+                Directory.CreateDirectory(settings.folderStructure.logs);
                 settings.launchDelay = 15;
                 settings.mods = new List<Mod>();
                 StreamWriter writer = new StreamWriter(File.Open("settings.json", FileMode.Create));
@@ -50,6 +53,10 @@ namespace AlphaverLauncherRecreation
             }
 
             settings = JsonConvert.DeserializeObject<Settings>(System.IO.File.ReadAllText("settings.json"));
+
+            DateTime now = DateTime.Now;
+            logger.CreateNewLog($"{Path.GetFullPath( settings.folderStructure.logs)}\\{now.DayOfYear}-{now.Month}-{now.Day}_{now.Hour}-{now.Minute}-{now.Second}.txt");
+
             UpdateUsername(settings.username);
             if (!settings.consoleWindow) ConsoleExtension.Hide();
 
@@ -131,6 +138,7 @@ namespace AlphaverLauncherRecreation
                 else
                 {
                     Console.WriteLine("Downloading Libraries.");
+                    logger.UpdateLog("Downloading Libraries.");
                     InstallLibraries();
 
                 }
@@ -208,6 +216,7 @@ namespace AlphaverLauncherRecreation
         void WriteOutputToConsole(object sender, DataReceivedEventArgs e)
         {
             Console.WriteLine(e.Data);
+            logger.UpdateLog(e.Data);
         }
 
         private Thread Downloader(string filename, Uri link)
@@ -239,6 +248,7 @@ namespace AlphaverLauncherRecreation
                 double totalBytes = double.Parse(e.TotalBytesToReceive.ToString());
                 double percentage = bytesIn / totalBytes * 100;
                 Console.WriteLine("Downloaded " + e.BytesReceived + " of " + e.TotalBytesToReceive);
+                logger.UpdateLog("Downloaded " + e.BytesReceived + " of " + e.TotalBytesToReceive);
                 downloadPopup.progressBar1.Value = int.Parse(Math.Truncate(percentage).ToString());
 
             });
@@ -248,7 +258,8 @@ namespace AlphaverLauncherRecreation
             this.BeginInvoke((MethodInvoker)delegate
             {
                 Console.WriteLine("Completed");
-               playButton.PerformClick();
+                logger.UpdateLog("Completed");
+                playButton.PerformClick();
                 downloadPopup.Hide();
 
             });
@@ -282,6 +293,7 @@ namespace AlphaverLauncherRecreation
                 client.OnReady += (sender, e) =>
                 {
                     Console.WriteLine("Set presence for {0}", e.User.Username);
+                    logger.UpdateLog($"Set presence for {0}");
                 };
                 client.Initialize();
 
@@ -347,7 +359,7 @@ namespace AlphaverLauncherRecreation
         void BetterLaunch(string username, string gamePath, string version, string arguments, string javaExecutable)
         {
             if (javaExecutable == "" || javaExecutable == null) javaExecutable = "javaw";
-
+            
             Process process = new Process();
             ProcessStartInfo startInfo = new ProcessStartInfo();
             process.StartInfo.FileName = javaExecutable;
@@ -362,6 +374,7 @@ namespace AlphaverLauncherRecreation
 
 
             Console.WriteLine($"{javaExecutable} {process.StartInfo.Arguments}");
+            logger.UpdateLog($"{javaExecutable} {process.StartInfo.Arguments}");
             process.StartInfo.RedirectStandardInput = true;
             process.StartInfo.RedirectStandardOutput = true;
             process.StartInfo.RedirectStandardError = true;
@@ -428,9 +441,11 @@ namespace AlphaverLauncherRecreation
                             break;
                     }
                     Console.WriteLine($"Downloading {lib}.");
+                    logger.UpdateLog($"Downloading {lib}.");
                 }
             }
             Console.WriteLine("Installed all required libraries.");
+            logger.UpdateLog("Installed all required libraries.");
             playButton.PerformClick();
             ;
         }

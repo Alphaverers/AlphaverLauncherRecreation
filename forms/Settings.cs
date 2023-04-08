@@ -46,6 +46,7 @@ namespace AlphaverLauncherRecreation
             librariesPathBox.Text = settings.folderStructure.libraries;
             jarPathBox.Text = settings.folderStructure.jars;
             minecraftPathBox.Text = settings.folderStructure.gameDirectory;
+            logsPathBox.Text = settings.folderStructure.logs;
 
             discordRPCCheckBox.Checked = settings.discordRPC;
             loadingCheckBox.Checked = settings.loadingBar;
@@ -83,6 +84,7 @@ namespace AlphaverLauncherRecreation
             settings.folderStructure.jars = jarPathBox.Text;
             settings.folderStructure.libraries = librariesPathBox.Text;
             settings.folderStructure.gameDirectory = minecraftPathBox.Text;
+            settings.folderStructure.logs = logsPathBox.Text;
 
 
             writer.Write(JsonConvert.SerializeObject(settings));
@@ -320,6 +322,11 @@ namespace AlphaverLauncherRecreation
 
 
         }
+
+        private void logsSelectButton_Click(object sender, EventArgs e)
+        {
+            logsPathBox.Text = OpenBrowseFolderDialog();
+        }
     }
 
 
@@ -352,6 +359,7 @@ namespace AlphaverLauncherRecreation
         public string jars;
         public string libraries;
         public string gameDirectory;
+        public string logs;
 
     }
 }

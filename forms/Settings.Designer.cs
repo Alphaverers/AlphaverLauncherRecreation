@@ -32,6 +32,7 @@
             this.saveButton = new System.Windows.Forms.Button();
             this.fileSystemWatcher1 = new System.IO.FileSystemWatcher();
             this.versionPage = new System.Windows.Forms.TabPage();
+            this.replaceGuiButton = new System.Windows.Forms.Button();
             this.replaceTerrainButton = new System.Windows.Forms.Button();
             this.keysButton = new System.Windows.Forms.Button();
             this.addModButton = new System.Windows.Forms.Button();
@@ -71,7 +72,9 @@
             this.label2 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.tabControl = new System.Windows.Forms.TabControl();
-            this.replaceGuiButton = new System.Windows.Forms.Button();
+            this.logsSelectButton = new System.Windows.Forms.Button();
+            this.logsPathBox = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).BeginInit();
             this.versionPage.SuspendLayout();
             this.javaPage.SuspendLayout();
@@ -113,6 +116,17 @@
             this.versionPage.TabIndex = 0;
             this.versionPage.Text = "Version";
             this.versionPage.UseVisualStyleBackColor = true;
+            // 
+            // replaceGuiButton
+            // 
+            this.replaceGuiButton.Location = new System.Drawing.Point(248, 40);
+            this.replaceGuiButton.Name = "replaceGuiButton";
+            this.replaceGuiButton.Size = new System.Drawing.Size(135, 23);
+            this.replaceGuiButton.TabIndex = 18;
+            this.replaceGuiButton.TabStop = false;
+            this.replaceGuiButton.Text = "Replace gui.png";
+            this.replaceGuiButton.UseVisualStyleBackColor = true;
+            this.replaceGuiButton.Click += new System.EventHandler(this.replaceGuiButton_Click);
             // 
             // replaceTerrainButton
             // 
@@ -265,6 +279,9 @@
             // 
             // generalPage
             // 
+            this.generalPage.Controls.Add(this.logsSelectButton);
+            this.generalPage.Controls.Add(this.logsPathBox);
+            this.generalPage.Controls.Add(this.label4);
             this.generalPage.Controls.Add(this.librariesSelectButton);
             this.generalPage.Controls.Add(this.jarsPathSelectButton);
             this.generalPage.Controls.Add(this.launchDelayBox);
@@ -523,16 +540,33 @@
             this.tabControl.Size = new System.Drawing.Size(433, 244);
             this.tabControl.TabIndex = 0;
             // 
-            // replaceGuiButton
+            // logsSelectButton
             // 
-            this.replaceGuiButton.Location = new System.Drawing.Point(248, 40);
-            this.replaceGuiButton.Name = "replaceGuiButton";
-            this.replaceGuiButton.Size = new System.Drawing.Size(135, 23);
-            this.replaceGuiButton.TabIndex = 18;
-            this.replaceGuiButton.TabStop = false;
-            this.replaceGuiButton.Text = "Replace gui.png";
-            this.replaceGuiButton.UseVisualStyleBackColor = true;
-            this.replaceGuiButton.Click += new System.EventHandler(this.replaceGuiButton_Click);
+            this.logsSelectButton.Location = new System.Drawing.Point(309, 162);
+            this.logsSelectButton.Name = "logsSelectButton";
+            this.logsSelectButton.Size = new System.Drawing.Size(23, 20);
+            this.logsSelectButton.TabIndex = 33;
+            this.logsSelectButton.Text = "...";
+            this.logsSelectButton.UseVisualStyleBackColor = true;
+            this.logsSelectButton.Click += new System.EventHandler(this.logsSelectButton_Click);
+            // 
+            // logsPathBox
+            // 
+            this.logsPathBox.BackColor = System.Drawing.SystemColors.Menu;
+            this.logsPathBox.Location = new System.Drawing.Point(182, 162);
+            this.logsPathBox.Name = "logsPathBox";
+            this.logsPathBox.Size = new System.Drawing.Size(121, 20);
+            this.logsPathBox.TabIndex = 32;
+            this.logsPathBox.Text = "./logs";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(179, 136);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(30, 13);
+            this.label4.TabIndex = 31;
+            this.label4.Text = "Logs";
             // 
             // SettingsForm
             // 
@@ -608,5 +642,8 @@
         private System.Windows.Forms.Button keysButton;
         private System.Windows.Forms.Button replaceTerrainButton;
         private System.Windows.Forms.Button replaceGuiButton;
+        private System.Windows.Forms.Button logsSelectButton;
+        private System.Windows.Forms.TextBox logsPathBox;
+        private System.Windows.Forms.Label label4;
     }
 }
