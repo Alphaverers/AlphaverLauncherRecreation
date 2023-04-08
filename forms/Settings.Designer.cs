@@ -32,6 +32,8 @@
             this.saveButton = new System.Windows.Forms.Button();
             this.fileSystemWatcher1 = new System.IO.FileSystemWatcher();
             this.versionPage = new System.Windows.Forms.TabPage();
+            this.replaceTerrainButton = new System.Windows.Forms.Button();
+            this.keysButton = new System.Windows.Forms.Button();
             this.addModButton = new System.Windows.Forms.Button();
             this.creditText = new System.Windows.Forms.LinkLabel();
             this.modBox = new System.Windows.Forms.ComboBox();
@@ -69,7 +71,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.tabControl = new System.Windows.Forms.TabControl();
-            this.keysButton = new System.Windows.Forms.Button();
+            this.replaceGuiButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).BeginInit();
             this.versionPage.SuspendLayout();
             this.javaPage.SuspendLayout();
@@ -96,6 +98,8 @@
             // 
             // versionPage
             // 
+            this.versionPage.Controls.Add(this.replaceGuiButton);
+            this.versionPage.Controls.Add(this.replaceTerrainButton);
             this.versionPage.Controls.Add(this.keysButton);
             this.versionPage.Controls.Add(this.addModButton);
             this.versionPage.Controls.Add(this.creditText);
@@ -109,6 +113,26 @@
             this.versionPage.TabIndex = 0;
             this.versionPage.Text = "Version";
             this.versionPage.UseVisualStyleBackColor = true;
+            // 
+            // replaceTerrainButton
+            // 
+            this.replaceTerrainButton.Location = new System.Drawing.Point(248, 11);
+            this.replaceTerrainButton.Name = "replaceTerrainButton";
+            this.replaceTerrainButton.Size = new System.Drawing.Size(135, 23);
+            this.replaceTerrainButton.TabIndex = 17;
+            this.replaceTerrainButton.Text = "Replace terrain.png";
+            this.replaceTerrainButton.UseVisualStyleBackColor = true;
+            this.replaceTerrainButton.Click += new System.EventHandler(this.replaceTerrainButton_Click);
+            // 
+            // keysButton
+            // 
+            this.keysButton.Location = new System.Drawing.Point(16, 183);
+            this.keysButton.Name = "keysButton";
+            this.keysButton.Size = new System.Drawing.Size(121, 23);
+            this.keysButton.TabIndex = 16;
+            this.keysButton.Text = "Keys";
+            this.keysButton.UseVisualStyleBackColor = true;
+            this.keysButton.Click += new System.EventHandler(this.keysButton_Click);
             // 
             // addModButton
             // 
@@ -499,15 +523,16 @@
             this.tabControl.Size = new System.Drawing.Size(433, 244);
             this.tabControl.TabIndex = 0;
             // 
-            // keysButton
+            // replaceGuiButton
             // 
-            this.keysButton.Location = new System.Drawing.Point(16, 183);
-            this.keysButton.Name = "keysButton";
-            this.keysButton.Size = new System.Drawing.Size(121, 23);
-            this.keysButton.TabIndex = 16;
-            this.keysButton.Text = "Keys";
-            this.keysButton.UseVisualStyleBackColor = true;
-            this.keysButton.Click += new System.EventHandler(this.keysButton_Click);
+            this.replaceGuiButton.Location = new System.Drawing.Point(248, 40);
+            this.replaceGuiButton.Name = "replaceGuiButton";
+            this.replaceGuiButton.Size = new System.Drawing.Size(135, 23);
+            this.replaceGuiButton.TabIndex = 18;
+            this.replaceGuiButton.TabStop = false;
+            this.replaceGuiButton.Text = "Replace gui.png";
+            this.replaceGuiButton.UseVisualStyleBackColor = true;
+            this.replaceGuiButton.Click += new System.EventHandler(this.replaceGuiButton_Click);
             // 
             // SettingsForm
             // 
@@ -581,5 +606,7 @@
         private System.Windows.Forms.Button librariesSelectButton;
         private System.Windows.Forms.Button jarsPathSelectButton;
         private System.Windows.Forms.Button keysButton;
+        private System.Windows.Forms.Button replaceTerrainButton;
+        private System.Windows.Forms.Button replaceGuiButton;
     }
 }

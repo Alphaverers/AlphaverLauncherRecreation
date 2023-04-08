@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using DiscordRPC;
 using System.Collections.Generic;
+using Microsoft.Win32;
 
 namespace AlphaverLauncherRecreation
 {
@@ -446,4 +447,5 @@ namespace AlphaverLauncherRecreation
             return true;
         }
     }
+   
 }

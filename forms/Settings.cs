@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -271,6 +272,53 @@ namespace AlphaverLauncherRecreation
         {
             forms.Keys keys = new forms.Keys();
             keys.Show();
+        }
+
+        private void replaceTerrainButton_Click(object sender, EventArgs e)
+        {
+            string newTerrain = OpenFileDialog("PNG files (*.png)|");
+            string zipFilePath = $"{settings.folderStructure.jars}/{settings.version}.jar";
+           
+
+            // Create a temporary file for the new zip archive
+            string tempFilePath = Path.GetTempFileName();
+
+            using (ZipArchive archive = ZipFile.Open(zipFilePath, ZipArchiveMode.Update))
+            {
+                // Find the existing entry to replace
+                ZipArchiveEntry entryToRemove = archive.GetEntry("terrain.png");
+
+                // Remove the existing entry
+                entryToRemove.Delete();
+
+                // Add the new file with the same name
+                ZipArchiveEntry newEntry = archive.CreateEntryFromFile(newTerrain, "terrain.png");
+            }
+
+          
+        }
+        private void replaceGuiButton_Click(object sender, EventArgs e)
+        {
+            string newTerrain = OpenFileDialog("PNG files (*.png)|");
+            string zipFilePath = $"{settings.folderStructure.jars}/{settings.version}.jar";
+
+
+            // Create a temporary file for the new zip archive
+            string tempFilePath = Path.GetTempFileName();
+
+            using (ZipArchive archive = ZipFile.Open(zipFilePath, ZipArchiveMode.Update))
+            {
+                // Find the existing entry to replace
+                ZipArchiveEntry entryToRemove = archive.GetEntry("gui/gui.png");
+
+                // Remove the existing entry
+                entryToRemove.Delete();
+
+                // Add the new file with the same name
+                ZipArchiveEntry newEntry = archive.CreateEntryFromFile(newTerrain, "gui/gui.png");
+            }
+
+
         }
     }
 
