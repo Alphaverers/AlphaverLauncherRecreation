@@ -30,7 +30,7 @@ namespace AlphaverLauncherRecreation
         {
 
             InitializeComponent();
-            
+
             //check if settings file exists if not create a settings.json
             if (!File.Exists("settings.json"))
             {
@@ -43,7 +43,7 @@ namespace AlphaverLauncherRecreation
                 settings.folderStructure.libraries = ".\\bin";
                 settings.folderStructure.jars = ".\\jars";
                 settings.folderStructure.logs = ".\\logs";
-                Directory.CreateDirectory(settings.folderStructure.logs);
+
                 settings.launchDelay = 15;
                 settings.mods = new List<Mod>();
                 StreamWriter writer = new StreamWriter(File.Open("settings.json", FileMode.Create));
@@ -55,7 +55,7 @@ namespace AlphaverLauncherRecreation
             settings = JsonConvert.DeserializeObject<Settings>(System.IO.File.ReadAllText("settings.json"));
 
             DateTime now = DateTime.Now;
-            logger.CreateNewLog($"{Path.GetFullPath( settings.folderStructure.logs)}\\{now.DayOfYear}-{now.Month}-{now.Day}_{now.Hour}-{now.Minute}-{now.Second}.txt");
+            logger.CreateNewLog($"{Path.GetFullPath(settings.folderStructure.logs)}\\{now.DayOfYear}-{now.Month}-{now.Day}_{now.Hour}-{now.Minute}-{now.Second}.txt");
 
             UpdateUsername(settings.username);
             if (!settings.consoleWindow) ConsoleExtension.Hide();
@@ -133,7 +133,7 @@ namespace AlphaverLauncherRecreation
                         ShowLoadingBar(version);
                         await Task.Delay(settings.launchDelay * 1000);
                     }
-                    BetterLaunch(settings.username,settings.folderStructure.gameDirectory, $"{settings.folderStructure.jars}/{version}.jar", settings.arguments, settings.javaPath);
+                    BetterLaunch(settings.username, settings.folderStructure.gameDirectory, $"{settings.folderStructure.jars}/{version}.jar", settings.arguments, settings.javaPath);
                 }
                 else
                 {
@@ -146,45 +146,11 @@ namespace AlphaverLauncherRecreation
             }
             else
             {
+                Thread t = DownloadVersion(version, isItVanilla);
+                t.Start();
+                t.Join();
 
-
-
-                Directory.CreateDirectory($"{settings.folderStructure.jars}");
-
-
-
-                if (isItVanilla)
-                {
-                    Downloader($"{settings.folderStructure.jars}/{version}.jar", new Uri($"https://github.com/Gnawmon/AlphaverLauncherRecreation/raw/main/files/jars/{version}.jar")).Start();
-
-                }
-                else
-                {
-                    string latestBuildLink;
-                    switch (version)
-                    {
-                        case "rosepad":
-                            latestBuildLink = GetLatestGithubBuild("https://api.github.com/repos/rosepadmc/rosepad/releases");
-                            Downloader($"{settings.folderStructure.jars}/rosepad.jar", new Uri(latestBuildLink)).Start();
-                            break;
-                        case "afterglow":
-                            latestBuildLink = GetLatestGithubBuild("https://api.github.com/repos/AfterglowMC/AfterglowMC/releases");
-                            Downloader($"{settings.folderStructure.jars}/afterglow.jar", new Uri(latestBuildLink)).Start();
-                            break;
-                        case "badblock":
-                            latestBuildLink = GetLatestGithubBuild("https://api.github.com/repos/Alphaverers/Badblock/releases");
-                            Downloader($"{settings.folderStructure.jars}/badblock.jar", new Uri(latestBuildLink)).Start();
-                            break;
-                        case "lpuj":
-                            latestBuildLink = GetLatestGithubBuild("https://api.github.com/repos/AlphaVerUnofficialJars/LilypadClient/releases");
-                            Downloader($"{settings.folderStructure.jars}/lpuj.jar", new Uri(latestBuildLink)).Start();
-                            break;
-                    }
-
-
-
-
-                }
+                playButton.PerformClick();
 
             }
 
@@ -192,6 +158,45 @@ namespace AlphaverLauncherRecreation
 
         }
 
+        public Thread DownloadVersion(string version, bool isItVanilla)
+        {
+            Directory.CreateDirectory($"{settings.folderStructure.jars}");
+
+
+
+            if (isItVanilla)
+            {
+                return Downloader($"{settings.folderStructure.jars}/{version}.jar", new Uri($"https://github.com/Gnawmon/AlphaverLauncherRecreation/raw/main/files/jars/{version}.jar"));
+
+            }
+            else
+            {
+                string latestBuildLink;
+                switch (version)
+                {
+                    case "rosepad":
+                        latestBuildLink = GetLatestGithubBuild("https://api.github.com/repos/rosepadmc/rosepad/releases");
+                        return Downloader($"{settings.folderStructure.jars}/rosepad.jar", new Uri(latestBuildLink));
+
+                    case "afterglow":
+                        latestBuildLink = GetLatestGithubBuild("https://api.github.com/repos/AfterglowMC/AfterglowMC/releases");
+                        return Downloader($"{settings.folderStructure.jars}/afterglow.jar", new Uri(latestBuildLink));
+
+                    case "badblock":
+                        latestBuildLink = GetLatestGithubBuild("https://api.github.com/repos/Alphaverers/Badblock/releases");
+                        return Downloader($"{settings.folderStructure.jars}/badblock.jar", new Uri(latestBuildLink));
+
+                    case "lpuj":
+                        latestBuildLink = GetLatestGithubBuild("https://api.github.com/repos/AlphaVerUnofficialJars/LilypadClient/releases");
+                        return Downloader($"{settings.folderStructure.jars}/lpuj.jar", new Uri(latestBuildLink));
+
+                }
+                return null;
+
+
+
+            }
+        }
 
         private static string GetLatestGithubBuild(string apiReleasesLink)
         {
@@ -259,7 +264,7 @@ namespace AlphaverLauncherRecreation
             {
                 Console.WriteLine("Completed");
                 logger.UpdateLog("Completed");
-                playButton.PerformClick();
+
                 downloadPopup.Hide();
 
             });
@@ -359,7 +364,7 @@ namespace AlphaverLauncherRecreation
         void BetterLaunch(string username, string gamePath, string version, string arguments, string javaExecutable)
         {
             if (javaExecutable == "" || javaExecutable == null) javaExecutable = "javaw";
-            
+
             Process process = new Process();
             ProcessStartInfo startInfo = new ProcessStartInfo();
             process.StartInfo.FileName = javaExecutable;
@@ -378,7 +383,7 @@ namespace AlphaverLauncherRecreation
             process.StartInfo.RedirectStandardInput = true;
             process.StartInfo.RedirectStandardOutput = true;
             process.StartInfo.RedirectStandardError = true;
- 
+
             process.OutputDataReceived += WriteOutputToConsole;
             process.ErrorDataReceived += WriteOutputToConsole;
 
@@ -423,7 +428,7 @@ namespace AlphaverLauncherRecreation
                             }
                             Directory.Delete($"{settings.folderStructure.libraries}\\natives");
                             ZipFile.ExtractToDirectory("lwjglnatives.zip", $"{settings.folderStructure.libraries}\\natives");
-      
+
                             break;
                         case "jinput.jar":
                             using (var client = new WebClient())
@@ -462,5 +467,5 @@ namespace AlphaverLauncherRecreation
             return true;
         }
     }
-   
+
 }

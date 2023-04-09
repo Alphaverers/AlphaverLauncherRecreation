@@ -27,7 +27,7 @@ namespace AlphaverLauncherRecreation.forms
                 return;
             }
 
-            File.Copy(jarLocation, $"{settings.settings.folderStructure.jars}\\{nameBox.Text}.jar");
+            File.Copy(jarLocation, $"{Path.GetFullPath(settings.settings.folderStructure.jars)}\\{nameBox.Text}.jar");
 
             Mod modToAdd = new Mod();
             modToAdd.version = versionBox.Text;

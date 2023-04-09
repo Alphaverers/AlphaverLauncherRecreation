@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
+using System.Threading;
 using System.Windows.Forms;
 
 
@@ -194,7 +195,7 @@ namespace AlphaverLauncherRecreation
                     break;
 
             }
-       
+
         }
         /// <summary>
         /// Opens a windows file dialog.
@@ -279,53 +280,67 @@ namespace AlphaverLauncherRecreation
         private void replaceTerrainButton_Click(object sender, EventArgs e)
         {
             string newTerrain = OpenFileDialog("PNG files (*.png)|");
-            string zipFilePath = $"{settings.folderStructure.jars}/{settings.version}.jar";
-           
-
-            // Create a temporary file for the new zip archive
-            string tempFilePath = Path.GetTempFileName();
-
-            using (ZipArchive archive = ZipFile.Open(zipFilePath, ZipArchiveMode.Update))
-            {
-                // Find the existing entry to replace
-                ZipArchiveEntry entryToRemove = archive.GetEntry("terrain.png");
-
-                // Remove the existing entry
-                entryToRemove.Delete();
-
-                // Add the new file with the same name
-                ZipArchiveEntry newEntry = archive.CreateEntryFromFile(newTerrain, "terrain.png");
-            }
-
-          
+            ReplaceFileInJar("terrain.png", newTerrain);
         }
         private void replaceGuiButton_Click(object sender, EventArgs e)
         {
-            string newTerrain = OpenFileDialog("PNG files (*.png)|");
+            string newGui = OpenFileDialog("PNG files (*.png)|");
+            ReplaceFileInJar("gui/gui.png", newGui);
+        }
+
+        private void ReplaceFileInJar(string oldFile, string newFile)
+        {
+            string version;
+
+            if (modBox.Text != "vanilla")
+            {
+                version = modBox.Text;
+            }
+
+            if (!File.Exists($"{settings.folderStructure.jars}/{settings.version}.jar"))
+            {
+
+                Thread t = launcher.DownloadVersion(settings.version, true);
+                t.Start();
+                t.Join();
+            }
+
             string zipFilePath = $"{settings.folderStructure.jars}/{settings.version}.jar";
 
 
             // Create a temporary file for the new zip archive
             string tempFilePath = Path.GetTempFileName();
 
-            using (ZipArchive archive = ZipFile.Open(zipFilePath, ZipArchiveMode.Update))
+            try
             {
-                // Find the existing entry to replace
-                ZipArchiveEntry entryToRemove = archive.GetEntry("gui/gui.png");
+                using (ZipArchive archive = ZipFile.Open(zipFilePath, ZipArchiveMode.Update))
+                {
+                    // Find the existing entry to replace
+                    ZipArchiveEntry entryToRemove = archive.GetEntry(oldFile);
 
-                // Remove the existing entry
-                entryToRemove.Delete();
+                    // Remove the existing entry
+                    entryToRemove.Delete();
 
-                // Add the new file with the same name
-                ZipArchiveEntry newEntry = archive.CreateEntryFromFile(newTerrain, "gui/gui.png");
+                    // Add the new file with the same name
+                    ZipArchiveEntry newEntry = archive.CreateEntryFromFile(newFile, oldFile);
+                }
+            }
+            catch (Exception ex)
+            {
+                new Popup($"{ex.Data} Exception caught.", "", false, true, false).Show();
+
             }
 
-
         }
-
         private void logsSelectButton_Click(object sender, EventArgs e)
         {
             logsPathBox.Text = OpenBrowseFolderDialog();
+        }
+
+        private void replaceItemsButton_Click(object sender, EventArgs e)
+        {
+            string newItems = OpenFileDialog("PNG files (*.png)|");
+            ReplaceFileInJar("gui/items.png", newItems);
         }
     }
 

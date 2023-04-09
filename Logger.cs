@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AlphaverLauncherRecreation.Properties;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -14,6 +15,7 @@ namespace AlphaverLauncherRecreation
         public void CreateNewLog(string name)
         {
             logFileName = name;
+            if (!Directory.Exists(Path.GetDirectoryName(name))) Directory.CreateDirectory(Path.GetDirectoryName(name));
             using (StreamWriter log = new StreamWriter(logFileName))
             {
                 log.WriteLine("Log Start");
@@ -25,12 +27,18 @@ namespace AlphaverLauncherRecreation
 
         public void UpdateLog(string logText)
         {
-             
-       
-            using (StreamWriter log = new StreamWriter(logFileName,true))
+
+
+            try
             {
-                log.WriteLine(logText);
-                log.Close();
+                using (StreamWriter log = new StreamWriter(logFileName, true))
+                {
+                    log.WriteLine(logText);
+                    log.Close();
+                }
+            } catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
             }
         }
     }
