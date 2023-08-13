@@ -61,6 +61,7 @@ namespace AlphaverLauncherRecreation
             if (!settings.consoleWindow) ConsoleExtension.Hide();
 
             //checks internet. copied from here lol https://gist.github.com/yemrekeskin/df052c9a464cb0c9a4e2
+            //REMOVED due to some issues
             if (CheckInternetConnection())
                 Console.WriteLine("Internet ok");
             else
@@ -80,11 +81,7 @@ namespace AlphaverLauncherRecreation
         {
             try
             {
-                using (var client = new WebClient())
-                using (var stream = client.OpenRead("http://www.google.com"))
-                {
-                    return true;
-                }
+                return true;
             }
             catch
             {
@@ -123,8 +120,6 @@ namespace AlphaverLauncherRecreation
 
             if (File.Exists($"{settings.folderStructure.jars}/{version}.jar"))
             {
-
-
                 if (AreLibrariesInstalled(settings.folderStructure.libraries, libraries))
                 {
                     UpdateRPC("Ingame", $"Playing {version}", Timestamps.Now);
@@ -283,6 +278,7 @@ namespace AlphaverLauncherRecreation
         /// Updates the text on launcher.
         /// </summary>
         /// <param name="username"></param>
+        /// //tf is this summary for its not like we are going to make a mod loader....actually lets make a mod loader
         public void UpdateUsername(string username)
         {
             logintext.Text = "Logged in as " + username;
