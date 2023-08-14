@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using AlphaverLauncherRecreation.forms;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -6,7 +7,6 @@ using System.IO.Compression;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
-
 
 namespace AlphaverLauncherRecreation
 {
@@ -53,8 +53,12 @@ namespace AlphaverLauncherRecreation
             loadingCheckBox.Checked = settings.loadingBar;
             consoleCheckBox.Checked = settings.consoleWindow;
 
-            string versionString = "V" + Program.version.ToString();
-            if (isDebugMode) versionString += " Debug Build";
+            string versionString = "V" + Program.version;
+            if (isDebugMode) {
+                Console.WriteLine(versionString);
+                Console.WriteLine(isDebugMode);
+                versionString += " Debug Build";
+            }
 
             launcherVersionText.Text = versionString;
 
@@ -236,7 +240,7 @@ namespace AlphaverLauncherRecreation
 
         private void javaFileSelectButton_Click(object sender, EventArgs e)
         {
-            javaPathBox.Text = OpenFileDialog("Java Binaries (*.exe)|");
+            javaPathBox.Text = OpenFileDialog("Java Binaries (*.jar)|");
         }
 
         private void minecraftPathSelectButton_Click(object sender, EventArgs e)
@@ -279,13 +283,13 @@ namespace AlphaverLauncherRecreation
 
         private void replaceTerrainButton_Click(object sender, EventArgs e)
         {
-            string newTerrain = OpenFileDialog("PNG files (*.png)|");
-            ReplaceFileInJar("terrain.png", newTerrain);
+            //string newTerrain = OpenFileDialog("PNG files (*.png)|");
+            //ReplaceFileInJar("terrain.png", newTerrain);
         }
         private void replaceGuiButton_Click(object sender, EventArgs e)
         {
-            string newGui = OpenFileDialog("PNG files (*.png)|");
-            ReplaceFileInJar("gui/gui.png", newGui);
+            //string newGui = OpenFileDialog("PNG files (*.png)|");
+            //ReplaceFileInJar("gui/gui.png", newGui);
         }
 
         private void ReplaceFileInJar(string oldFile, string newFile)
@@ -327,7 +331,8 @@ namespace AlphaverLauncherRecreation
             }
             catch (Exception ex)
             {
-                new Popup($"{ex.Data} Exception caught.", "", false, true, false).Show();
+                new Popup($"{ex.Data} Exception caught, please report this message to our github page", "", false, true, false).Show();
+                Console.WriteLine(ex.Data + ":" + ex.Message);
 
             }
 
@@ -342,6 +347,12 @@ namespace AlphaverLauncherRecreation
             string newItems = OpenFileDialog("PNG files (*.png)|");
             ReplaceFileInJar("gui/items.png", newItems);
         }
+
+        private void qakeygen_Click(object sender, EventArgs e)
+        {
+            var f = new AlphaverLauncherRecreation.forms.Keys();
+            f.Show();
+        }
     }
 
 
@@ -350,7 +361,7 @@ namespace AlphaverLauncherRecreation
 
     public class Settings
     {
-        public int launcherVersion;
+        public string launcherVersion;
         public string username;
         public string version;
         public string javaPath;

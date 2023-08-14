@@ -76,6 +76,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.tabControl = new System.Windows.Forms.TabControl();
+            this.qakeygen = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).BeginInit();
             this.versionPage.SuspendLayout();
             this.javaPage.SuspendLayout();
@@ -87,9 +88,10 @@
             // 
             // saveButton
             // 
-            this.saveButton.Location = new System.Drawing.Point(254, 289);
+            this.saveButton.Location = new System.Drawing.Point(593, 645);
+            this.saveButton.Margin = new System.Windows.Forms.Padding(7);
             this.saveButton.Name = "saveButton";
-            this.saveButton.Size = new System.Drawing.Size(191, 42);
+            this.saveButton.Size = new System.Drawing.Size(446, 94);
             this.saveButton.TabIndex = 6;
             this.saveButton.Text = "Save";
             this.saveButton.UseVisualStyleBackColor = true;
@@ -102,6 +104,7 @@
             // 
             // versionPage
             // 
+            this.versionPage.Controls.Add(this.qakeygen);
             this.versionPage.Controls.Add(this.replaceItemsButton);
             this.versionPage.Controls.Add(this.replaceGuiButton);
             this.versionPage.Controls.Add(this.replaceTerrainButton);
@@ -112,18 +115,20 @@
             this.versionPage.Controls.Add(this.versionText);
             this.versionPage.Controls.Add(this.modLabel);
             this.versionPage.Controls.Add(this.versionBox);
-            this.versionPage.Location = new System.Drawing.Point(4, 22);
+            this.versionPage.Location = new System.Drawing.Point(10, 47);
+            this.versionPage.Margin = new System.Windows.Forms.Padding(7);
             this.versionPage.Name = "versionPage";
-            this.versionPage.Size = new System.Drawing.Size(425, 218);
+            this.versionPage.Size = new System.Drawing.Size(990, 487);
             this.versionPage.TabIndex = 0;
             this.versionPage.Text = "Version";
             this.versionPage.UseVisualStyleBackColor = true;
             // 
             // replaceItemsButton
             // 
-            this.replaceItemsButton.Location = new System.Drawing.Point(248, 69);
+            this.replaceItemsButton.Location = new System.Drawing.Point(579, 154);
+            this.replaceItemsButton.Margin = new System.Windows.Forms.Padding(7);
             this.replaceItemsButton.Name = "replaceItemsButton";
-            this.replaceItemsButton.Size = new System.Drawing.Size(135, 23);
+            this.replaceItemsButton.Size = new System.Drawing.Size(315, 51);
             this.replaceItemsButton.TabIndex = 19;
             this.replaceItemsButton.TabStop = false;
             this.replaceItemsButton.Text = "Replace items.png";
@@ -132,9 +137,10 @@
             // 
             // replaceGuiButton
             // 
-            this.replaceGuiButton.Location = new System.Drawing.Point(248, 40);
+            this.replaceGuiButton.Location = new System.Drawing.Point(579, 89);
+            this.replaceGuiButton.Margin = new System.Windows.Forms.Padding(7);
             this.replaceGuiButton.Name = "replaceGuiButton";
-            this.replaceGuiButton.Size = new System.Drawing.Size(135, 23);
+            this.replaceGuiButton.Size = new System.Drawing.Size(315, 51);
             this.replaceGuiButton.TabIndex = 18;
             this.replaceGuiButton.TabStop = false;
             this.replaceGuiButton.Text = "Replace gui.png";
@@ -143,9 +149,10 @@
             // 
             // replaceTerrainButton
             // 
-            this.replaceTerrainButton.Location = new System.Drawing.Point(248, 11);
+            this.replaceTerrainButton.Location = new System.Drawing.Point(579, 25);
+            this.replaceTerrainButton.Margin = new System.Windows.Forms.Padding(7);
             this.replaceTerrainButton.Name = "replaceTerrainButton";
-            this.replaceTerrainButton.Size = new System.Drawing.Size(135, 23);
+            this.replaceTerrainButton.Size = new System.Drawing.Size(315, 51);
             this.replaceTerrainButton.TabIndex = 17;
             this.replaceTerrainButton.Text = "Replace terrain.png";
             this.replaceTerrainButton.UseVisualStyleBackColor = true;
@@ -154,9 +161,10 @@
             // keysButton
             // 
             this.keysButton.Enabled = false;
-            this.keysButton.Location = new System.Drawing.Point(16, 183);
+            this.keysButton.Location = new System.Drawing.Point(37, 408);
+            this.keysButton.Margin = new System.Windows.Forms.Padding(7);
             this.keysButton.Name = "keysButton";
-            this.keysButton.Size = new System.Drawing.Size(121, 23);
+            this.keysButton.Size = new System.Drawing.Size(282, 51);
             this.keysButton.TabIndex = 16;
             this.keysButton.Text = "Keys";
             this.keysButton.UseVisualStyleBackColor = true;
@@ -164,9 +172,10 @@
             // 
             // addModButton
             // 
-            this.addModButton.Location = new System.Drawing.Point(16, 142);
+            this.addModButton.Location = new System.Drawing.Point(37, 317);
+            this.addModButton.Margin = new System.Windows.Forms.Padding(7);
             this.addModButton.Name = "addModButton";
-            this.addModButton.Size = new System.Drawing.Size(121, 23);
+            this.addModButton.Size = new System.Drawing.Size(282, 51);
             this.addModButton.TabIndex = 15;
             this.addModButton.Text = "Add Mod";
             this.addModButton.UseVisualStyleBackColor = true;
@@ -175,12 +184,12 @@
             // creditText
             // 
             this.creditText.AutoSize = true;
-            this.creditText.Location = new System.Drawing.Point(157, 104);
+            this.creditText.Location = new System.Drawing.Point(366, 232);
+            this.creditText.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
             this.creditText.Name = "creditText";
-            this.creditText.Size = new System.Drawing.Size(74, 13);
+            this.creditText.Size = new System.Drawing.Size(0, 29);
             this.creditText.TabIndex = 14;
             this.creditText.TabStop = true;
-            this.creditText.Text = "text goes here";
             this.creditText.Visible = false;
             this.creditText.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.creditText_LinkClicked);
             // 
@@ -192,28 +201,32 @@
             this.modBox.Items.AddRange(new object[] {
             "lilypad_qa",
             "v1605_preview",
-            "v1605_unrpreview2"});
-            this.modBox.Location = new System.Drawing.Point(16, 104);
+            "v1605_unrpreview2",
+            "afterglow"});
+            this.modBox.Location = new System.Drawing.Point(37, 232);
+            this.modBox.Margin = new System.Windows.Forms.Padding(7);
             this.modBox.Name = "modBox";
-            this.modBox.Size = new System.Drawing.Size(121, 21);
+            this.modBox.Size = new System.Drawing.Size(277, 37);
             this.modBox.TabIndex = 9;
             this.modBox.TextChanged += new System.EventHandler(this.modBox_TextChanged);
             // 
             // versionText
             // 
             this.versionText.AutoSize = true;
-            this.versionText.Location = new System.Drawing.Point(13, 11);
+            this.versionText.Location = new System.Drawing.Point(30, 25);
+            this.versionText.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
             this.versionText.Name = "versionText";
-            this.versionText.Size = new System.Drawing.Size(42, 13);
+            this.versionText.Size = new System.Drawing.Size(95, 29);
             this.versionText.TabIndex = 2;
             this.versionText.Text = "Version";
             // 
             // modLabel
             // 
             this.modLabel.AutoSize = true;
-            this.modLabel.Location = new System.Drawing.Point(13, 78);
+            this.modLabel.Location = new System.Drawing.Point(30, 174);
+            this.modLabel.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
             this.modLabel.Name = "modLabel";
-            this.modLabel.Size = new System.Drawing.Size(28, 13);
+            this.modLabel.Size = new System.Drawing.Size(61, 29);
             this.modLabel.TabIndex = 8;
             this.modLabel.Text = "Mod";
             // 
@@ -230,9 +243,10 @@
             "lilypad_qa",
             "v1605_preview",
             "v1605_unrpreview2"});
-            this.versionBox.Location = new System.Drawing.Point(16, 37);
+            this.versionBox.Location = new System.Drawing.Point(37, 83);
+            this.versionBox.Margin = new System.Windows.Forms.Padding(7);
             this.versionBox.Name = "versionBox";
-            this.versionBox.Size = new System.Drawing.Size(121, 21);
+            this.versionBox.Size = new System.Drawing.Size(277, 37);
             this.versionBox.TabIndex = 3;
             this.versionBox.TextChanged += new System.EventHandler(this.versionBox_TextChanged);
             // 
@@ -243,33 +257,37 @@
             this.javaPage.Controls.Add(this.javaFileSelectButton);
             this.javaPage.Controls.Add(this.argumentsText);
             this.javaPage.Controls.Add(this.label1);
-            this.javaPage.Location = new System.Drawing.Point(4, 22);
+            this.javaPage.Location = new System.Drawing.Point(10, 47);
+            this.javaPage.Margin = new System.Windows.Forms.Padding(7);
             this.javaPage.Name = "javaPage";
-            this.javaPage.Size = new System.Drawing.Size(425, 218);
+            this.javaPage.Size = new System.Drawing.Size(990, 487);
             this.javaPage.TabIndex = 0;
             this.javaPage.Text = "Java";
             this.javaPage.UseVisualStyleBackColor = true;
             // 
             // argumentsBox
             // 
-            this.argumentsBox.Location = new System.Drawing.Point(3, 116);
+            this.argumentsBox.Location = new System.Drawing.Point(7, 259);
+            this.argumentsBox.Margin = new System.Windows.Forms.Padding(7);
             this.argumentsBox.Name = "argumentsBox";
-            this.argumentsBox.Size = new System.Drawing.Size(376, 20);
+            this.argumentsBox.Size = new System.Drawing.Size(872, 35);
             this.argumentsBox.TabIndex = 7;
             this.argumentsBox.Text = "-Xmx2G";
             // 
             // javaPathBox
             // 
-            this.javaPathBox.Location = new System.Drawing.Point(3, 44);
+            this.javaPathBox.Location = new System.Drawing.Point(7, 98);
+            this.javaPathBox.Margin = new System.Windows.Forms.Padding(7);
             this.javaPathBox.Name = "javaPathBox";
-            this.javaPathBox.Size = new System.Drawing.Size(351, 20);
+            this.javaPathBox.Size = new System.Drawing.Size(814, 35);
             this.javaPathBox.TabIndex = 11;
             // 
             // javaFileSelectButton
             // 
-            this.javaFileSelectButton.Location = new System.Drawing.Point(356, 44);
+            this.javaFileSelectButton.Location = new System.Drawing.Point(831, 98);
+            this.javaFileSelectButton.Margin = new System.Windows.Forms.Padding(7);
             this.javaFileSelectButton.Name = "javaFileSelectButton";
-            this.javaFileSelectButton.Size = new System.Drawing.Size(23, 20);
+            this.javaFileSelectButton.Size = new System.Drawing.Size(54, 45);
             this.javaFileSelectButton.TabIndex = 15;
             this.javaFileSelectButton.Text = "...";
             this.javaFileSelectButton.UseVisualStyleBackColor = true;
@@ -277,17 +295,19 @@
             // 
             // argumentsText
             // 
-            this.argumentsText.Location = new System.Drawing.Point(3, 88);
+            this.argumentsText.Location = new System.Drawing.Point(7, 196);
+            this.argumentsText.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
             this.argumentsText.Name = "argumentsText";
-            this.argumentsText.Size = new System.Drawing.Size(100, 13);
+            this.argumentsText.Size = new System.Drawing.Size(233, 29);
             this.argumentsText.TabIndex = 0;
             this.argumentsText.Text = "JVM Arguments ";
             // 
             // label1
             // 
-            this.label1.Location = new System.Drawing.Point(3, 16);
+            this.label1.Location = new System.Drawing.Point(7, 36);
+            this.label1.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(181, 13);
+            this.label1.Size = new System.Drawing.Size(422, 29);
             this.label1.TabIndex = 10;
             this.label1.Text = "Java Path (Leave empty for default)";
             // 
@@ -312,18 +332,20 @@
             this.generalPage.Controls.Add(this.minecraftPathBox);
             this.generalPage.Controls.Add(this.usernameText);
             this.generalPage.Controls.Add(this.minecraftPathText);
-            this.generalPage.Location = new System.Drawing.Point(4, 22);
+            this.generalPage.Location = new System.Drawing.Point(10, 47);
+            this.generalPage.Margin = new System.Windows.Forms.Padding(7);
             this.generalPage.Name = "generalPage";
-            this.generalPage.Size = new System.Drawing.Size(425, 218);
+            this.generalPage.Size = new System.Drawing.Size(990, 487);
             this.generalPage.TabIndex = 0;
             this.generalPage.Text = "General";
             this.generalPage.UseVisualStyleBackColor = true;
             // 
             // logsSelectButton
             // 
-            this.logsSelectButton.Location = new System.Drawing.Point(309, 162);
+            this.logsSelectButton.Location = new System.Drawing.Point(721, 361);
+            this.logsSelectButton.Margin = new System.Windows.Forms.Padding(7);
             this.logsSelectButton.Name = "logsSelectButton";
-            this.logsSelectButton.Size = new System.Drawing.Size(23, 20);
+            this.logsSelectButton.Size = new System.Drawing.Size(54, 45);
             this.logsSelectButton.TabIndex = 33;
             this.logsSelectButton.Text = "...";
             this.logsSelectButton.UseVisualStyleBackColor = true;
@@ -332,26 +354,29 @@
             // logsPathBox
             // 
             this.logsPathBox.BackColor = System.Drawing.SystemColors.Menu;
-            this.logsPathBox.Location = new System.Drawing.Point(182, 162);
+            this.logsPathBox.Location = new System.Drawing.Point(425, 361);
+            this.logsPathBox.Margin = new System.Windows.Forms.Padding(7);
             this.logsPathBox.Name = "logsPathBox";
-            this.logsPathBox.Size = new System.Drawing.Size(121, 20);
+            this.logsPathBox.Size = new System.Drawing.Size(277, 35);
             this.logsPathBox.TabIndex = 32;
             this.logsPathBox.Text = "./logs";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(179, 136);
+            this.label4.Location = new System.Drawing.Point(418, 303);
+            this.label4.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(30, 13);
+            this.label4.Size = new System.Drawing.Size(66, 29);
             this.label4.TabIndex = 31;
             this.label4.Text = "Logs";
             // 
             // librariesSelectButton
             // 
-            this.librariesSelectButton.Location = new System.Drawing.Point(309, 98);
+            this.librariesSelectButton.Location = new System.Drawing.Point(721, 219);
+            this.librariesSelectButton.Margin = new System.Windows.Forms.Padding(7);
             this.librariesSelectButton.Name = "librariesSelectButton";
-            this.librariesSelectButton.Size = new System.Drawing.Size(23, 20);
+            this.librariesSelectButton.Size = new System.Drawing.Size(54, 45);
             this.librariesSelectButton.TabIndex = 30;
             this.librariesSelectButton.Text = "...";
             this.librariesSelectButton.UseVisualStyleBackColor = true;
@@ -359,9 +384,10 @@
             // 
             // jarsPathSelectButton
             // 
-            this.jarsPathSelectButton.Location = new System.Drawing.Point(130, 98);
+            this.jarsPathSelectButton.Location = new System.Drawing.Point(303, 219);
+            this.jarsPathSelectButton.Margin = new System.Windows.Forms.Padding(7);
             this.jarsPathSelectButton.Name = "jarsPathSelectButton";
-            this.jarsPathSelectButton.Size = new System.Drawing.Size(23, 20);
+            this.jarsPathSelectButton.Size = new System.Drawing.Size(54, 45);
             this.jarsPathSelectButton.TabIndex = 29;
             this.jarsPathSelectButton.Text = "...";
             this.jarsPathSelectButton.UseVisualStyleBackColor = true;
@@ -369,45 +395,50 @@
             // 
             // launchDelayBox
             // 
-            this.launchDelayBox.Location = new System.Drawing.Point(182, 36);
+            this.launchDelayBox.Location = new System.Drawing.Point(425, 80);
+            this.launchDelayBox.Margin = new System.Windows.Forms.Padding(7);
             this.launchDelayBox.Name = "launchDelayBox";
-            this.launchDelayBox.Size = new System.Drawing.Size(100, 20);
+            this.launchDelayBox.Size = new System.Drawing.Size(228, 35);
             this.launchDelayBox.TabIndex = 28;
             this.launchDelayBox.Text = "15";
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(182, 9);
+            this.label7.Location = new System.Drawing.Point(425, 20);
+            this.label7.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(73, 13);
+            this.label7.Size = new System.Drawing.Size(157, 29);
             this.label7.TabIndex = 27;
             this.label7.Text = "Launch Delay";
             // 
             // librariesPathBox
             // 
             this.librariesPathBox.BackColor = System.Drawing.SystemColors.Menu;
-            this.librariesPathBox.Location = new System.Drawing.Point(182, 98);
+            this.librariesPathBox.Location = new System.Drawing.Point(425, 219);
+            this.librariesPathBox.Margin = new System.Windows.Forms.Padding(7);
             this.librariesPathBox.Name = "librariesPathBox";
-            this.librariesPathBox.Size = new System.Drawing.Size(121, 20);
+            this.librariesPathBox.Size = new System.Drawing.Size(277, 35);
             this.librariesPathBox.TabIndex = 25;
             this.librariesPathBox.Text = "./bin";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(179, 72);
+            this.label6.Location = new System.Drawing.Point(418, 161);
+            this.label6.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(46, 13);
+            this.label6.Size = new System.Drawing.Size(107, 29);
             this.label6.TabIndex = 24;
             this.label6.Text = "Libraries";
             // 
             // consoleCheckBox
             // 
             this.consoleCheckBox.AutoSize = true;
-            this.consoleCheckBox.Location = new System.Drawing.Point(309, 55);
+            this.consoleCheckBox.Location = new System.Drawing.Point(721, 123);
+            this.consoleCheckBox.Margin = new System.Windows.Forms.Padding(7);
             this.consoleCheckBox.Name = "consoleCheckBox";
-            this.consoleCheckBox.Size = new System.Drawing.Size(106, 17);
+            this.consoleCheckBox.Size = new System.Drawing.Size(228, 33);
             this.consoleCheckBox.TabIndex = 23;
             this.consoleCheckBox.Text = "Console Window";
             this.consoleCheckBox.UseVisualStyleBackColor = true;
@@ -415,27 +446,30 @@
             // jarPathBox
             // 
             this.jarPathBox.BackColor = System.Drawing.SystemColors.Menu;
-            this.jarPathBox.Location = new System.Drawing.Point(3, 97);
+            this.jarPathBox.Location = new System.Drawing.Point(7, 216);
+            this.jarPathBox.Margin = new System.Windows.Forms.Padding(7);
             this.jarPathBox.Name = "jarPathBox";
-            this.jarPathBox.Size = new System.Drawing.Size(121, 20);
+            this.jarPathBox.Size = new System.Drawing.Size(277, 35);
             this.jarPathBox.TabIndex = 21;
             this.jarPathBox.Text = "./jars";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(0, 71);
+            this.label5.Location = new System.Drawing.Point(0, 158);
+            this.label5.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(26, 13);
+            this.label5.Size = new System.Drawing.Size(58, 29);
             this.label5.TabIndex = 20;
             this.label5.Text = "Jars";
             // 
             // loadingCheckBox
             // 
             this.loadingCheckBox.AutoSize = true;
-            this.loadingCheckBox.Location = new System.Drawing.Point(309, 32);
+            this.loadingCheckBox.Location = new System.Drawing.Point(721, 71);
+            this.loadingCheckBox.Margin = new System.Windows.Forms.Padding(7);
             this.loadingCheckBox.Name = "loadingCheckBox";
-            this.loadingCheckBox.Size = new System.Drawing.Size(83, 17);
+            this.loadingCheckBox.Size = new System.Drawing.Size(175, 33);
             this.loadingCheckBox.TabIndex = 18;
             this.loadingCheckBox.Text = "Loading Bar";
             this.loadingCheckBox.UseVisualStyleBackColor = true;
@@ -443,9 +477,10 @@
             // discordRPCCheckBox
             // 
             this.discordRPCCheckBox.AutoSize = true;
-            this.discordRPCCheckBox.Location = new System.Drawing.Point(309, 9);
+            this.discordRPCCheckBox.Location = new System.Drawing.Point(721, 20);
+            this.discordRPCCheckBox.Margin = new System.Windows.Forms.Padding(7);
             this.discordRPCCheckBox.Name = "discordRPCCheckBox";
-            this.discordRPCCheckBox.Size = new System.Drawing.Size(87, 17);
+            this.discordRPCCheckBox.Size = new System.Drawing.Size(184, 33);
             this.discordRPCCheckBox.TabIndex = 17;
             this.discordRPCCheckBox.Text = "Discord RPC";
             this.discordRPCCheckBox.UseVisualStyleBackColor = true;
@@ -453,9 +488,10 @@
             // minecraftPathSelectButton
             // 
             this.minecraftPathSelectButton.Cursor = System.Windows.Forms.Cursors.No;
-            this.minecraftPathSelectButton.Location = new System.Drawing.Point(130, 161);
+            this.minecraftPathSelectButton.Location = new System.Drawing.Point(303, 359);
+            this.minecraftPathSelectButton.Margin = new System.Windows.Forms.Padding(7);
             this.minecraftPathSelectButton.Name = "minecraftPathSelectButton";
-            this.minecraftPathSelectButton.Size = new System.Drawing.Size(23, 20);
+            this.minecraftPathSelectButton.Size = new System.Drawing.Size(54, 45);
             this.minecraftPathSelectButton.TabIndex = 16;
             this.minecraftPathSelectButton.Text = "...";
             this.minecraftPathSelectButton.UseVisualStyleBackColor = true;
@@ -463,36 +499,40 @@
             // 
             // usernameBox
             // 
-            this.usernameBox.Location = new System.Drawing.Point(3, 36);
+            this.usernameBox.Location = new System.Drawing.Point(7, 80);
+            this.usernameBox.Margin = new System.Windows.Forms.Padding(7);
             this.usernameBox.Name = "usernameBox";
-            this.usernameBox.Size = new System.Drawing.Size(100, 20);
+            this.usernameBox.Size = new System.Drawing.Size(228, 35);
             this.usernameBox.TabIndex = 1;
             this.usernameBox.Text = "Player";
             // 
             // minecraftPathBox
             // 
             this.minecraftPathBox.BackColor = System.Drawing.Color.White;
-            this.minecraftPathBox.Location = new System.Drawing.Point(3, 161);
+            this.minecraftPathBox.Location = new System.Drawing.Point(7, 359);
+            this.minecraftPathBox.Margin = new System.Windows.Forms.Padding(7);
             this.minecraftPathBox.Name = "minecraftPathBox";
-            this.minecraftPathBox.Size = new System.Drawing.Size(121, 20);
+            this.minecraftPathBox.Size = new System.Drawing.Size(277, 35);
             this.minecraftPathBox.TabIndex = 5;
             this.minecraftPathBox.Text = "./";
             // 
             // usernameText
             // 
             this.usernameText.AutoSize = true;
-            this.usernameText.Location = new System.Drawing.Point(3, 9);
+            this.usernameText.Location = new System.Drawing.Point(7, 20);
+            this.usernameText.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
             this.usernameText.Name = "usernameText";
-            this.usernameText.Size = new System.Drawing.Size(55, 13);
+            this.usernameText.Size = new System.Drawing.Size(124, 29);
             this.usernameText.TabIndex = 0;
             this.usernameText.Text = "Username";
             // 
             // minecraftPathText
             // 
             this.minecraftPathText.AutoSize = true;
-            this.minecraftPathText.Location = new System.Drawing.Point(0, 135);
+            this.minecraftPathText.Location = new System.Drawing.Point(0, 301);
+            this.minecraftPathText.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
             this.minecraftPathText.Name = "minecraftPathText";
-            this.minecraftPathText.Size = new System.Drawing.Size(78, 13);
+            this.minecraftPathText.Size = new System.Drawing.Size(171, 29);
             this.minecraftPathText.TabIndex = 4;
             this.minecraftPathText.Text = ".minecraft Path";
             // 
@@ -504,10 +544,11 @@
             this.infoTab.Controls.Add(this.label3);
             this.infoTab.Controls.Add(this.label2);
             this.infoTab.Controls.Add(this.pictureBox1);
-            this.infoTab.Location = new System.Drawing.Point(4, 22);
+            this.infoTab.Location = new System.Drawing.Point(10, 47);
+            this.infoTab.Margin = new System.Windows.Forms.Padding(7);
             this.infoTab.Name = "infoTab";
-            this.infoTab.Padding = new System.Windows.Forms.Padding(3);
-            this.infoTab.Size = new System.Drawing.Size(425, 218);
+            this.infoTab.Padding = new System.Windows.Forms.Padding(7);
+            this.infoTab.Size = new System.Drawing.Size(990, 487);
             this.infoTab.TabIndex = 1;
             this.infoTab.Text = "Info";
             this.infoTab.UseVisualStyleBackColor = true;
@@ -515,18 +556,20 @@
             // launcherVersionText
             // 
             this.launcherVersionText.AutoSize = true;
-            this.launcherVersionText.Location = new System.Drawing.Point(194, 113);
+            this.launcherVersionText.Location = new System.Drawing.Point(453, 252);
+            this.launcherVersionText.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
             this.launcherVersionText.Name = "launcherVersionText";
-            this.launcherVersionText.Size = new System.Drawing.Size(14, 13);
+            this.launcherVersionText.Size = new System.Drawing.Size(28, 29);
             this.launcherVersionText.TabIndex = 5;
             this.launcherVersionText.Text = "V";
             // 
             // alphaverChannelButton
             // 
             this.alphaverChannelButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.alphaverChannelButton.Location = new System.Drawing.Point(228, 174);
+            this.alphaverChannelButton.Location = new System.Drawing.Point(532, 388);
+            this.alphaverChannelButton.Margin = new System.Windows.Forms.Padding(7);
             this.alphaverChannelButton.Name = "alphaverChannelButton";
-            this.alphaverChannelButton.Size = new System.Drawing.Size(82, 35);
+            this.alphaverChannelButton.Size = new System.Drawing.Size(191, 78);
             this.alphaverChannelButton.TabIndex = 4;
             this.alphaverChannelButton.Text = "Alphaver Channel";
             this.alphaverChannelButton.UseVisualStyleBackColor = true;
@@ -534,9 +577,10 @@
             // 
             // githubRepoButton
             // 
-            this.githubRepoButton.Location = new System.Drawing.Point(119, 174);
+            this.githubRepoButton.Location = new System.Drawing.Point(278, 388);
+            this.githubRepoButton.Margin = new System.Windows.Forms.Padding(7);
             this.githubRepoButton.Name = "githubRepoButton";
-            this.githubRepoButton.Size = new System.Drawing.Size(82, 38);
+            this.githubRepoButton.Size = new System.Drawing.Size(191, 85);
             this.githubRepoButton.TabIndex = 3;
             this.githubRepoButton.Text = "Github Repo";
             this.githubRepoButton.UseVisualStyleBackColor = true;
@@ -545,18 +589,20 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(116, 139);
+            this.label3.Location = new System.Drawing.Point(271, 310);
+            this.label3.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(194, 13);
+            this.label3.Size = new System.Drawing.Size(431, 29);
             this.label3.TabIndex = 2;
             this.label3.Text = "Developed by Gnawmon and Unnatural";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(136, 126);
+            this.label2.Location = new System.Drawing.Point(317, 281);
+            this.label2.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(152, 13);
+            this.label2.Size = new System.Drawing.Size(335, 29);
             this.label2.TabIndex = 1;
             this.label2.Text = "Alphaver Launcher Recreation";
             // 
@@ -564,9 +610,10 @@
             // 
             this.pictureBox1.BackgroundImage = global::AlphaverLauncherRecreation.Properties.Resources.icon;
             this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pictureBox1.Location = new System.Drawing.Point(167, 26);
+            this.pictureBox1.Location = new System.Drawing.Point(390, 58);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(7);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(80, 80);
+            this.pictureBox1.Size = new System.Drawing.Size(187, 178);
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             // 
@@ -576,23 +623,37 @@
             this.tabControl.Controls.Add(this.versionPage);
             this.tabControl.Controls.Add(this.javaPage);
             this.tabControl.Controls.Add(this.infoTab);
-            this.tabControl.Location = new System.Drawing.Point(12, 12);
+            this.tabControl.Location = new System.Drawing.Point(28, 27);
+            this.tabControl.Margin = new System.Windows.Forms.Padding(7);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(433, 244);
+            this.tabControl.Size = new System.Drawing.Size(1010, 544);
             this.tabControl.TabIndex = 0;
+            // 
+            // qakeygen
+            // 
+            this.qakeygen.Location = new System.Drawing.Point(579, 218);
+            this.qakeygen.Margin = new System.Windows.Forms.Padding(7);
+            this.qakeygen.Name = "qakeygen";
+            this.qakeygen.Size = new System.Drawing.Size(315, 51);
+            this.qakeygen.TabIndex = 20;
+            this.qakeygen.TabStop = false;
+            this.qakeygen.Text = "Lilypad Key Gen";
+            this.qakeygen.UseVisualStyleBackColor = true;
+            this.qakeygen.Click += new System.EventHandler(this.qakeygen_Click);
             // 
             // SettingsForm
             // 
             this.AllowDrop = true;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(14F, 29F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::AlphaverLauncherRecreation.Properties.Resources.dirt;
-            this.ClientSize = new System.Drawing.Size(457, 343);
+            this.ClientSize = new System.Drawing.Size(1066, 765);
             this.Controls.Add(this.tabControl);
             this.Controls.Add(this.saveButton);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(7);
             this.MaximizeBox = false;
             this.Name = "SettingsForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
@@ -660,5 +721,6 @@
         private System.Windows.Forms.TextBox logsPathBox;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button replaceItemsButton;
+        private System.Windows.Forms.Button qakeygen;
     }
 }

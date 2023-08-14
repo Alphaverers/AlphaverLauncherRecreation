@@ -26,14 +26,12 @@ namespace AlphaverLauncherRecreation.forms
                 new Popup("Missing input found.","",false,true,false).Show();
                 return;
             }
-
             File.Copy(jarLocation, $"{Path.GetFullPath(settings.settings.folderStructure.jars)}\\{nameBox.Text}.jar");
-
             Mod modToAdd = new Mod();
             modToAdd.version = versionBox.Text;
             modToAdd.name = nameBox.Text;
             settings.settings.mods.Add(modToAdd);
-            settings.updateModsBox(versionBox.Name);
+            settings.updateModsBox(versionBox.Text);
             this.Close();
             
         }

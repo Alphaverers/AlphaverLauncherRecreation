@@ -49,23 +49,27 @@
             "lilypad_qa",
             "v1605_preview",
             "v1605_unrpreview2"});
-            this.versionBox.Location = new System.Drawing.Point(152, 46);
+            this.versionBox.Location = new System.Drawing.Point(355, 103);
+            this.versionBox.Margin = new System.Windows.Forms.Padding(7, 7, 7, 7);
             this.versionBox.Name = "versionBox";
-            this.versionBox.Size = new System.Drawing.Size(121, 21);
+            this.versionBox.Size = new System.Drawing.Size(277, 37);
             this.versionBox.TabIndex = 0;
+            //this.versionBox.SelectedIndexChanged += new System.EventHandler(this.versionBox_SelectedIndexChanged);
             // 
             // nameBox
             // 
-            this.nameBox.Location = new System.Drawing.Point(152, 107);
+            this.nameBox.Location = new System.Drawing.Point(355, 239);
+            this.nameBox.Margin = new System.Windows.Forms.Padding(7, 7, 7, 7);
             this.nameBox.Name = "nameBox";
-            this.nameBox.Size = new System.Drawing.Size(121, 20);
+            this.nameBox.Size = new System.Drawing.Size(277, 35);
             this.nameBox.TabIndex = 1;
             // 
             // selectJarButton
             // 
-            this.selectJarButton.Location = new System.Drawing.Point(90, 157);
+            this.selectJarButton.Location = new System.Drawing.Point(210, 350);
+            this.selectJarButton.Margin = new System.Windows.Forms.Padding(7, 7, 7, 7);
             this.selectJarButton.Name = "selectJarButton";
-            this.selectJarButton.Size = new System.Drawing.Size(183, 36);
+            this.selectJarButton.Size = new System.Drawing.Size(427, 80);
             this.selectJarButton.TabIndex = 2;
             this.selectJarButton.Text = "Browse .jar";
             this.selectJarButton.UseVisualStyleBackColor = true;
@@ -73,9 +77,10 @@
             // 
             // saveButton
             // 
-            this.saveButton.Location = new System.Drawing.Point(90, 234);
+            this.saveButton.Location = new System.Drawing.Point(210, 522);
+            this.saveButton.Margin = new System.Windows.Forms.Padding(7, 7, 7, 7);
             this.saveButton.Name = "saveButton";
-            this.saveButton.Size = new System.Drawing.Size(183, 52);
+            this.saveButton.Size = new System.Drawing.Size(427, 116);
             this.saveButton.TabIndex = 3;
             this.saveButton.Text = "Save";
             this.saveButton.UseVisualStyleBackColor = true;
@@ -84,27 +89,29 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(87, 46);
+            this.label1.Location = new System.Drawing.Point(203, 103);
+            this.label1.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(42, 13);
+            this.label1.Size = new System.Drawing.Size(95, 29);
             this.label1.TabIndex = 4;
             this.label1.Text = "Version";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(87, 110);
+            this.label2.Location = new System.Drawing.Point(203, 245);
+            this.label2.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(59, 13);
+            this.label2.Size = new System.Drawing.Size(132, 29);
             this.label2.TabIndex = 5;
             this.label2.Text = "Mod Name";
             // 
             // ModAdder
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(14F, 29F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::AlphaverLauncherRecreation.Properties.Resources.dirt;
-            this.ClientSize = new System.Drawing.Size(374, 354);
+            this.ClientSize = new System.Drawing.Size(873, 790);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.saveButton);
@@ -112,6 +119,7 @@
             this.Controls.Add(this.nameBox);
             this.Controls.Add(this.versionBox);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(7, 7, 7, 7);
             this.Name = "ModAdder";
             this.Text = "Mod Adder";
             this.TopMost = true;

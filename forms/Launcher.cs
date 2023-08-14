@@ -174,7 +174,7 @@ namespace AlphaverLauncherRecreation
                         return Downloader($"{settings.folderStructure.jars}/rosepad.jar", new Uri(latestBuildLink));
 
                     case "afterglow":
-                        latestBuildLink = GetLatestGithubBuild("https://api.github.com/repos/AfterglowMC/AfterglowMC/releases");
+                        latestBuildLink = GetLatestGithubBuild("https://api.github.com/repos/AfterglowMC/AfterglowMC-Legacy/releases");
                         return Downloader($"{settings.folderStructure.jars}/afterglow.jar", new Uri(latestBuildLink));
 
                     case "badblock":
@@ -405,6 +405,8 @@ namespace AlphaverLauncherRecreation
         }
         void InstallLibraries()
         {
+            Popup popup = new Popup("Downloading libraries", "Downloading libraries", true, false, false);
+            popup.Show();
             foreach (string lib in libraries)
             {
                 if (!File.Exists($"{settings.folderStructure.libraries}\\{lib}"))
