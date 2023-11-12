@@ -42,10 +42,12 @@
             this.versionBox.AutoCompleteCustomSource.AddRange(new string[] {
             "v1605_unrpreview2",
             "v1605_preview",
-            "lilypad_qa"});
+            "lilypad_qa",
+            "ext1605_20"});
             this.versionBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.versionBox.FormattingEnabled = true;
             this.versionBox.Items.AddRange(new object[] {
+            "ext1605_20",
             "lilypad_qa",
             "v1605_preview",
             "v1605_unrpreview2"});
