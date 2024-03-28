@@ -161,8 +161,14 @@ namespace AlphaverLauncherRecreation
 
             if (isItVanilla)
             {
-                return Downloader($"{settings.folderStructure.jars}/{version}.jar", new Uri($"https://github.com/Gnawmon/AlphaverLauncherRecreation/raw/main/files/jars/{version}.jar"));
-
+                if (version=="ext1605_20")
+                {
+                    // we have to host the r4 jar on another file hosting service since it's larger than 100 mb
+                    return Downloader($"{settings.folderStructure.jars}/{version}.jar", new Uri($"http://dl.dropboxusercontent.com/scl/fi/9wda9dh7y7wl84e0euf2c/ext1605_20.jar?rlkey=67ci8p8r7gu3ujdvzameecn98&dl=0"));
+                }
+                {
+                    return Downloader($"{settings.folderStructure.jars}/{version}.jar", new Uri($"https://github.com/Gnawmon/AlphaverLauncherRecreation/raw/main/files/jars/{version}.jar"));
+                }
             }
             else
             {
